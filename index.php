@@ -1,27 +1,49 @@
-<?php
- include('header.php');
-  ?>
-
-     <main class="d-flex align-items-center justify-content-center height-100" >
-          <div class="content">
-               <header class="text-center">
-                    <h2>Lets Work</h2>
-               </header>
-               <form action="index_action.php" method="post" class="login-form bg-dark-alpha p-5 bg-light">
-               <p><?php if(isset($message)){ echo $message; }?></p>
-                    <div class="form-group">
-                         <label for="">Usuario</label>
-                         <input type="email" name="username" class="form-control form-control-lg" placeholder="Ingresar usuario" requied>
-                    </div>
-                    <div class="form-group">
-                         <label for="">Contraseña</label>
-                         <input type="password" name="password" class="form-control form-control-lg" placeholder="Ingresar constraseña" requied>
-                    </div>
-                    <button class="btn btn-primary btn-block btn-lg" type="submit">Iniciar Sesión</button>
-               </form>
-          </div>
-     </main>
 
 <?php
- include('footer.php')
+
+
+ ini_set('display_errors', 1);
+ ini_set('display_startup_errors', 1);
+ error_reporting(E_ALL);
+ 
+ require "Config/Autoload.php";
+ require "Config/Config.php";
+
+ use Config\Autoload as Autoload;
+ use Config\Router     as Router;
+ use Config\Request     as Request;
+     
+ Autoload::start();
+
+ session_start();
+
+ require_once('Views/header.php');
+
+ Router::Route(new Request());
+
+ require_once(VIEWS_PATH."footer.php");
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lets Work</title>
+    <link rel="stylesheet" href="Views/css/bootstrap.min.css">
+   
+</head>
+<body>
+    <h1>Hola Mundo </h1>
+    <button class="btn btn-secondary">Iniciando</button>
+</body>
+
+
+</html>
+<?php
+
+include 'Views/footer.php'
+
 ?>

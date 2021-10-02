@@ -6,9 +6,9 @@
      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
      <!-- Bootstrap CSS -->
-     <link rel="stylesheet" href="Style/css/bootstrap.min.css">
-     <link rel="stylesheet" href="Style/css/estilos.css">
+     <link rel="stylesheet" href="Views/css/bootstrap.min.css">
+     <link rel="stylesheet" href="Views/css/estilos.css">
 
-     <title>Trabajo Final</title>
+     <title>Primer Parcial</title>
 </head>
 <body>
