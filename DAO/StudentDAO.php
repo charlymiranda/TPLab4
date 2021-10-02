@@ -1,20 +1,36 @@
 <?php
     namespace DAO;
 
-    use DAO\IStudentDAO as IStudentDAO;
+    use interfaces\Idaos as IDaos;
     use Models\Student as Student;
 
-    class StudentDAO implements IStudentDAO
+    class StudentDAO implements IDaos
     {
         private $studentList = array();
 
-        public function Add(Student $student)
+        public function Add($student)
         {
-            $this->RetrieveData();
             
-            array_push($this->studentList, $student);
+            // Guardo como string la consulta sql utilizando como values, marcadores de parámetros con nombre (:name) o signos de interrogación (?)
+            // por los cuales los valores reales serán sustituidos cuando la sentencia sea ejecutada
+            $sql="INSERT INTO students (wayToPay, idPurchase,  fecha, numberAcount) VALUES (:wayToPay,:idPurchase,:fecha, :numberAcount);";
+            $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active)
+                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active);";
+            $parameters["firstName"]=$student->();
+            $parameters['lastName']=$student->();
+            $parameters['dni']=$student->();
+            $parameters['gender']=$student->();
+            $parameters['birthDate']=$student->();
+            $parameters['phoneNumber']=$student->();
+            $parameters['active']=$student->();
 
-            $this->SaveData();
+            
+            try {
+                $this->connection= Connection::getInstance();
+                return $this->connection->executeNonQuery($sql, $parameters);
+            } catch (\PDOException $ex) {
+                throw $ex;
+            }
         }
 
         public function GetAll()
@@ -23,8 +39,17 @@
 
             return $this->studentList;
         }
+        public function Delete($objet){
 
-        private function SaveData()
+        }
+        public function Update($objet, $toFind){
+
+        }
+        public function Search($objet){
+
+        }
+
+       /* private function SaveData()
         {
             $arrayToEncode = array();
 
@@ -40,7 +65,7 @@
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
             
             file_put_contents('Data/students.json', $jsonContent);
-        }
+        }*/
 
         private function RetrieveData()
         {
