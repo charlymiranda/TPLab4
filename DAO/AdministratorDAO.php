@@ -45,8 +45,35 @@ class AdministratorDao implements IDaos{
             throw $exception;
         }        
     }
-    public function Delete($idToDelete){}
-    public function Update($objet, $toFind){}//sera el dato por el cual busque al objeto que quiero actualizar
+
+    public function Delete($idToDelete){
+        $sql = "DELETE FROM administrators WHERE administratorId=:administratorId;";
+        $parameters['administratorId'] = $idToDelete;
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql,$parameters);
+
+        }catch(\PDOException $exception){
+            throw $exception;
+        }
+    }
+    public function Update($administrator, $toFind){
+    $sql = "UPDATE SET firstName=:firstName, lastName=:lastName, dni=:dni, gender=:gender, birthDate=:birthDate, email=:email, phoneNumber=:phoneNumber WHERE administratorId='$toFind';";
+    $parameters['firstName'] = $administrator->getFirstName();
+    $parameters['lastName'] = $administrator->getLastName();
+    $parameters['dni'] = $administrator->getDni;
+    $parameters['gender'] = $administrator->getGender();
+    $parameters['birthDate'] = $administrator->getBirthDate();
+    $parameters['email'] = $administrator->getEmail();
+    $parameters['phoneNumber'] = $administrator->getPhoneNumber();
+    try{
+        $this->connection = Connection::getInstance();
+        return $this->connection->executeNonQuery($sql,$parameters);
+
+    }catch(\PDOException $exception){
+        throw $exception;
+    }        
+    }
     public function Search($objet){}//en cada calse que la implemente, este objeto sera el atributo
     //por el cual se quiere buscar un registro
 
