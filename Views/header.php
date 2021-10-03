@@ -8,7 +8,7 @@
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" href="Views/css/bootstrap.min.css">
      <link rel="stylesheet" href="Views/css/estilos.css">
-
-     <title>Primer Parcial</title>
+    
+     
 </head>
 <body>
