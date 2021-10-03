@@ -11,7 +11,7 @@ define("JS_PATH", FRONT_ROOT . VIEWS_PATH . "js/");
 
 // constants to work with database
 define("DB_HOST", "localhost");
-define("DB_NAME", "LetsWork");
+define("DB_NAME", "letswork");
 define("DB_USER", "root");
 define("DB_PASS", "");
 

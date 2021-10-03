@@ -4,8 +4,12 @@
     use interfaces\Idaos as IDaos;
     use Models\Student as Student;
 
+    use DAO\Connection as Connection;
+
     class StudentDAO implements IDaos
     {
+        private $connection;
+
         private $studentList = array();
 
         public function Add($student)
@@ -34,19 +38,49 @@
         }
 
         public function GetAll()
-        {
-            $this->RetrieveData();
+        {   
+            $sql = "SELECT * FROM student";
+            try{
+                $this->connection = Connection::getInstance();
+                $this->studentList = $this->connection->execute($sql);
+            }catch(\PDOException $exeption){
+                throw $exeption;
+            }
 
-            return $this->studentList;
+            if(!empty($studentList)){
+                return $this->mapear($studentList);
+            }else{
+                return false;
+            }
+
         }
+
         public function Delete($objet){
-
+            
         }
-        public function Update($objet, $toFind){
 
+        public function Update($student, $toFind){
+            $sql = "UPDATE students set careerId=:careerId, firstName=:firstName, lastName=:lastName, dni=:dni, fileNumber=:fileNumber, 
+                     gender=:gender, birthDate=:birthDate, email=:email, phoneNumber=:phoneNumber WHERE studentId= '$toFind';";
+
+                     
         }
+
         public function Search($objet){
 
+        }
+
+
+        private function mapear($studentList){
+
+            $arreglo-is_array($studentList)?$studentList:[];
+
+            $studentArray=array_map(function($pos){
+                $newStudent = new Student();//crear student
+
+                return $newStudent;
+            }, $studentList);
+            return count($studentArray)>1? $studentArray:$studentArray['0'];
         }
 
        /* private function SaveData()
