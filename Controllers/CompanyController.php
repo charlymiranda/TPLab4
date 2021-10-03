@@ -1,32 +1,28 @@
 <?php
     namespace Controllers;
 
-    use DAO\StudentDAO as StudentDAO;
-    use Models\Student as Student;
     use DAO\CompanyDAO as CompanyDAO;
     use Models\Company as Company;
 
-    class StudentController
+    class CompanyController
     {
-        private $studentD;
         private $companyD;
 
         public function __construct()
         {
-            $this->studentD = new StudentDAO();
             $this->companyD = new CompanyDAO();
         }
 
-        public function ShowAddView()
+        /*public function ShowAddView()
         {
             require_once(VIEWS_PATH."student-add.php");
-        }
+        }*/
 
-        public function ShowListView()
+        public function ListCompanies()
         {
-            $studentList = $this->studentD->GetAll();
+            $companiesList = $this->companyD->GetAll();
 
-            require_once(VIEWS_PATH."student-list.php");
+            ///require_once(VIEWS_PATH."company-list.php");     ///Que hace?
         }
 
         /*public function Add($recordId, $firstName, $lastName)
@@ -41,18 +37,15 @@
             $this->ShowAddView();
         }*/
 
-        public function viewInformation($studentMail)
-        {
-            try{
-                //Ingresa BD
-                $student = $this->studentD->Search($studentMail);
-            }
-            catch(\PDOException $th){
-                throw $th;
-            }
-            return $student;
-        }
+        public function jobOffersForCompanies($companyName){
+            $companiesList = $this->companyD->GetAll();
+            $jobs= null;
 
-        
+            foreach($companiesList as $company){
+                if($company->getName() == $companyName){
+                    $jobs = $company
+                }
+            }
+        }
     }
 ?>

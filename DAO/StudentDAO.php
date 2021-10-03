@@ -13,6 +13,29 @@ class StudentDAO implements IDaos
 
         private $studentList = array();
 
+<<<<<<< HEAD
+=======
+        
+
+        public function GetAll()
+        {   
+            $sql = "SELECT * FROM student";
+            try{
+                $this->connection = Connection::getInstance();
+                $this->studentList = $this->connection->execute($sql);
+            }catch(\PDOException $exeption){
+                throw $exeption;
+            }
+
+            if(!empty($studentList)){
+                return $this->mapear($studentList);
+            }else{
+                return false;
+            }
+
+        }
+
+>>>>>>> master
         public function Add($student)
         {
             
@@ -35,6 +58,7 @@ class StudentDAO implements IDaos
             }
         }
 
+<<<<<<< HEAD
         public function GetAll()
         {   
             $sql = "SELECT * FROM student";
@@ -53,6 +77,8 @@ class StudentDAO implements IDaos
 
         }
 
+=======
+>>>>>>> master
         public function Delete($idToDelete){
 
             $sql = "DELETE FROM students WHERE studentId=:studentId";
@@ -87,7 +113,11 @@ class StudentDAO implements IDaos
                      
         }
 
+<<<<<<< HEAD
         public function SearchByEmail($email){
+=======
+        public function Search($email){
+>>>>>>> master
             $sql = "SELECT * FROM students WHERE email=:email";
             $parameters['email']=$email;
             try{
