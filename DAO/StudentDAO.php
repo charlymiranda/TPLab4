@@ -77,8 +77,22 @@
                      
         }
 
-        public function SearchByEmail($objet){
-            
+        public function SearchByEmail($email){
+            $sql = "SELECT * FROM students WHERE email=:email";
+            $parameters['email']=$email;
+            try{
+                $this->connection = Connection::getInstance();
+                $result=$this->connection->execute($sql, $parameters);
+
+            }catch(\PDOException $exeption){
+                throw $exeption;
+            }
+
+            if(!empty($result)){
+                return $this->mapear($result);
+            }else{
+                return false;
+            }
 
         }
 
