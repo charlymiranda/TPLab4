@@ -51,9 +51,18 @@ class CompanyDAO implements IDaos
         }
     }
 
-    public function Delete($idToDelete)
-    {
+    public function Delete($idToDelete){
+        $sql = "DELETE FROM companies WHERE compnayId=:companyId";
+        $parameters['companyId']=$idToDelete;
+
+        try{
+            $this->connection=Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        }catch(\PDOException $exception){
+            throw $exception;
+        }
     }
+
     public function Update($objet, $toFind)
     {
     }
