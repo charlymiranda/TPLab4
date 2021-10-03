@@ -13,9 +13,9 @@
         private $phoneNumber;
 
        
-        public function __construct($administratorId, $firstName, $lastName, $dni, $gender, $birthDate, $email, $phoneNumber)
+        public function __construct($firstName, $lastName, $dni, $gender, $birthDate, $email, $phoneNumber)
         {
-            $this-> administratorId=$administratorId;
+         
             $this-> firstName=$firstName;
             $this-> lastName=$lastName;
             $this-> dni= $dni;
