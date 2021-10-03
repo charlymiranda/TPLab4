@@ -5,8 +5,9 @@
     use Models\Student as Student;
 
     use DAO\Connection as Connection;
+use PDOException;
 
-    class StudentDAO implements IDaos
+class StudentDAO implements IDaos
     {
         private $connection;
 
@@ -52,8 +53,17 @@
 
         }
 
-        public function Delete($objet){
-            
+        public function Delete($idToDelete){
+
+            $sql = "DELETE FROM students WHERE studentId=:studentId";
+            $parameters['studentId']=$idToDelete;
+            try{
+                $this->connection = Connection::getInstance();
+                return $this->connection->executeNonQuery($sql, $parameters);
+            }catch(\PDOException $exeption){
+                throw $exeption;
+            }
+
         }
 
         public function Update($student, $toFind){
