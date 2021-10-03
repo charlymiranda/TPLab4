@@ -8,10 +8,10 @@
         private $name;
         private $active;
 
-        public function __construct(  $carrerId, $description,$name, $active)
+        public function __construct($description,$name, $active)
    {
    
-      $this->carrerId=$carrerId;
+      
       $this->description=$description;
       $this->name=$name;
       $this->active=$active;     
