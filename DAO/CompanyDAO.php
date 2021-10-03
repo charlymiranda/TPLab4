@@ -63,9 +63,26 @@ class CompanyDAO implements IDaos
         }
     }
 
-    public function Update($objet, $toFind)
-    {
+    public function Update($company, $toFind){
+        $sql = "UPDATE campanies SET name=:name, yearFoundation=:yearFoundation, city=:city, description=:description, logo=:logo, email=:email, phoneNumber=:phoneNumber WHERE companyId='$toFind';";
+
+        $parameters['name']=$company->getName();
+        $parameters['yearFoundation']=$company->getYearFoundation();
+        $parameters['city']=$company->getCity();
+        $parameters['description']=$company->getDescription();
+        $parameters['logo']=$company->getLogo();
+        $parameters['email']=$company->getEmail();
+        $parameters['phoneNumber']=$company->getPhoneNumber();
+
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        }catch(\PDOException $exception){
+            throw $exception;
+        }
     }
+
+    
     public function Search($companyName)
     {
     }
