@@ -6,11 +6,11 @@
 
     class StudentController
     {
-        private $studentDAO;
+        private $studentD;
 
         public function __construct()
         {
-            $this->studentDAO = new StudentDAO();
+            $this->studentD = new StudentDAO();
         }
 
         public function ShowAddView()
@@ -20,12 +20,12 @@
 
         public function ShowListView()
         {
-            $studentList = $this->studentDAO->GetAll();
+            $studentList = $this->studentD->GetAll();
 
             require_once(VIEWS_PATH."student-list.php");
         }
 
-        public function Add($recordId, $firstName, $lastName)
+        /*public function Add($recordId, $firstName, $lastName)
         {
             $student = new Student();
             $student->setRecordId($recordId);
@@ -35,11 +35,20 @@
             $this->studentDAO->Add($student);
 
             $this->ShowAddView();
+        }*/
+
+        public function viewInformation($studentMail)
+        {
+            try{
+                //Ingresa BD
+                $student = $this->studentD->SearchByEmail($studentMail);
+            }
+            catch(\PDOException $th){
+                throw $th;
+            }
+            return $student;
         }
 
-        public function viewInformation($studentId)
-        {
-            foreach($studentId as $studentList)
-        }
+        
     }
 ?>
