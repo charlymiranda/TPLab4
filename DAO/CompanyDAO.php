@@ -31,9 +31,26 @@ class CompanyDAO implements IDaos
         }
 
     }
-    public function Add($objet)
-    {
+    public function Add($company){
+        $sql = "INSERT INTO companies(name, yearFoundation, city, description, logo, email, phoneNumber) 
+                VALUES(:name, :yearFoundation, :city, :description, :logo, :email, :phoneNumber);";
+
+        $parameters['name']=$company->getName();
+        $parameters['yearFoundation']=$company->getYearFoundation();
+        $parameters['city']=$company->getCity();
+        $parameters['description']=$company->getDescription();
+        $parameters['logo']=$company->getLogo();
+        $parameters['email']=$company->getEmail();
+        $parameters['phoneNumber']=$company->getPhoneNumber();
+
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        }catch(\PDOException $exeption){
+            throw $exeption;
+        }
     }
+
     public function Delete($idToDelete)
     {
     }
