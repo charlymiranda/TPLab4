@@ -26,8 +26,24 @@ class AdministratorDao implements IDaos{
     }
 
 
-    public function Add($objet){
+    public function Add($administrator){
+        $sql = "INSERT INTO administrators(firstName, lastName, dni, gender, birthDate, email, phoneNumber)
+        VALUES (:firstName, :lastName, :dni, :gender, :birthDate, :email, :phoneNumber);";
+        $parameters['firstName'] = $administrator->getFirstName();
+        $parameters['lastName'] = $administrator->getLastName();
+        $parameters['dni'] = $administrator->getDni;
+        $parameters['gender'] = $administrator->getGender();
+        $parameters['birthDate'] = $administrator->getBirthDate();
+        $parameters['email'] = $administrator->getEmail();
+        $parameters['phoneNumber'] = $administrator->getPhoneNumber();
 
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql,$parameters);
+
+        }catch(\PDOException $exception){
+            throw $exception;
+        }        
     }
     public function Delete($idToDelete){}
     public function Update($objet, $toFind){}//sera el dato por el cual busque al objeto que quiero actualizar
@@ -43,4 +59,6 @@ class AdministratorDao implements IDaos{
         },$administratorList);
         return count($administratorList)>1? $administratorList:$administratorList['0'];
     }
+
+  
 }

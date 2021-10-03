@@ -2,4 +2,5 @@
 namespace Controllers;
 
 use Models\Administrator as Admin;
-use Dao 
+use DAO\AdministratorDao as AdminDao;
+
