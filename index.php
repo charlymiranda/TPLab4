@@ -17,7 +17,7 @@
                    
                     <div class="form-group">
                          <label for="" align="center">E-mail</label>
-                         <input type="email" name="username" class="form-control form-control-lg" placeholder="User required" requied>
+                         <input type="text" name="username" class="form-control form-control-lg" placeholder="User required" requied>
                     </div>
                     <div class="form-group">
                          <label for="">Password</label>

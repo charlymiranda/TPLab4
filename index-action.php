@@ -11,13 +11,13 @@ if($_POST['username'] == $userLogin){
 
     if($_POST['password'] == $userPasswordLogin){
 
-        $user = new User();
-        $user->setEmail($userLogin);
-        $user->setPassword($userPasswordLogin);
+        $user = new User($userLogin, $userPasswordLogin);
+       // $user->setEmail($userLogin);
+        //$user->setPassword($userPasswordLogin);
 
         session_start();
 
-        $_SESSION['login']= $user->getEmail();
+        $_SESSION['login']= $user;
         header("location:indexadd.php");
 
     }else{
