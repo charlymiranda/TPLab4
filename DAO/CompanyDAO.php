@@ -82,9 +82,23 @@ class CompanyDAO implements IDaos
         }
     }
 
-    
-    public function Search($companyName)
-    {
+
+    public function Search($companyName){
+        $sql = "SELECT * FROM companies WHERE name=:name";
+        $parameters['name']=$companyName;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql, $parameters);
+        }catch(\PDOException $exception){
+            throw $exception;
+        }
+
+        if(!empty($result)){
+            return $this->mapear($result);
+        }else{
+            return false;
+        }
     }
 
     private function mapear($companiesList){
