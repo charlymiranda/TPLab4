@@ -15,18 +15,15 @@
         public function Add($student)
         {
             
-            // Guardo como string la consulta sql utilizando como values, marcadores de parámetros con nombre (:name) o signos de interrogación (?)
-            // por los cuales los valores reales serán sustituidos cuando la sentencia sea ejecutada
-            $sql="INSERT INTO students (wayToPay, idPurchase,  fecha, numberAcount) VALUES (:wayToPay,:idPurchase,:fecha, :numberAcount);";
-            $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active)
+          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active)
                      VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active);";
-            $parameters["firstName"]=$student->();
-            $parameters['lastName']=$student->();
-            $parameters['dni']=$student->();
-            $parameters['gender']=$student->();
-            $parameters['birthDate']=$student->();
-            $parameters['phoneNumber']=$student->();
-            $parameters['active']=$student->();
+            $parameters["firstName"]=$student->getFirstName();
+            $parameters['lastName']=$student->getLastName();
+            $parameters['dni']=$student->getDni();
+            $parameters['gender']=$student->getGender();
+            $parameters['birthDate']=$student->getBirthDate();
+            $parameters['phoneNumber']=$student->getPhoneNumber();
+            $parameters['active']=true;
 
             
             try {
@@ -63,25 +60,45 @@
             $sql = "UPDATE students set careerId=:careerId, firstName=:firstName, lastName=:lastName, dni=:dni, fileNumber=:fileNumber, 
                      gender=:gender, birthDate=:birthDate, email=:email, phoneNumber=:phoneNumber WHERE studentId= '$toFind';";
 
+            $parameters["firstName"]=$student->getFirstName();
+            $parameters['lastName']=$student->getLastName();
+            $parameters['dni']=$student->getDni();
+            $parameters['gender']=$student->getGender();
+            $parameters['birthDate']=$student->getBirthDate();
+            $parameters['phoneNumber']=$student->getPhoneNumber();
+            $parameters['active']=$student->getActive();
+
+            try{
+                $this->connection=Connection::getInstance();
+                return $this->connection->executeNonQuery($sql, $parameters);
+            }catch(\PDOException $exeption){
+                throw $exeption;
+            }
                      
         }
 
-        public function Search($objet){
+        public function SearchByEmail($objet){
+            
 
         }
 
 
         private function mapear($studentList){
 
-            $arreglo-is_array($studentList)?$studentList:[];
+            $studentList=is_array($studentList)?$studentList:[];
 
             $studentArray=array_map(function($pos){
-                $newStudent = new Student();//crear student
+                $newStudent = new Student($pos['careerId'],$pos['firstName'],$pos['lastName'],$pos['dni'],$pos['fileNumber'],$pos['gender'],
+                                        $pos['birthDate'],$pos['email'],$pos['phoneNumber']);//crear student
+                $newStudent->setstudentId($pos['studentId']);
 
                 return $newStudent;
             }, $studentList);
             return count($studentArray)>1? $studentArray:$studentArray['0'];
         }
+
+
+
 
        /* private function SaveData()
         {
@@ -101,7 +118,7 @@
             file_put_contents('Data/students.json', $jsonContent);
         }*/
 
-        private function RetrieveData()
+      /*  private function RetrieveData()
         {
             $this->studentList = array();
 
@@ -121,6 +138,6 @@
                     array_push($this->studentList, $student);
                 }
             }
-        }
+        }*/
     }
 ?>

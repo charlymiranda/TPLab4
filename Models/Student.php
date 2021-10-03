@@ -15,6 +15,7 @@ class Student
     private $birthDate;
     private $email;
     private $phoneNumber;
+    private $active;
 
 
     public function __construct($carrerId, $firstName, $lastName, $dni,  $fileNumber, $gender, $birthDate, $email, $phoneNumber)
@@ -232,4 +233,24 @@ class Student
         return $this;
     }
 
+
+    /**
+     * Get the value of active
+     */ 
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set the value of active
+     *
+     * @return  self
+     */ 
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
 }
