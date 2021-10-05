@@ -41,6 +41,8 @@
             }
             elseif ($_POST)
                 $this->parameters = $_POST;
+
+            
             
             if($_FILES)
             {
