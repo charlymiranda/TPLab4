@@ -1,30 +1,132 @@
 <?php
     namespace DAO;
 
-    use DAO\IStudentDAO as IStudentDAO;
+    use interfaces\Idaos as IDaos;
     use Models\Student as Student;
 
-    class StudentDAO implements IStudentDAO
+    use DAO\Connection as Connection;
+use PDOException;
+
+class StudentDAO implements IDaos
     {
+        private $connection;
+
         private $studentList = array();
 
-        public function Add(Student $student)
-        {
-            $this->RetrieveData();
-            
-            array_push($this->studentList, $student);
-
-            $this->SaveData();
-        }
+        
 
         public function GetAll()
-        {
-            $this->RetrieveData();
+        {   
+            $sql = "SELECT * FROM student";
+            try{
+                $this->connection = Connection::getInstance();
+                $this->studentList = $this->connection->execute($sql);
+            }catch(\PDOException $exeption){
+                throw $exeption;
+            }
 
-            return $this->studentList;
+            if(!empty($studentList)){
+                return $this->mapear($studentList);
+            }else{
+                return false;
+            }
+
         }
 
-        private function SaveData()
+        public function Add($student)
+        {
+            
+          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active)
+                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active);";
+            $parameters["firstName"]=$student->getFirstName();
+            $parameters['lastName']=$student->getLastName();
+            $parameters['dni']=$student->getDni();
+            $parameters['gender']=$student->getGender();
+            $parameters['birthDate']=$student->getBirthDate();
+            $parameters['phoneNumber']=$student->getPhoneNumber();
+            $parameters['active']=true;
+
+            
+            try {
+                $this->connection= Connection::getInstance();
+                return $this->connection->executeNonQuery($sql, $parameters);
+            } catch (\PDOException $ex) {
+                throw $ex;
+            }
+        }
+
+        public function Delete($idToDelete){
+
+            $sql = "DELETE FROM students WHERE studentId=:studentId";
+            $parameters['studentId']=$idToDelete;
+            try{
+                $this->connection = Connection::getInstance();
+                return $this->connection->executeNonQuery($sql, $parameters);
+            }catch(\PDOException $exeption){
+                throw $exeption;
+            }
+
+        }
+
+        public function Update($student, $toFind){
+            $sql = "UPDATE students set careerId=:careerId, firstName=:firstName, lastName=:lastName, dni=:dni, fileNumber=:fileNumber, 
+                     gender=:gender, birthDate=:birthDate, email=:email, phoneNumber=:phoneNumber WHERE studentId= '$toFind';";
+
+            $parameters["firstName"]=$student->getFirstName();
+            $parameters['lastName']=$student->getLastName();
+            $parameters['dni']=$student->getDni();
+            $parameters['gender']=$student->getGender();
+            $parameters['birthDate']=$student->getBirthDate();
+            $parameters['phoneNumber']=$student->getPhoneNumber();
+            $parameters['active']=$student->getActive();
+
+            try{
+                $this->connection=Connection::getInstance();
+                return $this->connection->executeNonQuery($sql, $parameters);
+            }catch(\PDOException $exeption){
+                throw $exeption;
+            }
+                     
+        }
+
+        public function Search($email){
+            $sql = "SELECT * FROM students WHERE email=:email";
+            $parameters['email']=$email;
+            try{
+                $this->connection = Connection::getInstance();
+                $result=$this->connection->execute($sql, $parameters);
+
+            }catch(\PDOException $exeption){
+                throw $exeption;
+            }
+
+            if(!empty($result)){
+                return $this->mapear($result);
+            }else{
+                return false;
+            }
+
+        }
+
+
+        private function mapear($studentList){
+
+            $studentList=is_array($studentList)?$studentList:[];
+
+            $studentArray=array_map(function($pos){
+                $newStudent = new Student($pos['careerId'],$pos['firstName'],$pos['lastName'],$pos['dni'],$pos['fileNumber'],$pos['gender'],
+                                        $pos['birthDate'],$pos['email'],$pos['phoneNumber']);//crear student
+                $newStudent->setstudentId($pos['studentId']);
+
+                return $newStudent;
+            }, $studentList);
+            return count($studentArray)>1? $studentArray:$studentArray['0'];
+        }
+
+
+
+
+       /* private function SaveData()
         {
             $arrayToEncode = array();
 
@@ -40,9 +142,9 @@
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
             
             file_put_contents('Data/students.json', $jsonContent);
-        }
+        }*/
 
-        private function RetrieveData()
+      /*  private function RetrieveData()
         {
             $this->studentList = array();
 
@@ -62,6 +164,6 @@
                     array_push($this->studentList, $student);
                 }
             }
-        }
+        }*/
     }
 ?>

@@ -1,9 +1,9 @@
 <?php 
-require_once("Config/Autoload.php");
-use Model\User as User ;
+//require_once("../Config/Autoload.php");
+use Models\User as User ;
 if(isset($_POST)){
 
-$userLogin = "user@myapp.com";
+$userLogin = "user@hot.com";
 $userPasswordLogin ="123456";
 $message = "";
 
@@ -18,22 +18,22 @@ if($_POST['username'] == $userLogin){
         session_start();
 
         $_SESSION['login']= $user->getEmail();
-        header("location:add-form.php");
+        header("location:indexadd.php");
 
     }else{
 
-        $message = "password incorrecto ";
+        $message = "This Password is Incorrect ";
         require_once("index.php");
     }
 }else{
 
-    $message = "nombre del usuario incorrecto";
+    $message = "The Email is invalid";
     require_once("index.php");
 }
 
 }else{
 
-    $message = "verifique los datos";
+    $message = "Please verify the data and try again";
     require_once("index.php");
 }
 ?>

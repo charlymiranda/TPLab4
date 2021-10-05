@@ -1,37 +1,23 @@
 <?php
- include('Views/header.php');
-  ?>
+ 
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
+	
+	require "Config/Autoload.php";
+	require "Config/Config.php";
 
-     <main class="d-flex align-items-center justify-content-center height-100" >
-          <div class="content">
-               <header class="text-center">
+	use Config\Autoload as Autoload;
+	use Config\Router 	as Router;
+	use Config\Request 	as Request;
+		
+	Autoload::start();
 
-              <img src="Views/img/Lets.png" width="400" height="141" alt=""/>
-        
-                    <h2>  Login </h2>
-               </header>
-                   
+	session_start();
 
-               <form action="index-action.php" method="post" class="login-form  p-4 bg-none">
-               <p><?php if(isset($message)){ echo $message; }?></p>
-                   
-                    <div class="form-group">
-                         <label for="" align="center">E-mail</label>
-                         <input type="email" name="username" class="form-control form-control-lg" placeholder="User required" requied>
-                    </div>
-                    <div class="form-group">
-                         <label for="">Password</label>
-                         <input type="password" name="password" class="form-control form-control-lg" placeholder="Password required" requied>
-                    </div>
-                    <br>
-                    </br>
-                    <center>
-                    <button class="btn btn-warning btn-block btn-lg " type="submit">Session Start</button>
-                    </center>     
-               </form>
-          </div>
-     </main>
+	require_once(VIEWS_PATH."header.php");
 
-<?php
- include('Views/footer.php')
+	Router::Route(new Request());
+
+	require_once(VIEWS_PATH."footer.php");
 ?>

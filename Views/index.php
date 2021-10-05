@@ -1,34 +1,29 @@
-
 <?php
     require_once('nav.php');
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
-               <h2 class="mb-4">Agregar alumno</h2>
-               <form action="<?php echo FRONT_ROOT ?>Student/Add" method="post" class="bg-light-alpha p-5">
-                    <div class="row">                         
-                         <div class="col-lg-4">
-                              <div class="form-group">
-                                   <label for="">File</label>
-                                   <input type="text" name="recordId" value="" class="form-control">
-                              </div>
-                         </div>
-                         <div class="col-lg-4">
-                              <div class="form-group">
-                                   <label for="">Name</label>
-                                   <input type="text" name="firstName" value="" class="form-control">
-                              </div>
-                         </div>
-                         <div class="col-lg-4">
-                              <div class="form-group">
-                                   <label for="">Surname</label>
-                                   <input type="text" name="lastName" value="" class="form-control">
-                              </div>
-                         </div>
-                    </div>
-                    <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Agregar</button>
-               </form>
+               <h2 class="mb-4">index</h2>
+               <?php
+               
+                    $apiStudent = curl_init('https://utn-students-api.herokuapp.com/api/Student');
+                    curl_setopt($apiStudent, CURLOPT_HTTPHEADER, array(API_KEY));
+                    curl_setopt($apiStudent, CURLOPT_RETURNTRANSFER, true);
+
+                    $response = curl_exec($apiStudent);
+
+                    $arrayToDecode = json_decode($response, true);
+                
+                /*$opciones = array(
+                    'http'=>array(
+                        'method'=>'GET',
+                        'header'=>API_KEY)
+                    );
+                    $response1=file_get_contents('https://utn-students-api.herokuapp.com/api/Student');*/
+
+               ?>
+            
           </div>
      </section>
 </main>

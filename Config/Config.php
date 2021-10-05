@@ -1,9 +1,18 @@
-<?php namespace Config;
+<?php
+
+namespace Config;
 
 define("ROOT", dirname(__DIR__) . "/");
 //Path to your project's root folder
-define("FRONT_ROOT", "/UTN/LabIV/Framework/");
+define("FRONT_ROOT", "/tpla4/Framework/");
 define("VIEWS_PATH", "Views/");
-define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "css/");
-define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");
+define("CSS_PATH", FRONT_ROOT . VIEWS_PATH . "css/");
+define("JS_PATH", FRONT_ROOT . VIEWS_PATH . "js/");
+
+// constants to work with database
+define("DB_HOST", "localhost");
+define("DB_NAME", "letswork");
+define("DB_USER", "root");
+define("DB_PASS", "");
+
 ?>
