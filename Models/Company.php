@@ -8,7 +8,7 @@
         private $yearFoundation;
         private $city;
         private $description;
-        private $logo;
+        //private $logo;
         private $email;
         private $phoneNumber;
 

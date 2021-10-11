@@ -25,14 +25,17 @@
             ///require_once(VIEWS_PATH."company-list.php");     ///Que hace?
         }
 
-        public function Add($recordId, $firstName, $lastName)
+        public function AddCompany($name, $yearFoundation,$city, $description,$email,$phoneNumber)
         {
-            $student = new Company();
-            $student->setRecordId($recordId);
-            $student->setfirstName($firstName);
-            $student->setLastName($lastName);
+            $company = new Company();
+            $company->setName($name);
+            $company->setYearFoundation($yearFoundation);
+            $company->setCity($city);
+            $company->setDescription($description);
+            $company->setEmail($email);
+            $company->setPhoneNumber($phoneNumber);
 
-            $this->studentDAO->Add($student);
+            $this->CompanyDAO->Add($company);
 
             $this->ShowAddView();
         }
