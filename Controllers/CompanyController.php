@@ -6,11 +6,11 @@
 
     class CompanyController
     {
-        private $companyD;
+        private $companyDAO;
 
         public function __construct()
         {
-            $this->companyD = new CompanyDAO();
+            $this->companyDAO = new CompanyDAO();
         }
 
         public function ShowAddView()
@@ -20,7 +20,7 @@
 
         public function ListCompanies()
         {
-            $companiesList = $this->companyD->GetAll();
+            $companiesList = $this->companyDAO->GetAll();
 
             ///require_once(VIEWS_PATH."company-list.php");     ///Que hace?
         }
@@ -56,8 +56,15 @@
             $this->ShowAddView();
         }
 
+        public function deleteCompany($companyId){
+
+            $this->companyDAO->delete($companyId);
+
+            $this->ShowAddView();
+        }
+
         public function jobOffersForCompanies($companyName){
-            $companiesList = $this->companyD->GetAll();
+            $companiesList = $this->companyDAO->GetAll();
             $jobs= null;
 
             foreach($companiesList as $company){
