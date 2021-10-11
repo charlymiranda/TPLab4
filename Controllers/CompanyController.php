@@ -13,10 +13,10 @@
             $this->companyD = new CompanyDAO();
         }
 
-        /*public function ShowAddView()
+        public function ShowAddView()
         {
-            require_once(VIEWS_PATH."student-add.php");
-        }*/
+            require_once(VIEWS_PATH."company-add.php");
+        }
 
         public function ListCompanies()
         {
