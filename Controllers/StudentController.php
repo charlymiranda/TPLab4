@@ -29,7 +29,17 @@
             require_once(VIEWS_PATH."student-list.php");
         }
 
-        public function consumeFromApi(){
+        public function getStudent ($email){
+
+            $studentList = array();
+            $studentList = consumeFromApi();
+            foreach($studentList as $student){
+
+            }
+            
+        }
+
+        private function consumeFromApi(){
 
             $apiStudent = curl_init('https://utn-students-api.herokuapp.com/api/Student');
             curl_setopt($apiStudent, CURLOPT_HTTPHEADER, array(API_KEY));
@@ -38,6 +48,24 @@
             $response = curl_exec($apiStudent);
 
             $arrayToDecode = json_decode($response, true);
+            foreach($arrayToDecode as $value){
+                
+                $student = new Student;
+
+                $student->setstudentId($value['studentId']);
+                $student->setCarrerId($value['careerId']);
+                $student->setFirstName($value['firstName']);
+                $student->setLastName($value['lastName']);
+                $student->setDni($value['dni']);
+                $student->setFileNumber($value['fileNumber']);
+                $student->setGender($value['gender']);
+                $student->setBirthDate($value['birthDate']);
+                $student->setEmail($value['email']);
+                $student->setPhoneNumber($value['phoneNumber']);
+                $student->setActive($value['active']);
+
+            }
+            return $arrayToDecode;
         
         /*$opciones = array(
             'http'=>array(
@@ -49,7 +77,7 @@
         }
 
 
-        public function Add($firstName, $lastName)
+       /* public function Add($firstName, $lastName)
         {
             $student = new Student();
             $student->setfirstName($firstName);
@@ -70,7 +98,7 @@
                 throw $th;
             }
             return $student;
-        }
+        }     
 
         
     }
