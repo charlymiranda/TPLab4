@@ -18,18 +18,10 @@ class Student
     private $active;
 
 
-    public function __construct($carrerId, $firstName, $lastName, $dni,  $fileNumber, $gender, $birthDate, $email, $phoneNumber)
+    public function __construct()
     {
        
-        $this->carrerId = $carrerId;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->dni = $dni;
-        $this->fileNumber = $fileNumber;
-        $this->gender = $gender;
-        $this->birthDate = $birthDate;
-        $this->email = $email;
-        $this->phoneNumber = $phoneNumber;
+
     }
 
     /**
