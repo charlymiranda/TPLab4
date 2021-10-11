@@ -8,7 +8,7 @@ use interfaces\Idaos as IDaos;
 use Models\Company as Company;
 use DAO\Connection as Connection;
 
-class CompanyDAO implements IDaos
+class CompanyDAO implements ICompanyDaO, IDaos
 {
     private $connection;
     
@@ -63,9 +63,10 @@ class CompanyDAO implements IDaos
         }
     }
 
-    public function Update($company, $toFind){
-        $sql = "UPDATE campanies SET name=:name, yearFoundation=:yearFoundation, city=:city, description=:description, logo=:logo, email=:email, phoneNumber=:phoneNumber WHERE companyId='$toFind';";
+    public function Update(Company $company){
+        $sql = "UPDATE campanies SET name=:name, yearFoundation=:yearFoundation, city=:city, description=:description, logo=:logo, email=:email, phoneNumber=:phoneNumber WHERE companyId= :companyId;";
 
+        $parameters['companyId']=$company->getCompanyId();
         $parameters['name']=$company->getName();
         $parameters['yearFoundation']=$company->getYearFoundation();
         $parameters['city']=$company->getCity();

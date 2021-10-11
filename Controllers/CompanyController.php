@@ -25,9 +25,9 @@
             ///require_once(VIEWS_PATH."company-list.php");     ///Que hace?
         }
 
-        /*public function Add($recordId, $firstName, $lastName)
+        public function Add($recordId, $firstName, $lastName)
         {
-            $student = new Student();
+            $student = new Company();
             $student->setRecordId($recordId);
             $student->setfirstName($firstName);
             $student->setLastName($lastName);
@@ -35,7 +35,7 @@
             $this->studentDAO->Add($student);
 
             $this->ShowAddView();
-        }*/
+        }
 
         public function jobOffersForCompanies($companyName){
             $companiesList = $this->companyD->GetAll();
@@ -43,7 +43,7 @@
 
             foreach($companiesList as $company){
                 if($company->getName() == $companyName){
-                    $jobs = $company
+                    $jobs = $company;
                 }
             }
         }
