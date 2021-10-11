@@ -8,13 +8,11 @@
         private $name;
         private $active;
 
-        public function __construct($description,$name, $active)
+        public function __construct()
    {
    
       
-      $this->description=$description;
-      $this->name=$name;
-      $this->active=$active;     
+ 
    }
 
    

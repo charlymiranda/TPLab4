@@ -12,16 +12,9 @@
         private $email;
         private $phoneNumber;
 
-        public function __construct($name, $yearFoundation, $city, $description,$logo, $email, $phoneNumber)
+        public function __construct()
         {
-            
-            $this->name=$name;
-            $this->yearFoundation=$yearFoundation;
-            $this->city= $city;
-            $this->description= $description;
-            $this->logo=$logo;
-            $this->email= $email;
-            $this->phoneNumber= $phoneNumber;               
+                         
         }
 
         /**
