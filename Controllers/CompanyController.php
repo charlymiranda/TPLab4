@@ -40,6 +40,22 @@
             $this->ShowAddView();
         }
 
+        public function updateCompany($companyId, $name, $yearFoundation,$city, $description,$email,$phoneNumber){
+            $company = new Company();
+
+            $company->setCompanyId($companyId);
+            $company->setName($name);
+            $company->setYearFoundation($yearFoundation);
+            $company->setCity($city);
+            $company->setDescription($description);
+            $company->setEmail($email);
+            $company->setPhoneNumber($phoneNumber);
+
+            $this->CompanyDAO->update($company);
+
+            $this->ShowAddView();
+        }
+
         public function jobOffersForCompanies($companyName){
             $companiesList = $this->companyD->GetAll();
             $jobs= null;

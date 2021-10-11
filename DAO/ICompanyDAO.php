@@ -6,6 +6,7 @@
     interface ICompanyDAO
     {
         function Add(Company $company);
+        function update(Company $company);
 
     }
 ?>
