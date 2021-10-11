@@ -7,11 +7,11 @@
     {
         public static function Route(Request $request)
         {
-            $controllerName = $request->getcontroller() . 'Controller';
+            $controllerName = $request->getcontroller() . 'Controller'; //HomeController
 
-            $methodName = $request->getmethod();
+            $methodName = $request->getmethod();   //Login
 
-            $methodParameters = $request->getparameters();          
+            $methodParameters = $request->getparameters();     //mail, password     
 
             $controllerClassName = "Controllers\\". $controllerName;            
 

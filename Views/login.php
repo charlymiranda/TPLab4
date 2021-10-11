@@ -1,5 +1,6 @@
 <?php
  include('Views/header.php');
+
   ?>
 
      <main class="d-flex align-items-center justify-content-center height-100" >
@@ -12,8 +13,8 @@
                </header>
                    
 
-               <form action="Home/login" method="post" class="login-form  p-4 bg-none">
-               <p><?php if(isset($message)){ echo $message; }?></p>
+               <form action='Home/login' method="post" class="login-form  p-4 bg-none">
+              <p><?php if(isset($message)){ echo $message; }?></p>
                    
                     <div class="form-group">
                          <label for="" align="center">E-mail</label>
