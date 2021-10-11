@@ -13,16 +13,9 @@
         private $phoneNumber;
 
        
-        public function __construct($firstName, $lastName, $dni, $gender, $birthDate, $email, $phoneNumber)
+        public function __construct()
         {
-         
-            $this-> firstName=$firstName;
-            $this-> lastName=$lastName;
-            $this-> dni= $dni;
-            $this-> gender= $gender;
-            $this-> birthDate= $birthDate;
-            $this-> email= $email;
-            $this-> phoneNumber= $phoneNumber;
+   
         
         }
 
