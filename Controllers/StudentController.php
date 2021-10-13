@@ -12,12 +12,12 @@
 
     class StudentController
     {
-        private $studentD;
+        private $studentDAO;
         private $companyD;
 
         public function __construct()
         {
-            $this->studentD = new StudentDAO();
+            $this->studentDAO = new StudentDAO();
             $this->companyD = new CompanyDAO();
         }
 
@@ -29,16 +29,11 @@
 
         public function ShowAddView()
         {
+
             require_once(VIEWS_PATH."student-add.php");
         }
 
-        public function ShowListView()
-        {
-            $studentList = $this->getAllStudents();
-
-            require_once(VIEWS_PATH."student-list.php");
-        }
-
+     
         public function getStudent($email){
 
             $studentList = array();
@@ -53,16 +48,13 @@
            // return null;
         }
 
-        public function getAllStudents(){
-            $apiStudent = curl_init('https://utn-students-api.herokuapp.com/api/Student');
-            curl_setopt($apiStudent, CURLOPT_HTTPHEADER, array(API_KEY));
-            curl_setopt($apiStudent, CURLOPT_RETURNTRANSFER, true);
+        public function ShowListView()
+        {
+            $studentList = $this->studentDAO->GetAll();
 
-            $response = curl_exec($apiStudent);
-
-           return $arrayToDecode = json_decode($response, true);
-
+            require_once(VIEWS_PATH."student-list.php");
         }
+
 
         private function consumeFromApi(){
 

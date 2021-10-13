@@ -3,7 +3,7 @@ require_once(VIEWS_PATH . 'nav.php');
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
-          <form action="<?php echo FRONT_ROOT ?>Student/getAllStudents" method="GET">
+          <form action="<?php echo FRONT_ROOT ?>Student/ShowListView" method="GET">
           <div class="container">
                <h2 class="mb-4">Students List</h2>
                <table class="table bg-light-alpha">

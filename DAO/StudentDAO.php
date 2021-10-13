@@ -13,29 +13,19 @@ class StudentDAO implements IDaos
 
         private $studentList = array();
 
-<<<<<<< HEAD
-=======
         
-
         public function GetAll()
         {   
-            $sql = "SELECT * FROM student";
-            try{
-                $this->connection = Connection::getInstance();
-                $this->studentList = $this->connection->execute($sql);
-            }catch(\PDOException $exeption){
-                throw $exeption;
-            }
+            $apiStudent = curl_init('https://utn-students-api.herokuapp.com/api/Student');
+            curl_setopt($apiStudent, CURLOPT_HTTPHEADER, array(API_KEY));
+            curl_setopt($apiStudent, CURLOPT_RETURNTRANSFER, true);
 
-            if(!empty($studentList)){
-                return $this->mapear($studentList);
-            }else{
-                return false;
-            }
+            $response = curl_exec($apiStudent);
+
+           return $arrayToDecode = json_decode($response, true);
 
         }
 
->>>>>>> master
         public function Add($student)
         {
             
@@ -58,27 +48,6 @@ class StudentDAO implements IDaos
             }
         }
 
-<<<<<<< HEAD
-        public function GetAll()
-        {   
-            $sql = "SELECT * FROM student";
-            try{
-                $this->connection = Connection::getInstance();
-                $this->studentList = $this->connection->execute($sql);
-            }catch(\PDOException $exeption){
-                throw $exeption;
-            }
-
-            if(!empty($studentList)){
-                return $this->mapear($studentList);
-            }else{
-                return false;
-            }
-
-        }
-
-=======
->>>>>>> master
         public function Delete($idToDelete){
 
             $sql = "DELETE FROM students WHERE studentId=:studentId";
@@ -113,11 +82,7 @@ class StudentDAO implements IDaos
                      
         }
 
-<<<<<<< HEAD
-        public function SearchByEmail($email){
-=======
         public function Search($email){
->>>>>>> master
             $sql = "SELECT * FROM students WHERE email=:email";
             $parameters['email']=$email;
             try{
