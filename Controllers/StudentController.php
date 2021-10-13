@@ -39,7 +39,7 @@
             require_once(VIEWS_PATH."student-list.php");
         }
 
-        public function getStudent ($email){
+        public function getStudent($email){
 
             $studentList = array();
             $studentList = $this->consumeFromApi();
