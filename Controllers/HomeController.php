@@ -28,7 +28,7 @@
                               
                     $_SESSION['login']= $user->getEmail();
                    
-                    require_once(VIEWS_PATH."student-add.php");
+                    require_once(VIEWS_PATH."student-list.php");
             
                 }else{
             

@@ -36,9 +36,23 @@
             foreach($studentList as $student){
                 if($email == $student->getEmail()){
                     return $student;
+                }else{
+                    return 'no existe estudiante con ese mail';
                 }
             }
-            return null;
+           // return null;
+        }
+
+        public function getAllStudents(){
+            $apiStudent = curl_init('https://utn-students-api.herokuapp.com/api/Student');
+            curl_setopt($apiStudent, CURLOPT_HTTPHEADER, array(API_KEY));
+            curl_setopt($apiStudent, CURLOPT_RETURNTRANSFER, true);
+
+            $response = curl_exec($apiStudent);
+
+           return $arrayToDecode = json_decode($response, true);
+
+
         }
 
         private function consumeFromApi(){
