@@ -3,7 +3,7 @@
 use Models\User as User ;
 if(isset($_POST)){
 
-$userLogin = "user@hot.com";
+$userLogin = "userri@hot.com";
 $userPasswordLogin ="123456";
 $message = "";
 

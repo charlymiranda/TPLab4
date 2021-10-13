@@ -1,4 +1,8 @@
 <?php
+    
+    include('Views/header.php');
+   
+    
     namespace Controllers;
 
     use DAO\StudentDAO as StudentDAO;
@@ -16,6 +20,12 @@
             $this->studentD = new StudentDAO();
             $this->companyD = new CompanyDAO();
         }
+
+        public function checkIfActive(){
+
+            return false;
+        }
+
 
         public function ShowAddView()
         {
