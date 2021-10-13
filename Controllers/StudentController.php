@@ -32,13 +32,7 @@
             require_once(VIEWS_PATH."student-add.php");
         }
 
-        public function ShowListView()
-        {
-            $studentList = $this->studentD->GetAll();
-
-            require_once(VIEWS_PATH."student-list.php");
-        }
-
+     
         public function getStudent($email){
 
             $studentList = array();
@@ -64,6 +58,14 @@
 
 
         }
+
+        public function ShowListView()
+        {
+            $studentList = $this->getAllStudents();
+
+            require_once(VIEWS_PATH."student-list.php");
+        }
+
 
         private function consumeFromApi(){
 
