@@ -18,11 +18,16 @@
             require_once(VIEWS_PATH."company-add.php");
         }
 
+        public function ShowSingleView()
+        {
+            require_once(VIEWS_PATH."show-company.php");
+        }
+
         public function ListCompanies()
         {
             $companiesList = $this->companyDAO->GetAll();
 
-            ///require_once(VIEWS_PATH."company-list.php");     ///Que hace?
+            ///require_once(VIEWS_PATH."company-list.php");     ///Que hace señora?
         }
 
         public function AddCompany($name, $yearFoundation,$city, $description,$email,$phoneNumber)
@@ -72,6 +77,12 @@
                     $jobs = $company;
                 }
             }
+        }
+
+        public function searchCompanyByName($name){
+            $company = $this->companyDAO->search($name);
+
+            $this->ShowSingleView();
         }
     }
 ?>

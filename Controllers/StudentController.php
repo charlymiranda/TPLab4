@@ -32,11 +32,13 @@
         public function getStudent ($email){
 
             $studentList = array();
-            $studentList = consumeFromApi();
+            $studentList = $this->consumeFromApi();
             foreach($studentList as $student){
-
+                if($email == $student->getEmail()){
+                    return $student;
+                }
             }
-            
+            return null;
         }
 
         private function consumeFromApi(){
@@ -48,6 +50,9 @@
             $response = curl_exec($apiStudent);
 
             $arrayToDecode = json_decode($response, true);
+
+            $studentsArray = array();
+
             foreach($arrayToDecode as $value){
                 
                 $student = new Student;
@@ -64,8 +69,9 @@
                 $student->setPhoneNumber($value['phoneNumber']);
                 $student->setActive($value['active']);
 
+                array_push($studentsArray, $student);
             }
-            return $arrayToDecode;
+            return $studentsArray;
         
         /*$opciones = array(
             'http'=>array(
@@ -77,7 +83,7 @@
         }
 
 
-       /* public function Add($firstName, $lastName)
+        public function Add($firstName, $lastName)
         {
             $student = new Student();
             $student->setfirstName($firstName);
@@ -86,7 +92,7 @@
             $this->studentDAO->Add($student);
 
             $this->ShowAddView();
-        }*/
+        }
 
         public function viewInformation($studentMail)
         {
