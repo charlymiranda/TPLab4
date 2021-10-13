@@ -34,7 +34,7 @@
 
         public function ShowListView()
         {
-            $studentList = $this->studentD->GetAll();
+            $studentList = $this->getAllStudents();
 
             require_once(VIEWS_PATH."student-list.php");
         }
@@ -61,7 +61,6 @@
             $response = curl_exec($apiStudent);
 
            return $arrayToDecode = json_decode($response, true);
-
 
         }
 
