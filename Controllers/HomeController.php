@@ -6,44 +6,46 @@
     {
         public function Index($message = "")
         {
-                  
-            require_once(VIEWS_PATH."login.php");
+           
+           require_once(VIEWS_PATH."login.php");
         }
         
         public function login ($username, $password){
            
                        
-            $userLogin = "user@hot.com";
+            $adminLogin = "user@hot.com";
             $userPasswordLogin ="123456";
             $message = "";
+                        
+            if($username == $adminLogin ){
             
-            if($username == $userLogin){
-            
-                if($password == $userPasswordLogin){
+                if($password == $userPasswordLogin ){
             
                     $user = new User();
-                    $user->setEmail($userLogin);
+                    $user->setEmail($adminLogin);
                     $user->setPassword($userPasswordLogin);
-                    
-                              
+                                    
+                                                  
                     $_SESSION['login']= $user->getEmail();
                    
-                    require_once(VIEWS_PATH."student-add.php");
-            
+                    require_once(VIEWS_PATH."company-add.php");
+                                    
                 }else{
             
                     $message = "This Password is Incorrect ";
-                    require_once(VIEWS_PATH."login.php");
+                   // require_once("Views/login.php");
+                        $this->index($message);
                 }
             }else{
             
                 $message = "The Email is invalid";
-                require_once(VIEWS_PATH."login.php");
+                //require_once(FRONT_ROOT.VIEWS_PATH."login.php");
+                $this->index($message);
             }
-            
-                       
+        }
+       
+                                
 
         }
-
-    }
+          
 ?>
