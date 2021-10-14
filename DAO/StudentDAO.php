@@ -3,37 +3,76 @@
 
     use interfaces\Idaos as IDaos;
     use Models\Student as Student;
+    use DAO\IStudentDAO as IStudentDAO;
 
     use DAO\Connection as Connection;
 use PDOException;
 
-class StudentDAO implements IDaos
+class StudentDAO implements IStudentDAO
     {
         private $connection;
 
         private $studentList = array();
 
         
-
         public function GetAll()
         {   
-            $sql = "SELECT * FROM student";
-            try{
-                $this->connection = Connection::getInstance();
-                $this->studentList = $this->connection->execute($sql);
-            }catch(\PDOException $exeption){
-                throw $exeption;
-            }
-
-            if(!empty($studentList)){
-                return $this->mapear($studentList);
-            }else{
-                return false;
-            }
-
+           $this->consumeFromApi();
+           return $this->studentList;
+            
         }
 
-        public function Add($student)
+        private function consumeFromApi(){
+            $this->studentList = array();
+
+            $options = array(
+                'http' => array(
+                  'method'=>"GET",
+                  'header'=>"x-api-key: " . API_KEY)
+           );
+    
+
+            $context = stream_context_create($options);
+
+            $response = file_get_contents(API_URL .'Student', false, $context);
+
+           $arrayToDecode = json_decode($response, true);
+
+            foreach($arrayToDecode as $value){
+                
+                $student = new Student;
+
+                $student->setstudentId($value['studentId']);
+                $student->setCarrerId($value['careerId']);
+                $student->setFirstName($value['firstName']);
+                $student->setLastName($value['lastName']);
+                $student->setDni($value['dni']);
+                $student->setFileNumber($value['fileNumber']);
+                $student->setGender($value['gender']);
+                $student->setBirthDate($value['birthDate']);
+                $student->setEmail($value['email']);
+                $student->setPhoneNumber($value['phoneNumber']);
+                $student->setActive($value['active']);
+
+                array_push($this->studentList, $student);
+            }
+        }
+
+        public function getStudentByMail($email)
+        {
+            $this->consumeFromApi();
+
+            foreach ($this->studentList as $student) {
+                if ($student->getEmail() == $email){
+                    return $student;
+                }
+            }
+    
+            return null;
+            
+        }
+
+     /*   public function Add($student)
         {
             
           $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active)
@@ -106,7 +145,7 @@ class StudentDAO implements IDaos
                 return false;
             }
 
-        }
+        }*/
 
 
         private function mapear($studentList){

@@ -20,10 +20,7 @@
                          <label for="" align="center">E-mail</label>
                          <input type="email" name="username" class="form-control form-control-lg" placeholder="User required" requied>
                     </div>
-                    <div class="form-group">
-                         <label for="">Password</label>
-                         <input type="password" name="password" class="form-control form-control-lg" placeholder="Password required" requied>
-                    </div>
+                   
                     <br>
                     </br>
                     <center>

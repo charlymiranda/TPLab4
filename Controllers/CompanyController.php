@@ -40,7 +40,7 @@
             $company->setEmail($email);
             $company->setPhoneNumber($phoneNumber);
 
-            $this->CompanyDAO->Add($company);
+            $this->companyDAO->Add($company);
 
             $this->ShowAddView();
         }

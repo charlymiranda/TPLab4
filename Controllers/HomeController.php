@@ -1,45 +1,49 @@
 <?php
     namespace Controllers;
-    use Models\User as User ;
 
-    class HomeController
+    use Models\User as User;
+    use Controllers\StudentController as StudentController;
+    use Models\Student as Student;
+
+class HomeController
     {
-        public function Index($message = "")
+        public function Index()
         {
-                  
-            require_once(VIEWS_PATH."login.php");
+            require_once(VIEWS_PATH ."login.php");
         }
-        
-        public function login ($username, $password){
-           
-                       
-            $userLogin = "user@hot.com";
-            $userPasswordLogin ="123456";
-            $message = "";
-            
-            if($username == $userLogin){
-            
-                if($password == $userPasswordLogin){
-            
-                    $user = new User();
-                    $user->setEmail($userLogin);
-                    $user->setPassword($userPasswordLogin);
-                    
-                              
-                    $_SESSION['login']= $user->getEmail();
-                   
-                    require_once(VIEWS_PATH."student-list.php");
-            
-                }else{
-            
-                    $message = "This Password is Incorrect ";
-                    require_once(VIEWS_PATH."login.php");
+
+        public function login($email){
+
+            if($email == 'user@hot.com'){
+                $user = new User($email);
+                $_SESSION['admin'] = $user;
+
+                require_once(VIEWS_PATH."company-add.php");
+            } else {
+                $studentController = new StudentController();
+                $student = new Student();
+                $student = $studentController->getStudentByMail($email);
+    
+                if($student != null){
+                    $_SESSION['student'] = $student;
+    
+                    require_once(VIEWS_PATH."student-firstpage.php");
+                } else {
+                    $invalidEmail = true;
+                    require_once(VIEWS_PATH ."index.php");
                 }
-            }else{
-            
-                $message = "The Email is invalid";
-                require_once(VIEWS_PATH."login.php");
             }
         }
+
+        public function RedirectAdm () {
+            require_once(VIEWS_PATH."admin-firstpage.php");
+        }
+
+
+        public function Logout()
+        {
+            session_destroy();
+            
+            $this->Index();
+        }
     }
-?>

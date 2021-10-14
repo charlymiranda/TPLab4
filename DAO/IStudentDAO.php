@@ -5,7 +5,8 @@
 
     interface IStudentDAO
     {
-        function Add(Student $student);
+        function getAll();
+        function getStudentByMail($email);
         
     }
 ?>
