@@ -8,18 +8,34 @@
     use DAO\StudentDAO as StudentDAO;
     use Models\Student as Student;
     use DAO\CompanyDAO as CompanyDAO;
+    use DAO\CareerDAO as CareerDAO;
     use Models\Company as Company;
+    //use Views\validateSession as validateSession;
+    use validateSession;
 
-    class StudentController
+class StudentController
     {
         private $studentDAO;
-        private $companyD;
-
+        private $companyDAO;
+        private $careerDAO;
+        private $studentList = array();
+        private $careerList = array();
         public function __construct()
         {
             $this->studentDAO = new StudentDAO();
-            $this->companyD = new CompanyDAO();
+            $this->companyDAO = new CompanyDAO();
+            $this->careerDAO = new CareerDAO();
         }
+
+        public function ShowListView()
+        {
+            validateSession::checkSession();
+            $this->studentList = $this->studentDAO->GetAll();
+            $this->careerList = $this->careerDAO->GetAll();
+            //var_dump($studentList);
+            require_once(VIEWS_PATH."student-list.php");
+        }
+
 
         public function checkIfActive(){
 
@@ -33,72 +49,10 @@
             require_once(VIEWS_PATH."student-add.php");
         }
 
-     
-        public function getStudent($email){
-
-            $studentList = array();
-            $studentList = $this->consumeFromApi();
-            foreach($studentList as $student){
-                if($email == $student->getEmail()){
-                    return $student;
-                }else{
-                    return 'no existe estudiante con ese mail';
-                }
-            }
-           // return null;
-        }
-
-        public function ShowListView()
-        {
-            $studentList = $this->studentDAO->GetAll();
-
-            require_once(VIEWS_PATH."student-list.php");
-        }
 
 
-        private function consumeFromApi(){
 
-            $apiStudent = curl_init('https://utn-students-api.herokuapp.com/api/Student');
-            curl_setopt($apiStudent, CURLOPT_HTTPHEADER, array(API_KEY));
-            curl_setopt($apiStudent, CURLOPT_RETURNTRANSFER, true);
-
-            $response = curl_exec($apiStudent);
-
-            $arrayToDecode = json_decode($response, true);
-
-            $studentsArray = array();
-
-            foreach($arrayToDecode as $value){
-                
-                $student = new Student;
-
-                $student->setstudentId($value['studentId']);
-                $student->setCarrerId($value['careerId']);
-                $student->setFirstName($value['firstName']);
-                $student->setLastName($value['lastName']);
-                $student->setDni($value['dni']);
-                $student->setFileNumber($value['fileNumber']);
-                $student->setGender($value['gender']);
-                $student->setBirthDate($value['birthDate']);
-                $student->setEmail($value['email']);
-                $student->setPhoneNumber($value['phoneNumber']);
-                $student->setActive($value['active']);
-
-                array_push($studentsArray, $student);
-            }
-            return $studentsArray;
-        
-        /*$opciones = array(
-            'http'=>array(
-                'method'=>'GET',
-                'header'=>API_KEY)
-            );
-            $response1=file_get_contents('https://utn-students-api.herokuapp.com/api/Student');*/
-
-        }
-
-
-        public function Add($firstName, $lastName)
+       /* public function Add($firstName, $lastName)
         {
             $student = new Student();
             $student->setfirstName($firstName);
@@ -107,7 +61,7 @@
             $this->studentDAO->Add($student);
 
             $this->ShowAddView();
-        }
+        }*/
 
         public function viewInformation($studentMail)
         {

@@ -1,9 +1,9 @@
 <?php
     namespace Models;
 
-    class Carrer{
+    class Career{
 
-        private $carrerId;
+        private $careerId;
         private $description;
         private $name;
         private $active;
@@ -16,27 +16,6 @@
    }
 
    
-      /**
-       * Get the value of carrerId
-       */ 
-      public function getCarrerId()
-      {
-            return $this->carrerId;
-      }
-
-      /**
-       * Set the value of carrerId
-       *
-       * @return  self
-       */ 
-      public function setCarrerId($carrerId)
-      {
-            $this->carrerId = $carrerId;
-
-            return $this;
-      }
-
-
         /**
          * Get the value of description
          */ 
@@ -97,5 +76,25 @@
                 return $this;
         }
 
+
+        /**
+         * Get the value of careerId
+         */ 
+        public function getCareerId()
+        {
+                return $this->careerId;
+        }
+
+        /**
+         * Set the value of careerId
+         *
+         * @return  self
+         */ 
+        public function setCareerId($careerId)
+        {
+                $this->careerId = $careerId;
+
+                return $this;
+        }
     }
     ?>
