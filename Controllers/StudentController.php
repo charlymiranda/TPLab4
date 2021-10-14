@@ -1,8 +1,4 @@
 <?php
-    
-    include('Views/header.php');
-   
-    
     namespace Controllers;
 
     use DAO\StudentDAO as StudentDAO;
@@ -11,7 +7,7 @@
     use DAO\CareerDAO as CareerDAO;
     use Models\Company as Company;
     //use Views\validateSession as validateSession;
-    use validateSession;
+    use Utils\ValidateSession;
 
 class StudentController
     {
@@ -31,18 +27,11 @@ class StudentController
         {
             validateSession::checkSession();
             $this->studentList = $this->studentDAO->GetAll();
+
             $this->careerList = $this->careerDAO->GetAll();
             //var_dump($studentList);
             require_once(VIEWS_PATH."student-list.php");
         }
-
-
-        public function getStudentByMail($email){
-            $student = $this->studentDAO->getStudentByMail($email);
-            return $student;
-        }
-
-
 
 
         public function checkIfActive(){

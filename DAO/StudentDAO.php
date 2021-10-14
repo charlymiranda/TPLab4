@@ -56,6 +56,7 @@ class StudentDAO implements IStudentDAO
 
                 array_push($this->studentList, $student);
             }
+
         }
 
         public function getStudentByMail($email)

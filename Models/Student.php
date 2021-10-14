@@ -46,9 +46,9 @@ class Student
 
 
     /**
-     * Get the value of carrerId
+     * Get the value of CarrerId
      */
-    public function getcarrerId()
+    public function getCarrerId()
     {
         return $this->carrerId;
     }

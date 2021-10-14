@@ -19,15 +19,15 @@ require_once('nav.php');
                     </thead>
                     <tbody>
                          <?php
-                         if (isset($students)) {
-                              foreach ($students as $student) {
+                         if (isset($this->studentList)) {
+                              foreach ($this->studentList as $student) {
                                    echo  "<tr>";
                                    echo  "<td>" . $student->getFirstName() . "</td>";
                                    echo  "<td>" . $student->getLastName() . "</td>";
                                    echo  "<td>" . $student->getFileNumber() . "</td>";
-                                   if(isset($careers)){
-                                        foreach($careers as $career){
-                                             if($career->getCareerId() == $student->getCareerId()){
+                                   if(isset($this->careerList)){
+                                        foreach($this->careerList as $career){
+                                             if($career->getCareerId() == $student->getCarrerId()){
                                                   echo  "<td>" . $career->getDescription()  . "</td>";
                                                   $careerName = $career->getDescription();
                                              }
