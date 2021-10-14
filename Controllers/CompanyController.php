@@ -3,10 +3,13 @@
 
     use DAO\CompanyDAO as CompanyDAO;
     use Models\Company as Company;
+use Utils\Utils;
 
-    class CompanyController
+class CompanyController
     {
         private $companyDAO;
+        private $companiesList;
+
 
         public function __construct()
         {
@@ -17,6 +20,7 @@
         {
             require_once(VIEWS_PATH."company-add.php");
         }
+        
 
         public function ShowSingleView()
         {
@@ -25,13 +29,16 @@
 
         public function ListCompanies()
         {
-            $companiesList = $this->companyDAO->GetAll();
-
-            ///require_once(VIEWS_PATH."company-list.php");     ///Que hace señora?
+            Utils::checkSession();
+            $this->companiesList = $this->companyDAO->GetAll();
+            var_dump($this->companiesList);
+            require_once(VIEWS_PATH."company-list.php");     ///Que hace señora?
         }
+
 
         public function AddCompany($name, $yearFoundation,$city, $description,$email,$phoneNumber)
         {
+            Utils::checkSession();
             $company = new Company();
             $company->setName($name);
             $company->setYearFoundation($yearFoundation);
@@ -46,6 +53,7 @@
         }
 
         public function updateCompany($companyId, $name, $yearFoundation,$city, $description,$email,$phoneNumber){
+            Utils::checkSession();
             $company = new Company();
 
             $company->setCompanyId($companyId);

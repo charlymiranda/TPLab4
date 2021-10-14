@@ -7,6 +7,7 @@
     {
         function Add(Company $company);
         function update(Company $company);
+        public function GetAll();
 
     }
 ?>

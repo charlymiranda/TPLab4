@@ -9,11 +9,11 @@ use DAO\ICompanyDAO as ICompanyDAO;
 use Models\Company as Company;
 use DAO\Connection as Connection;
 
-class CompanyDAO implements ICompanyDAO, IDaos
-{
-    private $connection;
+class CompanyDAO implements ICompanyDAO{
+
+        private $connection;
     
-    public function GetAll(){
+        public function GetAll(){
 
         $sql = "SELECT * FROM companies";
 
@@ -110,7 +110,7 @@ class CompanyDAO implements ICompanyDAO, IDaos
             $newCompany->setCompanyId($pos['companyId']);
             return $newCompany;
         }, $companiesList);
-        return count($companiesArray)>1? $companiesArray:$companiesArray['0'];
+        return count($companiesArray)>=0? $companiesArray:$companiesArray['0'];
     }
 }
 ?>

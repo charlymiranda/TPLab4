@@ -18,7 +18,7 @@ class HomeController
                 $user = new User($email);
                 $_SESSION['admin'] = $user;
 
-                require_once(VIEWS_PATH."company-add.php");
+                require_once(VIEWS_PATH."company-list.php");
             } else {
                 $studentController = new StudentController();
                 $student = new Student();

@@ -7,7 +7,7 @@
      <section id="listado" class="mb-5">
           <div class="container">
                <h2 class="mb-4">Add Company</h2>
-               <form action="<?php echo FRONT_ROOT ?>Company/AddCompany" method="post" class="bg-light-alpha p-5">
+               <form action="<?php echo FRONT_ROOT ?>Controllers/CompanyController/AddCompany" method="post" class="bg-light-alpha p-5">
                     <div class="row">                         
                          <div class="col-lg-4">
                               <div class="form-group">
@@ -46,14 +46,14 @@
                               </div>
                          </div>
 
-                          <div class="col-lg-4">
+                          <!--<div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Logo</label>
                                    <input type="file" name="logo" value="" class="form-control">
                               </div>
                          </div>-->
                     </div>
-                    <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Add</button>
+                    <button type="submit" name="" class="btn btn-dark ml-auto d-block">Add</button>
                </form>
           </div>
      </section>
