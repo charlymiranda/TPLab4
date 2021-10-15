@@ -27,12 +27,23 @@ class CompanyController
             require_once(VIEWS_PATH."show-companyAddCompany.php");
         }
 
+        public function ShowCompaniesViews(){
+            require_once(VIEWS_PATH."company-list.php");     
+        }
+        
+        public function RedirectAddForm()
+        {
+            Utils::checkAdminSession();
+            require_once(VIEWS_PATH . "company-add.php");
+        }
+    
+
         public function ListCompanies()
         {
             Utils::checkSession();
             $this->companiesList = $this->companyDAO->GetAll();
             //var_dump($this->companiesList);
-            require_once(VIEWS_PATH."company-list.php");     ///Que hace señora?
+            $this->ShowCompaniesViews();    
         }
 
 
