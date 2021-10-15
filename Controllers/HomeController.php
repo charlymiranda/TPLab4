@@ -22,7 +22,7 @@ class HomeController
             } else {
                 $studentController = new StudentController();
                 $student = new Student();
-                $student = $studentController->getStudentByMail($email);
+                //$student = $studentController->getStudentByMail($email);
     
                 if($student != null){
                     $_SESSION['student'] = $student;

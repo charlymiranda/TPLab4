@@ -27,8 +27,7 @@ class CompanyDAO implements ICompanyDAO
         }
 
         if (!empty($this->companiesList)) {
-            $this->retrieveData($this->companiesList);
-            return $this->companiesList;
+            return $this->retrieveData();
         } else {
             return false;
         }
@@ -109,7 +108,7 @@ class CompanyDAO implements ICompanyDAO
         }
     }*/
 
-    private function retrieveData($companiesList)
+    private function retrieveData()
     {
             //$this->companiesList = array();
         
@@ -117,7 +116,7 @@ class CompanyDAO implements ICompanyDAO
            // $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
            $listToReturn = array();
 
-            foreach ($companiesList as $values) {
+            foreach ($this->companiesList as $values) {
                 $company = new Company();
                 $company->setCompanyId($values['companyId']);
                 $company->setName($values['name']);

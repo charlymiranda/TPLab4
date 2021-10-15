@@ -8,7 +8,7 @@
 class CompanyController
     {
         private $companyDAO;
-        private $companiesList;
+        private $companiesList = array();
 
 
         public function __construct()
@@ -28,6 +28,10 @@ class CompanyController
         }
 
         public function ShowCompaniesViews(){
+            Utils::checkSession();
+            $this->companiesList = $this->companyDAO->GetAll();
+            //var_dump($this->companiesList);
+          //  $this->ShowCompaniesViews();   
             require_once(VIEWS_PATH."company-list.php");     
         }
 

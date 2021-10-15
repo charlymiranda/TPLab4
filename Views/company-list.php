@@ -13,21 +13,30 @@ include('Views/header.php');
                             <th>Nombre</th>
                             <th>Ciudad</th>
                             <th>Descripcion</th>
+                            <th>yearFoundation</th>
+                            <th>email</th>
                         </thead>
                         <tbody>
                             <?php
                             if (isset($companiesList)) {
                                 foreach ($companiesList as $company) {
-                                    echo  "<tr>";
-                                    echo  "<td>" . $company->getName() . "</td>";
-                                    echo  "<td>" . $company->getCity() . "</td>";
-                                    echo  "<td>" . $company->getDescription() . "</td>";
+                                    ?>
+                                      <tr>
+                                      <td>  <?php $company->getName(); ?></td>
+                                      <td>  <?php $company->getCity(); ?></td>
+                                      <td>  <?php $company->getDescription();?></td>
+                                      <td>  <?php $company->getYearFoundation();?></td>
+                                      <td>  <?php $company->getEmail(); ?></td>
+                                      <td>  <?php $company->getDescription(); ?></td>
 
-                                    $companyId = $company->getIdCompany();
-                                    echo "<td><a href=" . FRONT_ROOT . "Company/ShowCompany/" . $companyId . ">Ver</a></td>";
-                                }
-                            }
-                            ?>
+                                    <?php $companyId = $company->getIdCompany();?>
+                                    <td><a href="<?php FRONT_ROOT ?>Company/ShowCompany/<?php $companyId ?>">Ver</a></td>
+
+                               <?php }
+                            }?>
+                             
+                           
+                        
                         </tbody>
                     </table>
                 </div>
