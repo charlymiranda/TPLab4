@@ -40,8 +40,16 @@ class StudentController
 
 
         public function getStudentByMail($email){
-            $student = $this->studentDAO->getStudentByMail($email);
-            return $student;
+            Utils::checkSession();
+            
+            if(isset($_SESSION['admin']) || ($_SESSION['student']->getStudentByMail() == $email)) {
+                $student = $this->studentDAO->getStudentByMail($email);
+                $career = $this->careerDAO->getCareerStudent($student);
+    
+                require_once(VIEWS_PATH."student-profile.php");
+            }  else {
+                Utils::checkAdminSession();
+            }
         }
 
 

@@ -6,8 +6,6 @@
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>company/ListCompanies">List Companies</a>
           </li>
-          <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Student/ShowListView">List Students</a>
-          </li>          
+            
      </ul>
 </nav>
