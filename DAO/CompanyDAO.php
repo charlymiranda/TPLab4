@@ -9,11 +9,11 @@ use DAO\ICompanyDAO as ICompanyDAO;
 use Models\Company as Company;
 use DAO\Connection as Connection;
 
-class CompanyDAO implements ICompanyDAO, IDaos
-{
-    private $connection;
+class CompanyDAO implements ICompanyDAO{
+
+        private $connection;
     
-    public function GetAll(){
+        public function GetAll(){
 
         $sql = "SELECT * FROM companies";
 
@@ -32,7 +32,7 @@ class CompanyDAO implements ICompanyDAO, IDaos
         }
 
     }
-    public function Add(Company $company){
+    public function AddCompany(Company $company){
         $sql = "INSERT INTO companies(name, yearFoundation, city, description, email, phoneNumber) 
                 VALUES(:name, :yearFoundation, :city, :description, :email, :phoneNumber);";
 
@@ -110,7 +110,7 @@ class CompanyDAO implements ICompanyDAO, IDaos
             $newCompany->setCompanyId($pos['companyId']);
             return $newCompany;
         }, $companiesList);
-        return count($companiesArray)>1? $companiesArray:$companiesArray['0'];
+        return count($companiesArray)>=0? $companiesArray:$companiesArray['0'];
     }
 }
 ?>

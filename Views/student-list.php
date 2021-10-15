@@ -1,13 +1,8 @@
-<?php
-require_once('nav.php');
-
-?>
+<?php require_once('nav.php'); ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
-    
           <div class="container">
                <h2 class="mb-4">Listado de Alumnos</h2>
-               
                <table class="table bg-light-alpha">
                     <thead>
                          <th>Nombre</th>
@@ -19,29 +14,30 @@ require_once('nav.php');
                     </thead>
                     <tbody>
                          <?php
-                         if (isset($students)) {
-                              foreach ($students as $student) {
+                         if (isset($studentList)) {
+                              foreach ($studentList as $student) {
                                    echo  "<tr>";
                                    echo  "<td>" . $student->getFirstName() . "</td>";
                                    echo  "<td>" . $student->getLastName() . "</td>";
                                    echo  "<td>" . $student->getFileNumber() . "</td>";
-                                   if(isset($careers)){
-                                        foreach($careers as $career){
-                                             if($career->getCareerId() == $student->getCareerId()){
+                                   if (isset($careers)) {
+                                        foreach ($careers as $career) {
+                                             if ($career->getCareerId() == $student->getCareerId()) {
                                                   echo  "<td>" . $career->getDescription()  . "</td>";
                                                   $careerName = $career->getDescription();
                                              }
                                         }
-                                   } 
+                                   }
                                    $studentId = $student->getStudentId();
                                    $careerName = $career->getDescription();
-                                   
-                                   echo "<td><a href=" . FRONT_ROOT . "Student/ShowStudent/". $studentId . ">+ info</a></td>";
+
+                                   echo "<td><a href=" . FRONT_ROOT . "Student/ShowStudent/" . $studentId . ">+ info</a></td>";
+                                   echo "</tr>";
                               }
                          }
                          ?>
                     </tbody>
+               </table>
           </div>
-          </table>
      </section>
 </main>

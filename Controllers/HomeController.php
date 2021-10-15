@@ -7,7 +7,7 @@
 
 class HomeController
     {
-        public function Index()
+        public function Index($message = "")
         {
             require_once(VIEWS_PATH ."login.php");
         }

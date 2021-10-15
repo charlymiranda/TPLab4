@@ -10,7 +10,8 @@
     use DAO\CompanyDAO as CompanyDAO;
     use DAO\CareerDAO as CareerDAO;
     use Models\Company as Company;
-    //use Views\validateSession as validateSession;
+use Utils\Utils;
+//use Views\validateSession as validateSession;
     use validateSession;
 
 class StudentController
@@ -29,7 +30,7 @@ class StudentController
 
         public function ShowListView()
         {
-            validateSession::checkSession();
+            Utils::checkSession();
             $this->studentList = $this->studentDAO->GetAll();
             $this->careerList = $this->careerDAO->GetAll();
             //var_dump($studentList);

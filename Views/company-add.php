@@ -46,7 +46,7 @@
                               </div>
                          </div>
 
-                          <div class="col-lg-4">
+                          <!--<div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Logo</label>
                                    <input type="file" name="logo" value="" class="form-control">

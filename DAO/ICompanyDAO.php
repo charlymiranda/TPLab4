@@ -5,8 +5,9 @@
 
     interface ICompanyDAO
     {
-        function Add(Company $company);
+        function AddCompany(Company $company);
         function update(Company $company);
+        public function GetAll();
 
     }
 ?>
