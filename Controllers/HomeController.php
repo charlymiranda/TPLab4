@@ -7,7 +7,7 @@
 
 class HomeController
     {
-        public function Index()
+        public function Index($message = "")
         {
             require_once(VIEWS_PATH ."login.php");
         }
@@ -18,7 +18,7 @@ class HomeController
                 $user = new User($email);
                 $_SESSION['admin'] = $user;
 
-                require_once(VIEWS_PATH."company-list.php");
+                require_once(VIEWS_PATH."company-add.php");
             } else {
                 $studentController = new StudentController();
                 $student = new Student();

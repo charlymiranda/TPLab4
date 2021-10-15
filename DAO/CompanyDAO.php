@@ -32,7 +32,7 @@ class CompanyDAO implements ICompanyDAO{
         }
 
     }
-    public function Add(Company $company){
+    public function AddCompany(Company $company){
         $sql = "INSERT INTO companies(name, yearFoundation, city, description, email, phoneNumber) 
                 VALUES(:name, :yearFoundation, :city, :description, :email, :phoneNumber);";
 
