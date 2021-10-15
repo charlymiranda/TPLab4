@@ -1,7 +1,5 @@
 <?php
-    
     include('Views/header.php');
-   
     
     namespace Controllers;
 
