@@ -7,19 +7,17 @@
 
     <!-- Header-->
 
-    <header class="masthead d-flex align-items-center">
+    <header class="d-flex align-items-center justify-content-center height-100">
 
 
-
-        <div class="container-menu px-4 px-lg-5 text-center">
+      <div class="container-menu px-8 px-lg-1 text-center ">
             <!-- <div class="view-container"> -->
-            <h1 class="mb-1">Bienvenido</h1>
-            <h5 class="mb-5"><em>En esta interfaz prodrás realizar las siguientes acciones</em></h5>
-            <a class="btn btn-primary btn-xl" href="<?php echo FRONT_ROOT ?>Company/ListCompanies">Ver Empresas</a>
-            <a class="btn btn-primary btn-xl" href="#">Ver Propuestas</a>
-            <a class="btn btn-primary btn-xl" href="<?php echo FRONT_ROOT .  "Student/ShowStudent/" . $student->getStudentId()  ?>">Perfil</a>
-
+            <h1 p class="text-warning" class="mb-1">You are Welcome Student</h1>
+            <h5 class="mb-5"><em>Please choose one of the next action </em></h5>
+            <a class="btn btn-warning btn-xl" href="<?php echo FRONT_ROOT ?>Company/ListCompanies">See Companies</a>
+            <a class="btn btn-warning btn-xl" href="#">See Jobs</a>                     
+               
         </div>
     </header>
-
 </body>
+
