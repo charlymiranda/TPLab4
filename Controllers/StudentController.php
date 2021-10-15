@@ -1,7 +1,10 @@
 <?php
+
+    namespace Controllers;
+
     include('Views/header.php');
     
-    namespace Controllers;
+    
 
     use DAO\StudentDAO as StudentDAO;
     use Models\Student as Student;
