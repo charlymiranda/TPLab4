@@ -27,7 +27,7 @@ class HomeController
                 if($student != null){
                     $_SESSION['student'] = $student;
     
-                    require_once(VIEWS_PATH."student-firstpage.php");
+                    require_once(VIEWS_PATH."student-view.php");
                 } else {
                     $invalidEmail = true;
                     require_once(VIEWS_PATH ."index.php");

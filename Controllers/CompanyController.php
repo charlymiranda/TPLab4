@@ -30,7 +30,7 @@ class CompanyController
         public function ShowCompaniesViews(){
             require_once(VIEWS_PATH."company-list.php");     
         }
-        
+
         public function RedirectAddForm()
         {
             Utils::checkAdminSession();
@@ -98,10 +98,10 @@ class CompanyController
             }
         }
 
-        public function searchCompanyByName($name){
+        /*public function searchCompanyByName($name){
             $company = $this->companyDAO->search($name);
 
             $this->ShowSingleView();
-        }
+        }*/
     }
 ?>

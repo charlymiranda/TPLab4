@@ -1,14 +1,12 @@
 <?php
-    include('Views/header.php');
-    
     namespace Controllers;
-
+    include('Views/header.php');
     use DAO\StudentDAO as StudentDAO;
     use Models\Student as Student;
     use DAO\CompanyDAO as CompanyDAO;
     use DAO\CareerDAO as CareerDAO;
     use Models\Company as Company;
-use Utils\Utils;
+    use Utils\Utils;
 //use Views\validateSession as validateSession;
     use validateSession;
 
