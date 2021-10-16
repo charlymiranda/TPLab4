@@ -22,6 +22,7 @@ class CompanyDAO implements ICompanyDAO
         try {
             $this->connection = Connection::getInstance();
             $this->companiesList = $this->connection->execute($sql);
+           
         } catch (\PDOException $exeption) {
             throw $exeption;
         }
@@ -54,10 +55,10 @@ class CompanyDAO implements ICompanyDAO
         }
     }
 
-    public function Delete($idToDelete)
+    public function Delete($companyId)
     {
-        $sql = "DELETE FROM companies WHERE compnayId=:companyId";
-        $parameters['companyId'] = $idToDelete;
+        $sql = "DELETE FROM companies WHERE companyId=:companyId";
+        $parameters['companyId'] = $companyId;
 
         try {
             $this->connection = Connection::getInstance();
@@ -89,24 +90,25 @@ class CompanyDAO implements ICompanyDAO
     }
 
 
-   /* public function Search($companyName)
+   public function Search($companyId)
     {
-        $sql = "SELECT * FROM companies WHERE name=:name";
-        $parameters['name'] = $companyName;
+        $sql = "SELECT * FROM companies WHERE companyId=:companyId";
+        $parameters['companyId'] = $companyId;
 
         try {
             $this->connection = Connection::getInstance();
-            $result = $this->connection->execute($sql, $parameters);
+            $companiesList = $this->connection->execute($sql, $parameters);
         } catch (\PDOException $exception) {
             throw $exception;
         }
-
-        if (!empty($result)) {
+        //var_dump($companiesList);
+      //  die;
+        if (!empty($companiesList)) {
             return $this->retrieveData();
         } else {
             return false;
         }
-    }*/
+    }
 
     private function retrieveData()
     {

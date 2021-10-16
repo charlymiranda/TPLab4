@@ -10,13 +10,12 @@
                          <th>Legajo</th>
                          <th>Carrera</th>
                          <th>Ver</th>
-
                     </thead>
                     <tbody>
                          <?php
-                         if (isset($studentList)) {
-                              foreach ($studentList as $student) {
-                                   echo  "<tr>";
+                         if (isset($this->studentList)) {
+                              foreach($this->studentList as $student) {
+                                   echo "<tr>";
                                    echo  "<td>" . $student->getFirstName() . "</td>";
                                    echo  "<td>" . $student->getLastName() . "</td>";
                                    echo  "<td>" . $student->getFileNumber() . "</td>";
@@ -28,8 +27,8 @@
                                              }
                                         }
                                    }
-                                   $studentId = $student->getStudentId();
-                                   $careerName = $career->getDescription();
+                                   $studentId = $student->getstudentId();
+                                   //$careerName = $career->getDescription();
 
                                    echo "<td><a href=" . FRONT_ROOT . "Student/ShowStudent/" . $studentId . ">+ info</a></td>";
                                    echo "</tr>";

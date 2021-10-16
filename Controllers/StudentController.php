@@ -39,7 +39,7 @@ class StudentController
         }
 
 
-       /* public function getStudentByMail($email){
+        public function getStudentByMail($email){
             Utils::checkSession();
             
             if(isset($_SESSION['admin']) || ($_SESSION['student']->getStudentByMail() == $email)) {
@@ -50,7 +50,7 @@ class StudentController
             }  else {
                 Utils::checkAdminSession();
             }
-        }*/
+        }
 
 
 

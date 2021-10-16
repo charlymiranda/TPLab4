@@ -18,11 +18,11 @@ class HomeController
                 $user = new User($email);
                 $_SESSION['admin'] = $user;
 
-                require_once(VIEWS_PATH."student-profile.php");
+                require_once(VIEWS_PATH."admin-view.php");
             } else {
                 $studentController = new StudentController();
                 $student = new Student();
-                //$student = $studentController->getStudentByMail($email);
+                $student = $studentController->getStudentByMail($email);
     
                 if($student != null){
                     $_SESSION['student'] = $student;
@@ -30,13 +30,13 @@ class HomeController
                     require_once(VIEWS_PATH."student-view.php");
                 } else {
                     $invalidEmail = true;
-                    require_once(VIEWS_PATH ."index.php");
+                    require_once(VIEWS_PATH ."login.php");
                 }
             }
         }
 
         public function RedirectAdm () {
-            require_once(VIEWS_PATH."admin-firstpage.php");
+            require_once(VIEWS_PATH."admin-view.php");
         }
 
 
