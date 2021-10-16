@@ -12,13 +12,27 @@ class HomeController
             require_once(VIEWS_PATH ."login.php");
         }
 
+        public function menuAdmin(){
+
+            require_once (VIEWS_PATH ."menu-admin.php");
+
+        }
+
+        public function menuStudent(){
+
+            require_once (VIEWS_PATH ."menu-student.php");
+
+        }
+
+      
+
         public function login($email){
 
             if($email == 'user@hot.com'){
                 $user = new User($email);
                 $_SESSION['admin'] = $user;
 
-                require_once(VIEWS_PATH."student-profile.php");
+                require_once(VIEWS_PATH."menu-admin.php");
             } else {
                 $studentController = new StudentController();
                 $student = new Student();
@@ -30,13 +44,13 @@ class HomeController
                     require_once(VIEWS_PATH."student-view.php");
                 } else {
                     $invalidEmail = true;
-                    require_once(VIEWS_PATH ."index.php");
+                    require_once(VIEWS_PATH ."login.php");
                 }
             }
         }
 
         public function RedirectAdm () {
-            require_once(VIEWS_PATH."admin-firstpage.php");
+            require_once(VIEWS_PATH."admin-view.php");
         }
 
 

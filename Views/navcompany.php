@@ -4,14 +4,18 @@
      </span>
      <ul class="navbar-nav ml-auto">
          
-          <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Company/RedirectAddForm">Add Companies</a>
-          </li>      
+     
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Company/ListCompanies">List Companies</a>
           </li>      
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Student/ShowListView">List Students</a>
           </li>      
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/menuAdmin">Admin Menu</a>
+          </li>    
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/logout">Logout</a>
+          </li>  
      </ul>
 </nav>

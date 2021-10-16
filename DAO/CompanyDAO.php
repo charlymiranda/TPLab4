@@ -22,13 +22,13 @@ class CompanyDAO implements ICompanyDAO
         try {
             $this->connection = Connection::getInstance();
             $this->companiesList = $this->connection->execute($sql);
+           
         } catch (\PDOException $exeption) {
             throw $exeption;
         }
 
         if (!empty($this->companiesList)) {
-            $this->retrieveData($this->companiesList);
-            return $this->companiesList;
+            return $this->retrieveData();
         } else {
             return false;
         }
@@ -55,10 +55,10 @@ class CompanyDAO implements ICompanyDAO
         }
     }
 
-    public function Delete($idToDelete)
+    public function Delete($companyId)
     {
-        $sql = "DELETE FROM companies WHERE compnayId=:companyId";
-        $parameters['companyId'] = $idToDelete;
+        $sql = "DELETE FROM companies WHERE companyId=:companyId";
+        $parameters['companyId'] = $companyId;
 
         try {
             $this->connection = Connection::getInstance();
@@ -90,26 +90,27 @@ class CompanyDAO implements ICompanyDAO
     }
 
 
-   /* public function Search($companyName)
+   public function Search($companyId)
     {
-        $sql = "SELECT * FROM companies WHERE name=:name";
-        $parameters['name'] = $companyName;
+        $sql = "SELECT * FROM companies WHERE companyId=:companyId";
+        $parameters['companyId'] = $companyId;
 
         try {
             $this->connection = Connection::getInstance();
-            $result = $this->connection->execute($sql, $parameters);
+            $companiesList = $this->connection->execute($sql, $parameters);
         } catch (\PDOException $exception) {
             throw $exception;
         }
-
-        if (!empty($result)) {
+        //var_dump($companiesList);
+      //  die;
+        if (!empty($companiesList)) {
             return $this->retrieveData();
         } else {
             return false;
         }
-    }*/
+    }
 
-    private function retrieveData($companiesList)
+    private function retrieveData()
     {
             //$this->companiesList = array();
         
@@ -117,7 +118,7 @@ class CompanyDAO implements ICompanyDAO
            // $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
            $listToReturn = array();
 
-            foreach ($companiesList as $values) {
+            foreach ($this->companiesList as $values) {
                 $company = new Company();
                 $company->setCompanyId($values['companyId']);
                 $company->setName($values['name']);
