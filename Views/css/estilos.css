@@ -37,6 +37,31 @@ img:hover{
      border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
+header{
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+  }
+
+
+  .navbar{
+	margin-bottom: 0px !important;
+  }
+
+
+  thead tr th { 
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	background-color: #ffffff;
+}
+
+.table-responsive { 
+	height:200px;
+	overflow:scroll;
+}
+
+
 /*
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 	*{
