@@ -3,5 +3,8 @@
 
     session_destroy();
 
-    header('location:index.php');
+  
+    //  action="VIEW_PATH.login.php"
+    header('VIEWS_PATH/index.php')
+    //header('location:index.php');
 ?>

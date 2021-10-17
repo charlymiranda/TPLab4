@@ -54,6 +54,14 @@
                          </div>-->
                     </div>
                     <button type="submit" name="" class="btn btn-dark ml-auto d-block">Add</button>
+                    <?php
+
+echo '<script>';
+     echo 'alert("Company SUCCESFULLY added)';
+     echo 'Company/AddCompany';
+echo '</script>';
+
+?>
                </form>
           </div>
      </section>

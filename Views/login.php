@@ -6,10 +6,10 @@
      <main class="d-flex align-items-center justify-content-center height-100" >
           <div class="content">
                <header class="text-center">
-
+              
               <img src="Views/img/Lets.png" width="400" height="141" alt=""/>
         
-                    <h2>  Login </h2>
+                    <h2 class="text-center" >  Login </h2>
                </header>
                    
 
@@ -24,12 +24,12 @@
                     <br>
                     </br>
                     <center>
-                    <button class="btn btn-warning btn-block btn-lg " type="submit">Session Start</button>
+                    <button class="boton cuatro btn btn-warning btn-block " type="submit">Session Start</button>
                     </center>     
                </form>
           </div>
      </main>
 
 <?php
- include('Views/footer.php')
+ //include('Views/footer.php')
 ?>

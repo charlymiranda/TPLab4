@@ -58,7 +58,7 @@ class CompanyController
             // die;
             //var_dump($this->companiesList);
             //  $this->ShowCompaniesViews();   
-            require_once(VIEWS_PATH . "company-list.php");
+            require_once(VIEWS_PATH . "company-delete.php");
         } else {
             $search = strtolower($search);
             $filteredCompanies = array();
