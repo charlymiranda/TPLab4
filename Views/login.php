@@ -13,8 +13,15 @@
                </header>
                    
 
-               <form action='Home/login' method="post" class="login-form  p-4 bg-none">
-              <p><?php if(isset($message)){ echo $message; }?></p>
+               <form action="<?php echo FRONT_ROOT.'Home/login'?>" method="post" class="login-form  p-4 bg-none">
+              
+              <center>
+                   
+                   <nav>
+                   <a class="link" href="<?php echo FRONT_ROOT ?>Views/login-student.php">Login Student</a>
+                    </nav>    
+               </center>
+                    
                    
                     <div class="form-group">
                          <label for="" align="center">E-mail</label>

@@ -1,6 +1,6 @@
 <?php
     require_once('nav.php');
-    include('Views/header.php');
+ 
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
@@ -22,7 +22,7 @@
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
-                                   <label for="">Sur Name</label>
+                                   <label for="">SurName</label>
                                    <input type="text" name="lastName" value="" class="form-control">
                               </div>
                          </div>

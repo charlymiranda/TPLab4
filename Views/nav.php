@@ -1,7 +1,7 @@
 <header id="header">
 <nav class="navbar navbar-expand-lg navbar-fixed-top  js-top-bar  navbar-dark bg-dark" role="navigation" >
 <span class="navbar-text">
-          <strong>LETS WORK</strong>
+          <strong>LETS WORK / Student</strong>
      </span>
      <ul class="navbar-nav ml-auto">
           <li class="nav-item">

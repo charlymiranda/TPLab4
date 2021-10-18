@@ -6,6 +6,7 @@
          
      
           <li class="nav-item">
+<<<<<<< HEAD
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Company/ListCompanies">List Companies</a>
           </li>      
           <li class="nav-item">
@@ -17,5 +18,15 @@
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/logout">Logout</a>
           </li>  
+=======
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Views/student-add">Add Company</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Views/company-list">List Companies</a>
+          </li>      
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Views/student-list">List Students</a>
+          </li>      
+>>>>>>> master
      </ul>
 </nav>
