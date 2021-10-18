@@ -13,7 +13,6 @@
                </header>
                    
 
-<<<<<<< HEAD
                <form action="<?php echo FRONT_ROOT.'Home/login'?>" method="post" class="login-form  p-4 bg-none">
               
               <center>
@@ -23,10 +22,8 @@
                     </nav>    
                </center>
                     
-=======
                <form action='<?php echo FRONT_ROOT ?>Home/login' method="post" class="login-form  p-4 bg-none">
               <p><?php if(isset($message)){ echo $message; }?></p>
->>>>>>> d2e28ceb6114590bdd8421dbe645501c0fddb9af
                    
                     <div class="form-group">
                          <label for="" align="center">E-mail</label>
