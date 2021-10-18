@@ -7,12 +7,13 @@
           <div class="content">
                <header class="text-center">
               
-              <img src="Views/img/Lets.png" width="400" height="141" alt=""/>
+              <img src="<?php echo IMG_PATH ?>Lets.png" width="400" height="141" alt=""/>
         
                     <h2 class="text-center" >  Login </h2>
                </header>
                    
 
+<<<<<<< HEAD
                <form action="<?php echo FRONT_ROOT.'Home/login'?>" method="post" class="login-form  p-4 bg-none">
               
               <center>
@@ -22,6 +23,10 @@
                     </nav>    
                </center>
                     
+=======
+               <form action='<?php echo FRONT_ROOT ?>Home/login' method="post" class="login-form  p-4 bg-none">
+              <p><?php if(isset($message)){ echo $message; }?></p>
+>>>>>>> d2e28ceb6114590bdd8421dbe645501c0fddb9af
                    
                     <div class="form-group">
                          <label for="" align="center">E-mail</label>
