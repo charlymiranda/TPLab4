@@ -13,11 +13,12 @@ class CompanyDAO implements ICompanyDAO
 {
     private $companiesList = array();
     private $connection;
+    private $tableName = "companies";
 
     public function GetAll()
     {
 
-        $sql = "SELECT * FROM companies";
+        $sql = "SELECT * FROM ".$this->tableName;
 
         try {
             $this->connection = Connection::getInstance();

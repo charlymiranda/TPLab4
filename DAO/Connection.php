@@ -49,6 +49,7 @@ class Connection
               throw $ex; 
          }
     } 
+    
     public function executeNonQuery($query, $parameters = array())
     {
          
