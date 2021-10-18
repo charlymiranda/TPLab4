@@ -15,7 +15,7 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/menuAdmin">Admin Menu</a>
           </li>    
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/logout">Logout</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/Logout">Logout</a>
           </li>  
      </ul>
 </nav>
