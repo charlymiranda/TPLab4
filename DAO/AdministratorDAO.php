@@ -3,11 +3,12 @@
 
 namespace DAO;
 
-use Models\Administrator as Admin;
+use AddressInfo;
+use Models\Administrator as Administrator;
 use interfaces\Idaos as IDaos;
 use DAO\Connection as Connection;
 
-class AdministratorDao implements IDaos{
+class AdministratorDao implements IAdministratorDAO{
 
     private $connection;
 
@@ -26,7 +27,8 @@ class AdministratorDao implements IDaos{
     }
 
 
-    public function Add($administrator){
+    public function AddAdministrator(Administrator $administrator)
+    {
         $sql = "INSERT INTO administrators(firstName, lastName, dni, gender, birthDate, email, phoneNumber)
         VALUES (:firstName, :lastName, :dni, :gender, :birthDate, :email, :phoneNumber);";
         $parameters['firstName'] = $administrator->getFirstName();
@@ -57,8 +59,9 @@ class AdministratorDao implements IDaos{
             throw $exception;
         }
     }
-    public function Update($administrator, $toFind){
-    $sql = "UPDATE SET firstName=:firstName, lastName=:lastName, dni=:dni, gender=:gender, birthDate=:birthDate, email=:email, phoneNumber=:phoneNumber WHERE administratorId='$toFind';";
+    public function Update(Administrator $administrator){
+    $idToFind = $administrator->getadministratorId();
+    $sql = "UPDATE SET firstName=:firstName, lastName=:lastName, dni=:dni, gender=:gender, birthDate=:birthDate, email=:email, phoneNumber=:phoneNumber WHERE administratorId='$idToFind';";
     $parameters['firstName'] = $administrator->getFirstName();
     $parameters['lastName'] = $administrator->getLastName();
     $parameters['dni'] = $administrator->getDni;
@@ -66,6 +69,7 @@ class AdministratorDao implements IDaos{
     $parameters['birthDate'] = $administrator->getBirthDate();
     $parameters['email'] = $administrator->getEmail();
     $parameters['phoneNumber'] = $administrator->getPhoneNumber();
+
     try{
         $this->connection = Connection::getInstance();
         return $this->connection->executeNonQuery($sql,$parameters);
@@ -80,12 +84,10 @@ class AdministratorDao implements IDaos{
     private function mapear($administratorList){
         $administratorList = is_array($administratorList)? $administratorList:[];
         $adminList = array_map(function($pos){
-            $newAdmin = new Admin($pos['firstName'], $pos['lastName'], $pos['dni'], $pos['gender'], $pos['birthDate'], $pos['email'], $pos['phoneNumber']);
+            $newAdmin = new Administrator($pos['firstName'], $pos['lastName'], $pos['dni'], $pos['gender'], $pos['birthDate'], $pos['email'], $pos['phoneNumber']);
             $newAdmin->setadministratorId($pos['administratorId']);
             return $newAdmin;
         },$administratorList);
         return count($administratorList)>1? $administratorList:$administratorList['0'];
-    }
-
-  
+    }  
 }
