@@ -5,10 +5,11 @@ namespace DAO;
 
 use COM;
 use interfaces\Idaos as IDaos;
+use DAO\ICompanyDAO as ICompanyDAO;
 use Models\Company as Company;
 use DAO\Connection as Connection;
 
-class CompanyDAO implements ICompanyDaO, IDaos
+class CompanyDAO implements ICompanyDAO, IDaos
 {
     private $connection;
     
@@ -31,7 +32,7 @@ class CompanyDAO implements ICompanyDaO, IDaos
         }
 
     }
-    public function Add($company){
+    public function Add(Company $company){
         $sql = "INSERT INTO companies(name, yearFoundation, city, description, logo, email, phoneNumber) 
                 VALUES(:name, :yearFoundation, :city, :description, :logo, :email, :phoneNumber);";
 

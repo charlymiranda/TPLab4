@@ -1,21 +1,38 @@
 <?php
-    
-    include('Views/header.php');
-   
-    
     namespace Controllers;
 
     use DAO\StudentDAO as StudentDAO;
     use Models\Student as Student;
+    use DAO\CompanyDAO as CompanyDAO;
+    use DAO\CareerDAO as CareerDAO;
+    use Models\Company as Company;
+    //use Views\validateSession as validateSession;
+    use Utils\ValidateSession;
 
-    class StudentController
+class StudentController
     {
         private $studentDAO;
-
+        private $companyDAO;
+        private $careerDAO;
+        private $studentList = array();
+        private $careerList = array();
         public function __construct()
         {
             $this->studentDAO = new StudentDAO();
+            $this->companyDAO = new CompanyDAO();
+            $this->careerDAO = new CareerDAO();
         }
+
+        public function ShowListView()
+        {
+            validateSession::checkSession();
+            $this->studentList = $this->studentDAO->GetAll();
+
+            $this->careerList = $this->careerDAO->GetAll();
+            //var_dump($studentList);
+            require_once(VIEWS_PATH."student-list.php");
+        }
+
 
         public function checkIfActive(){
 
@@ -25,37 +42,14 @@
 
         public function ShowAddView()
         {
+
             require_once(VIEWS_PATH."student-add.php");
         }
 
-        public function ShowListView()
-        {
-            $studentList = $this->studentDAO->GetAll();
-
-            require_once(VIEWS_PATH."student-list.php");
-        }
-
-        public function consumeFromApi(){
-
-            $apiStudent = curl_init('https://utn-students-api.herokuapp.com/api/Student');
-            curl_setopt($apiStudent, CURLOPT_HTTPHEADER, array(API_KEY));
-            curl_setopt($apiStudent, CURLOPT_RETURNTRANSFER, true);
-
-            $response = curl_exec($apiStudent);
-
-            $arrayToDecode = json_decode($response, true);
-        
-        /*$opciones = array(
-            'http'=>array(
-                'method'=>'GET',
-                'header'=>API_KEY)
-            );
-            $response1=file_get_contents('https://utn-students-api.herokuapp.com/api/Student');*/
-
-        }
 
 
-        public function Add($firstName, $lastName)
+
+       /* public function Add($firstName, $lastName)
         {
             $student = new Student();
             $student->setfirstName($firstName);
@@ -64,6 +58,20 @@
             $this->studentDAO->Add($student);
 
             $this->ShowAddView();
-        }
+        }*/
+
+        public function viewInformation($studentMail)
+        {
+            try{
+                //Ingresa BD
+                $student = $this->studentD->Search($studentMail);
+            }
+            catch(\PDOException $th){
+                throw $th;
+            }
+            return $student;
+        }     
+
+        
     }
 ?>
