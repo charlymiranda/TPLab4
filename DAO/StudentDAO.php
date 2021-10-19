@@ -43,7 +43,7 @@ class StudentDAO implements IStudentDAO
                 $student = new Student;
 
                 $student->setstudentId($value['studentId']);
-                $student->setCarrerId($value['careerId']);
+                $student->setCareerId($value['careerId']);
                 $student->setFirstName($value['firstName']);
                 $student->setLastName($value['lastName']);
                 $student->setDni($value['dni']);

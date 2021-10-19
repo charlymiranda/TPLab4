@@ -5,13 +5,13 @@ class Utils {
     public static function checkSession(){
         if(!(isset($_SESSION['admin']) || isset($_SESSION['student']))){
             $userNotLogged = true;
-            require_once(VIEWS_PATH ."index.php");
+            require_once(VIEWS_PATH ."login.php");
         }
     }
     public static function checkAdminSession(){
         if(!(isset($_SESSION['admin']))){
             $userNotAdmin = true;
-            require_once(VIEWS_PATH ."index.php");
+            require_once(VIEWS_PATH ."login.php");
         } else {
             $adminLogged = true;
         }

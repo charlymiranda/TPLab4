@@ -1,13 +1,19 @@
 <?php
+
     namespace Controllers;
+
+    include('Views/header.php');
+    
+    
 
     use DAO\StudentDAO as StudentDAO;
     use Models\Student as Student;
     use DAO\CompanyDAO as CompanyDAO;
     use DAO\CareerDAO as CareerDAO;
     use Models\Company as Company;
-    //use Views\validateSession as validateSession;
-    use Utils\ValidateSession;
+    use Utils\Utils;
+//use Views\validateSession as validateSession;
+    use validateSession;
 
 class StudentController
     {
@@ -25,13 +31,28 @@ class StudentController
 
         public function ShowListView()
         {
-            validateSession::checkSession();
+            Utils::checkSession();
             $this->studentList = $this->studentDAO->GetAll();
-
             $this->careerList = $this->careerDAO->GetAll();
             //var_dump($studentList);
             require_once(VIEWS_PATH."student-list.php");
         }
+
+
+        public function getStudentByMail($email){
+            Utils::checkSession();
+            
+            if(isset($_SESSION['admin']) || ($_SESSION['student']->getStudentByMail() == $email)) {
+                $student = $this->studentDAO->getStudentByMail($email);
+                $career = $this->careerDAO->getCareerStudent($student);
+    
+                require_once(VIEWS_PATH."student-profile.php");
+            }  else {
+                Utils::checkAdminSession();
+            }
+        }
+
+
 
 
         public function checkIfActive(){

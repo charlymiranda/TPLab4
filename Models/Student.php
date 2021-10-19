@@ -6,7 +6,7 @@ class Student
 {
 
     private $studentId;
-    private $carrerId;
+    private $careerId;
     private $firstName;
     private $lastName;
     private $dni;
@@ -44,26 +44,6 @@ class Student
         return $this;
     }
 
-
-    /**
-     * Get the value of CarrerId
-     */
-    public function getCarrerId()
-    {
-        return $this->carrerId;
-    }
-
-    /**
-     * Set the value of carrerId
-     *
-     * @return  self
-     */
-    public function setCarrerId($carrerId)
-    {
-        $this->carrerId = $carrerId;
-
-        return $this;
-    }
 
     /**
      * Get the value of firstName
@@ -242,6 +222,26 @@ class Student
     public function setActive($active)
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of careerId
+     */ 
+    public function getCareerId()
+    {
+        return $this->careerId;
+    }
+
+    /**
+     * Set the value of careerId
+     *
+     * @return  self
+     */ 
+    public function setCareerId($careerId)
+    {
+        $this->careerId = $careerId;
 
         return $this;
     }

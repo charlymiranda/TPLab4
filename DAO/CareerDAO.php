@@ -53,11 +53,11 @@
 
         }
 
-        public function GetAllActive(){
+      public function GetAllActive(){
             $this->consumeFromApi();
             return array_filter(
                 $this->careerList,
-                fn($activeCareer) => $activeCareer->getActive() === true
+                fn($activeCareer) => $activeCareer->getActive() == true
              );
 
         }
