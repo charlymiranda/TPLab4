@@ -5,6 +5,7 @@
         private $dateTime;
         private $limitDate;
         private $active;
+        private $idJobPossition;
 
         public function __construct()
         {
@@ -69,6 +70,14 @@
                 $this->active = $active;
 
                 return $this;
+        }
+
+        /**
+         * Get the value of idJobPossition
+         */ 
+        public function getIdJobPossition()
+        {
+                return $this->idJobPossition;
         }
     }
 ?>
