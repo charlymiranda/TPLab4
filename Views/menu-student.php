@@ -9,7 +9,7 @@
 <img src="<?php echo IMG_PATH ?>Lets.png" width="400" height="141" alt=""/>
        </header>
     <!-- Header-->
-    <br><br><br>
+    <br><br>
 
     <header class="d-flex align-items-center justify-content-center height-50">
 
