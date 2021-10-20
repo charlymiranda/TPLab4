@@ -18,6 +18,6 @@ define("API_URL", 'https://utn-students-api.herokuapp.com/api/');
 define("DB_HOST", "localhost");
 define("DB_NAME", "letswork");
 define("DB_USER", "root");
-define("DB_PASS", "");
+define("DB_PASS", "admin");
 
 ?>
