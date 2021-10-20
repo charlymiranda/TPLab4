@@ -52,8 +52,7 @@ class HomeController
         public function RedirectAdm () {
             require_once(VIEWS_PATH."admin-view.php");
         }
-
-
+       
         public function Logout()
         {
             session_destroy();

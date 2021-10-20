@@ -60,7 +60,8 @@ class Connection
               foreach($parameters as $parameterName => $value)
               {
                    // Reemplazo los marcadores de parametro por los valores reales utilizando el método bindParam().
-                   $this->pdoStatement->bindParam(":".$parameterName, $value);
+                   //$this->pdoStatement->bindParam(":".$parameterName, $value);
+                   $this->pdoStatement->bindParam(":$parameterName", $parameters[$parameterName]);
               }
               $this->pdoStatement->execute();
               return $this->pdoStatement->rowCount();
