@@ -41,7 +41,7 @@ class HomeController
                 if($student != null){
                     $_SESSION['student'] = $student;
     
-                    require_once(VIEWS_PATH."menu-student.php");
+                    require_once(VIEWS_PATH."student-view-company-list.php");
                 } else {
                     $invalidEmail = true;
                     require_once(VIEWS_PATH ."login.php");

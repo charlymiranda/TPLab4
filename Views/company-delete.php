@@ -24,25 +24,32 @@ include('Views/header.php');
 
 
         <div class="container">
-            <h2 class="mb-4">Lista de Empresas</h2>
-            <div class="container">
-                <div class="container">
+            <h2 class="mb-4">Companies List</h2>
+            <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
+
+            
+                <div class="container" position="fixed" >
 
                 
                     <form action="<?php echo FRONT_ROOT ?>Company/ShowCompaniesViews" method="POST" enctype="multipart/form-data">
-                        <input type="text" name="search" class="form-control form-control-ml" required value="">
+                       
+                        <input type="text" name="search" class="form-control form-control-ml" required value="" >
 
                         <button type="submit" class="btn btn-dark ml-auto d-block">Search</button>
                     </form>
                 </div>
                 <table class="table bg-light-alpha">
                     <thead>
-                        <th>Name</th>
-                        <th>City</th>
-                        <th>yearFoundation</th>
-                        <th>Description</th>
-                        <th>email</th>
-                        <th>phoneNumber</th>
+                        <th class="header" scope="col" position="sticky">Name</th>
+                        <th class="header" scope="col" position="sticky">City</th>
+                       <!-- <th>yearFoundation</th> -->
+                       <!-- <th>Description</th>   -->
+                        <th class="header" scope="col" position="sticky">Email</th>
+                        <th class="header" scope="col" position="sticky">PhoneNumber</th> 
+                        <th class="header" scope="col" position="sticky">-</th> 
+                        <th class="header" scope="col" position="sticky">-</th> 
+                        <th class="header" scope="col" position="sticky">-</th>
+                        <th class="header" scope="col" position="sticky">-</th> 
 
 
                     </thead>
@@ -55,8 +62,8 @@ include('Views/header.php');
                                 echo "<tr>";
                                 echo  "<td>" . $company->getName() . "</td>";
                                 echo  "<td>" . $company->getCity() . "</td>";
-                                echo  "<td>" . $company->getYearFoundation() . "</td>";
-                                echo  "<td>" . $company->getDescription() . "</td>";
+                               // echo  "<td>" . $company->getYearFoundation() . "</td>";
+                               // echo  "<td>" . $company->getDescription() . "</td>";
                                 echo  "<td>" . $company->getEmail() . "</td>";
                                 echo  "<td>" . $company->getPhoneNumber() . "</td>";
 
@@ -67,6 +74,22 @@ include('Views/header.php');
                                 <button type='button' class= 'btn btn-danger' > Delete</button></a></td>";
                                 echo "</div>"; 
                                 echo "</div>"; 
+
+                                echo "<div class='row'>";
+                                echo  "<div class='button-conteiner'>"; 
+                                 echo "<td><a href=" . FRONT_ROOT . "Company/updateCompany/" . $company->getCompanyId().">
+                                 <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
+                                 echo "</div>"; 
+                                 echo "</div>"; 
+
+
+                                 echo "<div class='row'>";
+                                 echo  "<div class='button-conteiner'>"; 
+                                  echo "<td><a href=" . FRONT_ROOT . "Company/updateCompany/" . $company->getCompanyId().">
+                                  <button type='button' class= 'btn btn-info' > Job Position</button></a></td>";
+                                  echo "</div>"; 
+                                  echo "</div>"; 
+ 
 
                             }
                         }

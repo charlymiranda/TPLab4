@@ -70,7 +70,7 @@ class CompanyController
                 }
             }
             $this->companiesList = $filteredCompanies;
-            require_once(VIEWS_PATH . "company-list.php");
+            require_once(VIEWS_PATH . "company-delete.php");
         }
     }
 
