@@ -43,19 +43,32 @@ class JobPositionDAO implements IJobPositionDAO
             throw $exception;
         }
     }
+    
+    public function AddJobOPosition(JobPosition $jobPosition)
+    {   //hay que poner el carrerId?
+        $sql = "INSERT INTO jobposition(descriptio)  
+                VALUES(:description);";
 
-    /* private function retrieveData()
+        $parameters['description'] = $jobPosition->getDescription();
+
+        try {
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        } catch (\PDOException $exeption) {
+            throw $exeption;
+        }
+    }
+
+     private function retrieveData()
     {
         $listToReturn = array();
 
         foreach ($this->jobPositionList as $values) {
             $jobPosition = new JobPosition();
-            $jobPosition->setstartDay($values['startDay']);
-            $jobPosition->setdeadLine($values['deadLine']);
-            $jobPosition->setActive($values['active']);
+            $jobPosition->setDescription($values['description']);
 
             array_push($listToReturn, $jobPosition);
         }
         return  $listToReturn;
-    }*/
+    }
 }
