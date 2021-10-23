@@ -31,7 +31,18 @@ class JobPositionDAO implements IJobPositionDAO
         }
     }
 
-    
+    public function Delete($jobPosition)
+    {
+        $sql = "DELETE FROM jobposition WHERE jobPositionId=:jobPositionId";
+        $parameters['jobPositionId'] = $jobPosition;
+
+        try {
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+    }
 
     /* private function retrieveData()
     {
