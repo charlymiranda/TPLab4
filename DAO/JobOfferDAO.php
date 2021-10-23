@@ -31,7 +31,7 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
-    public function Delete($jobOfferId)//no deberia tener id??
+    public function Delete($jobOfferId) //no deberia tener id??
     {
         $sql = "DELETE FROM job_Offer WHERE job_Positionid=:job_Positionid";
         $parameters['job_offer_id'] = $jobOfferId;
@@ -69,7 +69,7 @@ class JobOfferDAO implements IJobOfferDAO
         $parameters['startDay'] = $jobOffer->getstartDay();
         $parameters['deadline'] = $jobOffer->getdeadline();
         $parameters['active'] = $jobOffer->getactive();
-    
+
         try {
             $this->connection = Connection::getInstance();
             return $this->connection->executeNonQuery($sql, $parameters);
@@ -80,21 +80,18 @@ class JobOfferDAO implements IJobOfferDAO
 
     private function retrieveData()
     {
-           $listToReturn = array();
+        $listToReturn = array();
 
-            foreach ($this->jobOfferList as $values) {
-                $jobOffer = new JobOffer();
-                $jobOffer->setstartDay
-                ($values['startDay
+        foreach ($this->jobOfferList as $values) {
+            $jobOffer = new JobOffer();
+            $jobOffer->setstartDay($values['startDay
                 ']);
-                $jobOffer->setdeadLine
-    ($values['deadLine']);
-                $jobOffer->setActive($values['active']);
-               // $jobOffer->setjobPositionId(($values['jobPositionId']));
-              
-                array_push($listToReturn, $jobOffer);
-            }
-            return  $listToReturn;
-        
+            $jobOffer->setdeadLine($values['deadLine']);
+            $jobOffer->setActive($values['active']);
+            // $jobOffer->setjobPositionId(($values['jobPositionId']));
+
+            array_push($listToReturn, $jobOffer);
+        }
+        return  $listToReturn;
     }
 }
