@@ -11,12 +11,12 @@ class JobOfferDAO implements IJobOfferDAO
 {
     private $jobOfferList = array();
     private $connection;
-    private $tablestartDay = "jo_bOffer";
+    private $tableName = "job_Offer";
 
     public function GetAll()
     {
 
-        $sql = "SELECT * FROM " . $this->tablestartDay;
+        $sql = "SELECT * FROM " . $this->tableName;
 
         try {
             $this->connection = Connection::getInstance();
