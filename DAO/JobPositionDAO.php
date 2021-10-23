@@ -44,7 +44,7 @@ class JobPositionDAO implements IJobPositionDAO
         }
     }
     
-    public function AddJobOPosition(JobPosition $jobPosition)
+    public function AddJobPosition(JobPosition $jobPosition)
     {   //hay que poner el carrerId?
         $sql = "INSERT INTO jobposition(descriptio)  
                 VALUES(:description);";
@@ -56,6 +56,20 @@ class JobPositionDAO implements IJobPositionDAO
             return $this->connection->executeNonQuery($sql, $parameters);
         } catch (\PDOException $exeption) {
             throw $exeption;
+        }
+    }
+
+    public function Update(JobPosition $jobPosition)
+    {
+        $sql = "UPDATE jobposition SET description=:description;";
+
+        $parameters['description'] = $jobPosition->getDescription();
+
+        try {
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        } catch (\PDOException $exception) {
+            throw $exception;
         }
     }
 
