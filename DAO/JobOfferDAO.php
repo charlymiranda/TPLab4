@@ -1,6 +1,6 @@
 <?php
 
-startDayspace DAO;
+namespace DAO;
 
 use Models\JobOffer as JobOffer;
 use DAO\IJobOfferDAO as IJobOfferDAO;
@@ -44,15 +44,15 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
-    public function AddJobOfferDAO(JobOfferDAO $jobOfferDAO)
+    public function AddJobOfferDAO(JobOffer $jobOffer)
     {
         $sql = "INSERT INTO job_offer(startDay, deadline, active) 
                 VALUES(:startDay, :deadline, :active);";
 
-        $parameters['startDay'] = $jobOfferDAO->getstartDay();
-        $parameters['deadline'] = $jobOfferDAO->getdeadline();
-        $parameters['active'] = $jobOfferDAO->getactive();
-        
+        $parameters['startDay'] = $jobOffer->getstartDay();
+        $parameters['deadline'] = $jobOffer->getdeadline();
+        $parameters['active'] = $jobOffer->getactive();
+
         try {
             $this->connection = Connection::getInstance();
             return $this->connection->executeNonQuery($sql, $parameters);
@@ -61,6 +61,22 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
+    public function Update(JobOffer $jobOffer)
+    {
+        $sql = "UPDATE job_offer SET startDay=:startDay, deadline=:deadline, active=:active;";
+
+        $parameters['JobOfferId'] = $jobOffer->getjobOfferId();
+        $parameters['startDay'] = $jobOffer->getstartDay();
+        $parameters['deadline'] = $jobOffer->getdeadline();
+        $parameters['active'] = $jobOffer->getactive();
+    
+        try {
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+    }
 
     private function retrieveData()
     {
@@ -74,7 +90,7 @@ class JobOfferDAO implements IJobOfferDAO
                 $jobOffer->setdeadLine
     ($values['deadLine']);
                 $jobOffer->setActive($values['active']);
-                $jobOffer->setjobPositionId(($values['jobPositionId']));
+               // $jobOffer->setjobPositionId(($values['jobPositionId']));
               
                 array_push($listToReturn, $jobOffer);
             }
