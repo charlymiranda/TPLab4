@@ -29,11 +29,35 @@
        }
 
        /**
+        * Set the value of careerId
+        *
+        * @return  self
+        */ 
+        public function setCareerId($careerId)
+        {
+               $this->careerId = $careerId;
+ 
+               return $this;
+        }
+
+       /**
         * Get the value of jobPossitionId
         */ 
        public function getJobPossitionId()
        {
               return $this->jobPossitionId;
+       }
+
+       /**
+        * Set the value of jobPossitionId
+        *
+        * @return  self
+        */ 
+       public function setJobPossitionId($jobPossitionId)
+       {
+              $this->jobPossitionId = $jobPossitionId;
+
+              return $this;
        }
     }
 ?>
