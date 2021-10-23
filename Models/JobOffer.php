@@ -2,10 +2,12 @@
     namespace Models;
 
     class JobOffer{
-        private $dateTime;
-        private $limitDate;
+
+        private $jobOfferId;
+        private $startDay;
+        private $deadline;
         private $active;
-        private $idJobPossition;
+        private $jobPositionid;
 
         public function __construct()
         {
@@ -15,9 +17,9 @@
         /**
          * Get the value of dateTime
          */ 
-        public function getDateTime()
+        public function getstartDay()
         {
-                return $this->dateTime;
+                return $this->startDay;
         }
 
         /**
@@ -25,29 +27,29 @@
          *
          * @return  self
          */ 
-        public function setDateTime($dateTime)
+        public function setstartDay($startDay)
         {
-                $this->dateTime = $dateTime;
+                $this->dateTime = $startDay;
 
                 return $this;
         }
 
         /**
-         * Get the value of limitDate
+         * Get the value of deadline
          */ 
-        public function getLimitDate()
+        public function getdeadline()
         {
-                return $this->limitDate;
+                return $this->deadline;
         }
 
         /**
-         * Set the value of limitDate
+         * Set the value of deadline
          *
          * @return  self
          */ 
-        public function setLimitDate($limitDate)
+        public function setdeadline($deadline)
         {
-                $this->limitDate = $limitDate;
+                $this->deadline = $deadline;
 
                 return $this;
         }
@@ -75,9 +77,18 @@
         /**
          * Get the value of idJobPossition
          */ 
-        public function getIdJobPossition()
+        public function getjobPositionid()
         {
-                return $this->idJobPossition;
+                return $this->jobPositionid;
         }
+
+        /**
+         * Get the value of jobOfferId
+         */ 
+        public function getJobOfferId()
+        {
+                return $this->jobOfferId;
+        }
+
     }
 ?>

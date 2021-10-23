@@ -1,6 +1,6 @@
 <?php
 
-namespace DAO;
+startDayspace DAO;
 
 use Models\JobOffer as JobOffer;
 use DAO\IJobOfferDAO as IJobOfferDAO;
@@ -11,12 +11,12 @@ class JobOfferDAO implements IJobOfferDAO
 {
     private $jobOfferList = array();
     private $connection;
-    private $tableName = "jobOffer";
+    private $tablestartDay = "jo_bOffer";
 
     public function GetAll()
     {
 
-        $sql = "SELECT * FROM " . $this->tableName;
+        $sql = "SELECT * FROM " . $this->tablestartDay;
 
         try {
             $this->connection = Connection::getInstance();
@@ -31,10 +31,10 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
-    public function Delete($idJobOffer)//no deberia tener id??
+    public function Delete($jobOfferId)//no deberia tener id??
     {
-        $sql = "DELETE FROM jobOffer WHERE idJobOffer=:idJobOffer";
-        $parameters['idJobOffer'] = $idJobOffer;
+        $sql = "DELETE FROM job_Offer WHERE job_Positionid=:job_Positionid";
+        $parameters['job_offer_id'] = $jobOfferId;
 
         try {
             $this->connection = Connection::getInstance();
@@ -44,16 +44,37 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
+    public function AddJobOfferDAO(JobOfferDAO $jobOfferDAO)
+    {
+        $sql = "INSERT INTO job_offer(startDay, deadline, active) 
+                VALUES(:startDay, :deadline, :active);";
+
+        $parameters['startDay'] = $jobOfferDAO->getstartDay();
+        $parameters['deadline'] = $jobOfferDAO->getdeadline();
+        $parameters['active'] = $jobOfferDAO->getactive();
+        
+        try {
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        } catch (\PDOException $exeption) {
+            throw $exeption;
+        }
+    }
+
+
     private function retrieveData()
     {
            $listToReturn = array();
 
             foreach ($this->jobOfferList as $values) {
                 $jobOffer = new JobOffer();
-                $jobOffer->setDateTime($values['dateTime']);
-                $jobOffer->setLimitDate($values['limitDate']);
+                $jobOffer->setstartDay
+                ($values['startDay
+                ']);
+                $jobOffer->setdeadLine
+    ($values['deadLine']);
                 $jobOffer->setActive($values['active']);
-                $jobOffer->setidJobPossition(($values['idJobPossition']));
+                $jobOffer->setjobPositionId(($values['jobPositionId']));
               
                 array_push($listToReturn, $jobOffer);
             }
