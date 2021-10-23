@@ -31,7 +31,7 @@ class JobPositionDAO implements IJobPositionDAO
         }
     }
 
-    public function Delete($jobPosition)
+    public function DeleteJobPosition($jobPosition)
     {
         $sql = "DELETE FROM jobposition WHERE jobPositionId=:jobPositionId";
         $parameters['jobPositionId'] = $jobPosition;
@@ -59,7 +59,7 @@ class JobPositionDAO implements IJobPositionDAO
         }
     }
 
-    public function Update(JobPosition $jobPosition)
+    public function UpdateJobPosition(JobPosition $jobPosition)
     {
         $sql = "UPDATE jobposition SET description=:description;";
 
