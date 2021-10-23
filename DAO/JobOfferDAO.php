@@ -31,7 +31,7 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
-    public function Delete($jobOfferId) //no deberia tener id??
+    public function Delete($jobOfferId)
     {
         $sql = "DELETE FROM job_Offer WHERE job_Positionid=:job_Positionid";
         $parameters['job_offer_id'] = $jobOfferId;
@@ -84,8 +84,7 @@ class JobOfferDAO implements IJobOfferDAO
 
         foreach ($this->jobOfferList as $values) {
             $jobOffer = new JobOffer();
-            $jobOffer->setstartDay($values['startDay
-                ']);
+            $jobOffer->setstartDay($values['startDay']);
             $jobOffer->setdeadLine($values['deadLine']);
             $jobOffer->setActive($values['active']);
             // $jobOffer->setjobPositionId(($values['jobPositionId']));
