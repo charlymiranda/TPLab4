@@ -29,6 +29,18 @@
        }
 
        /**
+        * Set the value of careerId
+        *
+        * @return  self
+        */ 
+        public function setCareerId($careerId)
+        {
+               $this->careerId = $careerId;
+ 
+               return $this;
+        }
+
+       /**
         * Get the value of jobPossitionId
         */ 
        public function getJobPossitionId()
@@ -48,16 +60,6 @@
               return $this;
        }
 
-       /**
-        * Set the value of careerId
-        *
-        * @return  self
-        */ 
-       public function setCareerId($careerId)
-       {
-              $this->careerId = $careerId;
-
-              return $this;
-       }
+ 
     }
 ?>

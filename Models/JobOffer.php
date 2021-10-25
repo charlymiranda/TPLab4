@@ -2,54 +2,70 @@
     namespace Models;
 
     class JobOffer{
-
         private $jobOfferId;
         private $startDay;
-        private $deadline;
+        private $deadLine;
         private $active;
-        private $jobPositionid;
+        private $jobPossitionId;
 
         public function __construct()
         {
+                
+        }
             
-        }
 
         /**
-         * Get the value of dateTime
+         * Get the value of jobOfferId
          */ 
-        public function getstartDay()
+        public function getJobOfferId()
         {
-                return $this->startDay;
+                return $this->jobOfferId;
         }
 
-        /**
-         * Set the value of dateTime
-         *
-         * @return  self
-         */ 
-        public function setstartDay($startDay)
+
+        public function setJobOfferId($jobOfferId)
         {
-                $this->dateTime = $startDay;
+                $this->jobOfferId = $jobOfferId;
 
                 return $this;
         }
 
         /**
-         * Get the value of deadline
+         * Get the value of startDay
          */ 
-        public function getdeadline()
+        public function getStartDay()
         {
-                return $this->deadline;
+                return $this->startDay;
         }
 
         /**
-         * Set the value of deadline
+         * Set the value of startDay
          *
          * @return  self
          */ 
-        public function setdeadline($deadline)
+        public function setStartDay($startDay)
         {
-                $this->deadline = $deadline;
+                $this->startDay = $startDay;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of deadLine
+         */ 
+        public function getDeadLine()
+        {
+                return $this->deadLine;
+        }
+
+        /**
+         * Set the value of deadLine
+         *
+         * @return  self
+         */ 
+        public function setDeadLine($deadLine)
+        {
+                $this->deadLine = $deadLine;
 
                 return $this;
         }
@@ -75,7 +91,7 @@
         }
 
         /**
-         * Get the value of idJobPossition
+         * Get the value of JobPossitionId
          */ 
         public function getjobPositionid()
         {
@@ -93,24 +109,5 @@
                 return $this;
         }
 
-        /**
-         * Get the value of jobOfferId
-         */ 
-        public function getJobOfferId()
-        {
-                return $this->jobOfferId;
-        }      
-
-        /**
-         * Set the value of jobOfferId
-         *
-         * @return  self
-         */ 
-        public function setJobOfferId($jobOfferId)
-        {
-                $this->jobOfferId = $jobOfferId;
-
-                return $this;
-        }
-    }
+}
 ?>
