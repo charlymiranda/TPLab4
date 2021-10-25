@@ -27,14 +27,14 @@
 
         public function showJobOfferView(){
             Utils::checkSession();
-            $this->jobOfferList = $this->jobOfferDAO->GetAll();
+            $this->jobOfferList = $this->jobOfferDAO->GetAllJobOffer();
             
             require_once(VIEWS_PATH."jobOffer-list.php");    ///Falta crear
         }
 
         public function getJobOfferId($id){
             Utils::checkSession();
-            $jobOffer = $this->jobOfferDAO->Search($id);
+            $jobOffer = $this->jobOfferDAO->SearchJobOffer($id);
         
             require_once(VIEWS_PATH . "jobOffer-view.php");      ///Falta crear
         }
@@ -73,9 +73,23 @@
         public function deleteJobOffer($jobOfferId)
         {
 
-            $this->jobOfferDAO->delete($jobOfferId);
+            $this->jobOfferDAO->deleteJobOffer($jobOfferId);
 
             $this->ShowjobOfferAddView("The job offer had been deleted successfully");
+        }
+
+        ///Filtro de job offers
+        public function jobOffersForJobPosition($positionId){
+            Utils::checkSession();
+            $this->jobOfferList = $this->jobOfferDAO->GetAllJobPosition();
+            $results = array();
+
+            foreach($this->jobOfferList as $offer){
+                if($offer['jobPositionId'] == $positionId){
+                    array_push($results, $offer); 
+                }
+            }
+            return $results;
         }
 
     }

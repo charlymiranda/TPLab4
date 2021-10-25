@@ -6,10 +6,12 @@
         private $startDay;
         private $deadLine;
         private $active;
-        private $JobPossitionId;
+        private $jobPossitionId;
 
         public function __construct()
         {
+                
+        }
             
 
         /**
@@ -111,5 +113,5 @@
 
                 return $this;
         }
-        }
+}
 ?>

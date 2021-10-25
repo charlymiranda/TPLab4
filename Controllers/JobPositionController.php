@@ -22,14 +22,14 @@
 
         public function showJobPositionView(){
             Utils::checkSession();
-            $this->jobsList = $this->jobpositionDAO->GetAll();
+            $this->jobsList = $this->jobPositionDAO->GetAllJobPosition();
             
             require_once(VIEWS_PATH."jobPosition-list.php");    ///Falta crear
         }
 
         public function getJobPositionId($id){
             Utils::checkSession();
-            $jobPosition = $this->jobPositionDAO->Search($id);
+            $jobPosition = $this->jobPositionDAO->SearchJobPosition($id);
         
             require_once(VIEWS_PATH . "jobPosition-view.php");      ///Falta crear
         }
@@ -57,7 +57,7 @@
             $jobPosition->setCareerId($careerId);
             $jobPosition->setDescription($descrpition);
 
-            $this->JobPositionDAO->update($jobPosition);
+            $this->JobPositionDAO->updateJobPosition($jobPosition);
 
             $this->ShowJobPositionAddView("The job position had been updated successfully");
         }
@@ -65,7 +65,7 @@
         public function deleteJobPosition($jobPositionId)
         {
 
-            $this->jobPositionDAO->delete($jobPositionId);
+            $this->jobPositionDAO->deleteJobPosition($jobPositionId);
 
             $this->ShowjobPositionAddView("The job position had been deleted successfully");
         }
