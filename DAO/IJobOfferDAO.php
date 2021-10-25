@@ -6,10 +6,10 @@
 
     interface IJobOfferDAO 
     {
-        public function GetAll();
-        public function Delete($idJobOffer);
-        public function AddJobOfferDAO(JobOffer $jobOffer);
-        public function Update(JobOffer $jobOffer);
+        public function getAllJobOffer();
+        public function deleteJobOffer($idJobOffer);
+        public function addJobOffer(JobOffer $jobOffer);
+        public function updateJobOffer(JobOffer $jobOffer);
        
     }
     

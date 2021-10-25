@@ -13,7 +13,7 @@ class JobOfferDAO implements IJobOfferDAO
     private $connection;
     private $tableName = "job_Offer";
 
-    public function GetAll()
+    public function getAllJobOffer()
     {
 
         $sql = "SELECT * FROM " . $this->tableName;
@@ -25,13 +25,13 @@ class JobOfferDAO implements IJobOfferDAO
             throw $exeption;
         }
         if (!empty($this->jobOfferList)) {
-            return $this->retrieveData();
+            return $this->retrieveDataJobOffer();
         } else {
             return false;
         }
     }
 
-    public function Delete($jobOfferId)
+    public function deleteJobOffer($jobOfferId)
     {
         $sql = "DELETE FROM job_Offer WHERE job_Positionid=:job_Positionid";
         $parameters['job_offer_id'] = $jobOfferId;
@@ -44,7 +44,7 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
-    public function AddJobOfferDAO(JobOffer $jobOffer)
+    public function addJobOffer(JobOffer $jobOffer)
     {
         $sql = "INSERT INTO job_offer(startDay, deadline, active) 
                 VALUES(:startDay, :deadline, :active);";
@@ -61,7 +61,7 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
-    public function Update(JobOffer $jobOffer)
+    public function updateJobOffer(JobOffer $jobOffer)
     {
         $sql = "UPDATE job_offer SET startDay=:startDay, deadline=:deadline, active=:active;";
 
@@ -78,16 +78,17 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
-    private function retrieveData()
+    private function retrieveDataJobOffer()
     {
         $listToReturn = array();
 
         foreach ($this->jobOfferList as $values) {
             $jobOffer = new JobOffer();
+            $jobOffer->setJobOfferId($values['jobOfferId']);
             $jobOffer->setstartDay($values['startDay']);
             $jobOffer->setdeadLine($values['deadLine']);
             $jobOffer->setActive($values['active']);
-            // $jobOffer->setjobPositionId(($values['jobPositionId']));
+            $jobOffer->setjobPositionId(($values['jobPositionId']));
 
             array_push($listToReturn, $jobOffer);
         }

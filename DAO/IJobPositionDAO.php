@@ -10,6 +10,7 @@
         public function DeleteJobPosition($jobPosition);
         public function AddJobPosition(JobPosition $jobPosition);
         public function UpdateJobPosition(JobPosition $jobPosition);
+        public function SearchJobPosition($jobPosition);
     }
 
     ?>
