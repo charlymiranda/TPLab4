@@ -3,16 +3,17 @@
      <br>
      <section id="listado" class="mb-9">
           
+               
+               <h2 class="mb-15 text-center" >Students List</h2>
                <br>
-               <h2 class="mb-15 text-center" >Listado de Alumnos</h2>
                <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
                <table class="table bg-light-alpha">
                     <thead class="thead-dark">
-                         <th class="header" scope="col" position="sticky">Nombre</th>
-                         <th class="header" scope="col" position="sticky">Apellido</th>
-                         <th class="header" scope="col" position="sticky">Legajo</th>
-                         <th class="header" scope="col" position="sticky">Carrera</th>
-                         <th class="header" scope="col" position="sticky">Ver</th>
+                         <th class="header" scope="col" position="sticky">Name</th>
+                         <th class="header" scope="col" position="sticky">SurName</th>
+                         <th class="header" scope="col" position="sticky">ID</th>
+                         <th class="header" scope="col" position="sticky">Carrer</th>
+                       <!--  <th class="header" scope="col" position="sticky">Ver</th> -->
                          
                     </thead>
                     
