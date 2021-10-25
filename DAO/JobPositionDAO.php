@@ -45,10 +45,11 @@ class JobPositionDAO implements IJobPositionDAO
     }
     
     public function addJobPosition(JobPosition $jobPosition)
-    {   //hay que poner el carrerId?
-        $sql = "INSERT INTO jobposition(descriptio)  
-                VALUES(:description);";
+    {   
+        $sql = "INSERT INTO jobposition(carrerId,descriptio)  
+                VALUES(:carrerId,:description);";
 
+        $parameters['carrerId'] = $jobPosition->getCareerId();
         $parameters['description'] = $jobPosition->getDescription();
 
         try {
@@ -80,7 +81,7 @@ class JobPositionDAO implements IJobPositionDAO
 
         try {
             $this->connection = Connection::getInstance();
-            $jobPositionList = $this->connection->execute($sql, $parameters);
+            $this->jobPositionList = $this->connection->execute($sql, $parameters);
         } catch (\PDOException $exception) {
             throw $exception;
         }

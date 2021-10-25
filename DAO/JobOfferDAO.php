@@ -78,6 +78,25 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
+    public function searchJobOffer($jobOfferId)
+    {
+        $sql = "SELECT * FROM job_offer WHERE jobOfferId=:jobOfferId";
+        $parameters['jobOfferId'] = $jobOfferId;
+
+        try {
+            $this->connection = Connection::getInstance();
+            $this->jobOfferList = $this->connection->execute($sql, $parameters);
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+       
+        if (!empty($jobOfferList)) {
+            return $this->retrieveDataJobOffer();
+        } else {
+            return false;
+        }
+    }
+
     private function retrieveDataJobOffer()
     {
         $listToReturn = array();
