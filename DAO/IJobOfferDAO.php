@@ -10,6 +10,7 @@
         public function deleteJobOffer($idJobOffer);
         public function addJobOffer(JobOffer $jobOffer);
         public function updateJobOffer(JobOffer $jobOffer);
+        public function searchJobOffer($jobOfferId);
        
     }
     
