@@ -22,11 +22,7 @@
                 return $this->jobOfferId;
         }
 
-        /**
-         * Set the value of jobOfferId
-         *
-         * @return  self
-         */ 
+
         public function setJobOfferId($jobOfferId)
         {
                 $this->jobOfferId = $jobOfferId;
@@ -97,21 +93,21 @@
         /**
          * Get the value of JobPossitionId
          */ 
-        public function getJobPossitionId()
+        public function getjobPositionid()
         {
-                return $this->JobPossitionId;
+                return $this->jobPositionid;
         }
-
-        /**
-         * Set the value of JobPossitionId
+          /**
+         * Set the value of jobPositionid
          *
          * @return  self
          */ 
-        public function setJobPossitionId($JobPossitionId)
+        public function setJobPositionid($jobPositionid)
         {
-                $this->JobPossitionId = $JobPossitionId;
+                $this->jobPositionid = $jobPositionid;
 
                 return $this;
         }
+
 }
 ?>
