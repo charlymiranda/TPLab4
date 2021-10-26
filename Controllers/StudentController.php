@@ -27,8 +27,14 @@ class StudentController
             $this->studentDAO = new StudentDAO();
             $this->companyDAO = new CompanyDAO();
             $this->careerDAO = new CareerDAO();
+
         }
 
+            public function ShowStudentRegistration(){
+
+            require_once (VIEWS_PATH."registration.php");
+
+        }
         public function ShowListView()
         {
             Utils::checkSession();
@@ -40,20 +46,49 @@ class StudentController
 
 
         public function getStudentByMail($email){
-            Utils::checkSession();
-            
-            if(isset($_SESSION['admin']) || ($_SESSION['student']->getStudentByMail() == $email)) {
+           // Utils::checkSession();
+               
+            if($email != null) {
                 $student = $this->studentDAO->getStudentByMail($email);
-                $career = $this->careerDAO->getCareerStudent($student);
+               // $career = $this->careerDAO->getCareerStudent($student);
     
                 require_once(VIEWS_PATH."student-profile.php");
             }  else {
-                Utils::checkAdminSession();
+                $message ="This mail doesn't exist";
+                require_once (VIEWS_PATH. "registration.php");
             }
         }
 
 
+                public function studentValidation ($email){
+                    var_dump($email);
+                    die;
+            if($email != null) {
+                $student = $this->studentDAO->getStudentByMail($email);
+               // $career = $this->careerDAO->getCareerStudent($student);
+    
+                require_once(VIEWS_PATH."student-registration.php");
+            }  else {
+                $message ="This mail doesn't exist";
+                require_once (VIEWS_PATH. "registration.php");
+            }
 
+        }
+
+        public function studentRegistration ($email, $password, $confirmPass){
+           if ($password == $confirmPass) {
+            $student = new Student();
+            $student = $this->studentDAO->getStudentByMail($email);
+            $student->setPassword($password);
+
+            $this->studentDAO->Add($student);
+            require_once(VIEWS_PATH."student-profile.php");
+           }
+
+
+        }
+
+        
 
         public function checkIfActive(){
 
@@ -66,8 +101,6 @@ class StudentController
 
             require_once(VIEWS_PATH."student-add.php");
         }
-
-
 
 
        /* public function Add($firstName, $lastName)

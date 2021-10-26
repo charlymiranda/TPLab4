@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use DAO\CompanyDAO as CompanyDAO;
+use Models\Administrator;
 use Models\Company as Company;
 use Utils\Utils as Utils;
 
@@ -31,7 +32,7 @@ class CompanyController
     public function RedirectAddForm()
     {
         Utils::checkAdminSession();
-        require_once(VIEWS_PATH . "company-add.php");
+        require_once(ADMIN_VIEWS . "company-add.php");
     }
     public function RedirectDeleteForm()
     {
@@ -58,7 +59,7 @@ class CompanyController
             // die;
             //var_dump($this->companiesList);
             //  $this->ShowCompaniesViews();   
-            require_once(VIEWS_PATH . "company-delete.php");
+            require_once(ADMIN_VIEWS . "company-delete.php");
         } else {
             $search = strtolower($search);
             $filteredCompanies = array();
@@ -70,10 +71,9 @@ class CompanyController
                 }
             }
             $this->companiesList = $filteredCompanies;
-            require_once(VIEWS_PATH . "company-delete.php");
+            require_once(ADMIN_VIEWS . "company-delete.php");
         }
     }
-
 
 
     public function ListCompanies()
@@ -83,6 +83,10 @@ class CompanyController
         //var_dump($this->companiesList);
         $this->ShowCompaniesViews();
     }
+
+
+
+   
 
 
     public function AddCompany($name, $yearFoundation, $city, $description, $email, $phoneNumber)

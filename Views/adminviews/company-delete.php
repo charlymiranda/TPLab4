@@ -1,5 +1,13 @@
 <?php
-require_once('navcompany.php');
+
+if (isset($_SESSION["admin"])){
+require_once(ADMIN_VIEWS.'navcompany.php');
+}else{
+
+    require_once(VIEWS_PATH.'nav.php');
+
+}
+
 include('Views/header.php');
 ?>
   <script type="text/javascript">
@@ -19,11 +27,7 @@ include('Views/header.php');
 <main class="py-5">
     <section id="listado" class="mb-5">
 
-  
-
-
-
-        <div class="container">
+          <div class="container">
             <h2 class="mb-4">Companies List</h2>
             <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
 
@@ -66,6 +70,8 @@ include('Views/header.php');
                                // echo  "<td>" . $company->getDescription() . "</td>";
                                 echo  "<td>" . $company->getEmail() . "</td>";
                                 echo  "<td>" . $company->getPhoneNumber() . "</td>";
+                                
+                                if (isset($_SESSION["admin"])){
 
                                 $companyId = $company->getCompanyId();
                                 echo "<div class='row'>";
@@ -81,15 +87,15 @@ include('Views/header.php');
                                  <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
                                  echo "</div>"; 
                                  echo "</div>"; 
-
+                                }
 
                                  echo "<div class='row'>";
                                  echo  "<div class='button-conteiner'>"; 
                                   echo "<td><a href=" . FRONT_ROOT . "Company/updateCompany/" . $company->getCompanyId().">
-                                  <button type='button' class= 'btn btn-info' > Job Position</button></a></td>";
+                                  <button type='button' class= 'btn btn-info' > Jobs Offer</button></a></td>";
                                   echo "</div>"; 
                                   echo "</div>"; 
- 
+                                
 
                             }
                         }
