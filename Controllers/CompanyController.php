@@ -74,8 +74,6 @@ class CompanyController
         }
     }
 
-
-
     public function ListCompanies()
     {
         Utils::checkSession();
@@ -96,7 +94,22 @@ class CompanyController
         $company->setEmail($email);
         $company->setPhoneNumber($phoneNumber);
 
-        $this->companyDAO->AddCompany($company);
+        $result = null;
+
+        //Validacion nombre
+        $this->companiesList = $this->companyDAO->GetAll();
+        foreach($this->companiesList as $companies){
+            if($companies['name'] == $name){
+                $result = $companies;
+                echo "The company $result already exists in the Data Base";
+            }
+        }
+
+        if($result != null)
+        {
+            $this->companyDAO->AddCompany($company);
+        }
+        
 
         $this->ShowAddView();
     }
