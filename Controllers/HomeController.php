@@ -33,7 +33,6 @@ class HomeController
 
      
 
-
         public function menuStudent(){
 
             require_once (STUDENT_VIEWS ."menu-student.php");
@@ -48,16 +47,16 @@ class HomeController
                 $user = new User($email);
                 $user= new User($password);
                 $_SESSION['admin'] = $user;
-               
-
+              
                 require_once(ADMIN_VIEWS."menu-admin.php");
             } else {
             
                // $studentController = new StudentController();
-                $student = new Student();
-                $student = $this->studentDAO->getStudentByMail($email);
-               
-                if($student != null){
+                $student = new Student;
+                $student = $this->studentDAO->getLoginStudent($email);
+                var_dump($student);
+                die;
+                if($password == $student->getPassword()){
                     $_SESSION['student'] = $student;
     
                     require_once(STUDENT_VIEWS."menu-student.php");
@@ -68,6 +67,8 @@ class HomeController
             }
         }
 
+
+ 
         public function RedirectAdm () {
             require_once(VIEWS_PATH."admin-view.php");
         }

@@ -11,8 +11,8 @@ require_once('header.php');
 
                <p> Por razones de seguridad se confirmará que su mail este cargado en la Base de Datos de la Universidad  </p>
           </section>
-
-          <form action="<?php FRONT_ROOT ?>Student/studentValidation" method="get" class="login-form  p-4 bg-none">
+          
+          <form action='<?php echo FRONT_ROOT ?>student/studentValidation' method="post" class="login-form  p-4 bg-none">
 
 
                <div class="form-group">

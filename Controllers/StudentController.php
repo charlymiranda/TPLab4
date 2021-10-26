@@ -34,6 +34,7 @@ class StudentController
 
         require_once(VIEWS_PATH . "registration.php");
     }
+
     public function ShowListView()
     {
         Utils::checkSession();
@@ -62,8 +63,7 @@ class StudentController
 
     public function studentValidation($email)
     {
-        var_dump($email);
-        die;
+       
         if ($email != null) {
             $student = $this->studentDAO->getStudentByMail($email);
             // $career = $this->careerDAO->getCareerStudent($student);
@@ -102,18 +102,7 @@ class StudentController
         require_once(VIEWS_PATH . "student-add.php");
     }
 
-
-    /* public function Add($firstName, $lastName)
-        {
-            $student = new Student();
-            $student->setfirstName($firstName);
-            $student->setLastName($lastName);
-
-            $this->studentDAO->Add($student);
-
-            $this->ShowAddView();
-        }*/
-
+   
     public function viewInformation($studentMail)
     {
         try {
