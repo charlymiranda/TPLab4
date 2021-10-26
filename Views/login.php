@@ -35,7 +35,7 @@
           <div>
                <form action="<?php echo FRONT_ROOT ?>Student/ShowStudentRegistration" method="get" class="login-form  p-2 bg-none">
                     <center>
-                         <button class="btn btn-info" type="link">Registration</button>
+                         <button class="btn btn-info" type="submit">Registration</button>
                     </center>
                </form>
           </div>

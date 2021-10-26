@@ -12,14 +12,14 @@ require_once('header.php');
                <p> Por razones de seguridad se confirmará que su mail este cargado en la Base de Datos de la Universidad  </p>
           </section>
 
-          <form action="<?php FRONT_ROOT ?>Student/studentValidation" method="post" class="login-form  p-4 bg-none">
+          <form action="<?php FRONT_ROOT ?>Student/studentValidation" method="get" class="login-form  p-4 bg-none">
 
 
                <div class="form-group">
                     <label for="" align="center">E-mail</label>
                     <input type="email" name="email" class="form-control form-control-lg" placeholder="Email required" required>
                </div>
-
+               
                <center>
                     <button class="btn btn-warning btn-block btn-sm" type="submit">Check Mail</button>
                </center>
