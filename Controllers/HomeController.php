@@ -4,9 +4,22 @@
     use Models\User as User;
     use Controllers\StudentController as StudentController;
     use Models\Student as Student;
+    use DAO\StudentDAO as StudentDAO;
+
 
 class HomeController
+
     {
+
+        private $studentDAO;
+
+        public function __construct()
+        {
+            $this->studentDAO =new StudentDAO;    
+        }
+
+
+
         public function Index($message = "")
         {
             require_once(VIEWS_PATH ."login.php");
@@ -14,34 +27,40 @@ class HomeController
 
         public function menuAdmin(){
 
-            require_once (VIEWS_PATH ."menu-admin.php");
+            require_once (ADMIN_VIEWS ."menu-admin.php");
 
         }
 
+     
+
+
         public function menuStudent(){
 
-            require_once (VIEWS_PATH ."menu-student.php");
+            require_once (STUDENT_VIEWS ."menu-student.php");
 
         }
 
       
 
-        public function login($email){
-
-            if($email == 'user@hot.com'){
+        public function login($email, $password){
+           
+            if(($email == 'user@hot.com') && ($password == '123456')){
                 $user = new User($email);
+                $user= new User($password);
                 $_SESSION['admin'] = $user;
+               
 
-                require_once(VIEWS_PATH."menu-admin.php");
+                require_once(ADMIN_VIEWS."menu-admin.php");
             } else {
-                $studentController = new StudentController();
+            
+               // $studentController = new StudentController();
                 $student = new Student();
-                $student = $studentController->getStudentByMail($email);
-    
+                $student = $this->studentDAO->getStudentByMail($email);
+               
                 if($student != null){
                     $_SESSION['student'] = $student;
     
-                    require_once(VIEWS_PATH."student-view.php");
+                    require_once(STUDENT_VIEWS."menu-student.php");
                 } else {
                     $invalidEmail = true;
                     require_once(VIEWS_PATH ."login.php");

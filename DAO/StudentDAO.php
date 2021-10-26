@@ -73,11 +73,11 @@ class StudentDAO implements IStudentDAO
             
         }
 
-     /*   public function Add($student)
+       public function Add(Student $student)
         {
             
-          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active)
-                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active);";
+          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active, password)
+                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active, :password);";
             $parameters["firstName"]=$student->getFirstName();
             $parameters['lastName']=$student->getLastName();
             $parameters['dni']=$student->getDni();
@@ -85,6 +85,7 @@ class StudentDAO implements IStudentDAO
             $parameters['birthDate']=$student->getBirthDate();
             $parameters['phoneNumber']=$student->getPhoneNumber();
             $parameters['active']=true;
+            $parameters['password']=$student->getPassword();
 
             
             try {
@@ -94,7 +95,7 @@ class StudentDAO implements IStudentDAO
                 throw $ex;
             }
         }
-
+/*
         public function Delete($idToDelete){
 
             $sql = "DELETE FROM students WHERE studentId=:studentId";

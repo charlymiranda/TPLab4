@@ -7,15 +7,15 @@ require_once('nav.php');
                <h2 class="mb-4">Student Profile</h2>
                <table class="table bg-light-alpha">
                     <thead>
-                         <th>Nombre</th>
-                         <th>apellido</th>
+                         <th>Name</th>
+                         <th>Last Name</th>
                          <th>DNI</th>
                          <th>Gender</th>
-                         <th>Bithday</th>
+                         <th>Birthday</th>
                          <th>Id</th>
                          <th>Career</th>
-                         <th>email</th>
-                         <th>numero telefono</th>
+                         <th>Email</th>
+                         <th>Phone Number</th>
                     </thead>
                     <tbody>
 
