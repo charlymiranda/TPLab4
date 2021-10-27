@@ -15,9 +15,7 @@ class Student
     private $birthDate;
     private $email;
     private $phoneNumber;
-    private $active;
-    private $password;
-
+    private $password;  
 
     public function __construct()
     {

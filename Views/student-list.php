@@ -1,10 +1,20 @@
-<?php require_once('nav.php'); ?>
+<?php 
+
+if (isset($_SESSION["admin"])){
+     require_once(ADMIN_VIEWS.'navcompany.php');
+     }else{
+     
+         require_once(VIEWS_PATH.'nav.php');
+     
+     }
+
+?>
 <main class="py-5">
      <br>
-     <section id="listado" class="mb-9">
+     <section id="listado" class="mb-3">
           
                
-               <h2 class="mb-15 text-center" >Students List</h2>
+               <h2 class="mb-12 text-center" >Students List</h2>
                <br>
                <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
                <table class="table bg-light-alpha">
