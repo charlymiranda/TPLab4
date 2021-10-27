@@ -68,9 +68,8 @@ class StudentDAO implements IStudentDAO
                     return $student;
                 }
             }
-    
-            return null;
-            
+                return null;
+           
         }
 
        public function Add(Student $student)
@@ -82,11 +81,11 @@ class StudentDAO implements IStudentDAO
             $parameters['lastName']=$student->getLastName();
             $parameters['dni']=$student->getDni();
             $parameters['gender']=$student->getGender();
+            $parameters['fileNumber']=$student->getFileNumber();
             $parameters['birthDate']=$student->getBirthDate();
             $parameters['phoneNumber']=$student->getPhoneNumber();
             $parameters['active']=true;
             $parameters['password']=$student->getPassword();
-
             
             try {
                 $this->connection= Connection::getInstance();
@@ -129,8 +128,8 @@ class StudentDAO implements IStudentDAO
             }
                      
         }
-
-        public function Search($email){
+*/
+        public function getLoginStudent($email){
             $sql = "SELECT * FROM students WHERE email=:email";
             $parameters['email']=$email;
             try{
@@ -147,21 +146,21 @@ class StudentDAO implements IStudentDAO
                 return false;
             }
 
-        }*/
+        }
 
-
+/*
         private function mapear($studentList){
 
             $studentList=is_array($studentList)?$studentList:[];
 
             $studentArray=array_map(function($pos){
                 $newStudent = new Student($pos['careerId'],$pos['firstName'],$pos['lastName'],$pos['dni'],$pos['fileNumber'],$pos['gender'],
-                                        $pos['birthDate'],$pos['email'],$pos['phoneNumber']);//crear student
+                                        $pos['birthDate'],$pos['email'],$pos['phoneNumber'],$pos['password']);//crear student
                 $newStudent->setstudentId($pos['studentId']);
 
                 return $newStudent;
             }, $studentList);
-            return count($studentArray)>1? $studentArray:$studentArray['0'];
+            return count($studentArray)>=1? $studentArray:$studentArray['0'];
         }
 
 
@@ -205,6 +204,6 @@ class StudentDAO implements IStudentDAO
                     array_push($this->studentList, $student);
                 }
             }
-        }*/
+        }
     }
 ?>
