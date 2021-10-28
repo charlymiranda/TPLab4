@@ -1,12 +1,13 @@
 <?php
     namespace Models;
-
+        use Models\JobPosition as JobPosition;
     class JobOffer{
         private $jobOfferId;
         private $startDay;
         private $deadLine;
         private $active;
         private $jobPossitionId;
+        private $companyId;
 
         public function __construct()
         {
@@ -90,24 +91,47 @@
                 return $this;
         }
 
+  
+
+
         /**
-         * Get the value of JobPossitionId
+         * Get the value of jobPossitionId
          */ 
-        public function getjobPositionid()
+        public function getJobPossitionId()
         {
-                return $this->jobPositionid;
+                return $this->jobPossitionId;
         }
-          /**
-         * Set the value of jobPositionid
+
+        /**
+         * Set the value of jobPossitionId
          *
          * @return  self
          */ 
-        public function setJobPositionid($jobPositionid)
+        public function setJobPossitionId($jobPossitionId)
         {
-                $this->jobPositionid = $jobPositionid;
+                $this->jobPossitionId = $jobPossitionId;
 
                 return $this;
         }
 
+        /**
+         * Get the value of companyId
+         */ 
+        public function getCompanyId()
+        {
+                return $this->companyId;
+        }
+
+        /**
+         * Set the value of companyId
+         *
+         * @return  self
+         */ 
+        public function setCompanyId($companyId)
+        {
+                $this->companyId = $companyId;
+
+                return $this;
+        }
 }
 ?>

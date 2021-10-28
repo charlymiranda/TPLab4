@@ -129,7 +129,7 @@ class StudentDAO implements IStudentDAO
                      
         }
 */
-        public function getLoginStudent($email){
+       /* public function getLoginStudent($email){
             $sql = "SELECT * FROM students WHERE email=:email";
             $parameters['email']=$email;
             try{
@@ -146,9 +146,9 @@ class StudentDAO implements IStudentDAO
                 return false;
             }
 
-        }
+        }*/
 
-/*
+        /*
         private function mapear($studentList){
 
             $studentList=is_array($studentList)?$studentList:[];
@@ -161,7 +161,7 @@ class StudentDAO implements IStudentDAO
                 return $newStudent;
             }, $studentList);
             return count($studentArray)>=1? $studentArray:$studentArray['0'];
-        }
+        }*/
 
 
 
@@ -184,7 +184,7 @@ class StudentDAO implements IStudentDAO
             file_put_contents('Data/students.json', $jsonContent);
         }*/
 
-      /*  private function RetrieveData()
+      /* private function RetrieveData()
         {
             $this->studentList = array();
 
@@ -204,6 +204,6 @@ class StudentDAO implements IStudentDAO
                     array_push($this->studentList, $student);
                 }
             }
-        }
+        }*/
     }
 ?>
