@@ -79,7 +79,9 @@ class CompanyController
 
     public function ShowModifyCompany($companyId)
     {   
-        $this->company = $this->companyDAO->Search($companyId);
+        $company = $this->companyDAO->Search($companyId);
+        //var_dump($this->companiesList);
+        //die;
         require_once(ADMIN_VIEWS . "company-modify.php");
     }
 
@@ -88,15 +90,14 @@ class CompanyController
     {
         Utils::checkSession();
         $this->companiesList = $this->companyDAO->GetAll();
-        //var_dump($this->companiesList);
         $this->ShowCompaniesViews();
     }
 
+    public function updateCompany($CompanyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber){
 
+    }
 
    
-
-
     public function AddCompany($name, $yearFoundation, $city, $description, $email, $phoneNumber)
     {
         Utils::checkSession();

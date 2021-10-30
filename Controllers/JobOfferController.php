@@ -81,7 +81,7 @@
         ///Filtro de job offers
         public function jobOffersForJobPosition($positionId){
             Utils::checkSession();
-            $this->jobOfferList = $this->jobOfferDAO->GetAllJobPosition();
+            //$this->jobOfferList = $this->jobOfferDAO->GetAllJobPosition();
             $results = array();
 
             foreach($this->jobOfferList as $offer){

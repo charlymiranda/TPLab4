@@ -27,11 +27,7 @@ if (isset($_SESSION["admin"])) {
         <div class="container">
             <h2 class="mb-4">Companies List</h2>
             <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
-
-
                 <div class="container" position="fixed">
-
-
                     <form action="<?php echo FRONT_ROOT ?>Company/ShowCompaniesViews" method="POST" enctype="multipart/form-data">
 
                         <input type="text" name="search" class="form-control form-control-ml" required value="">
