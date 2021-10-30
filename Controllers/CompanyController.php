@@ -35,6 +35,8 @@ class CompanyController
         Utils::checkAdminSession();
         require_once(ADMIN_VIEWS . "company-add.php");
     }
+
+    
     public function RedirectDeleteForm()
     {
         Utils::checkAdminSession();

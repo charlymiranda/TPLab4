@@ -3,11 +3,15 @@
         use Models\JobPosition as JobPosition;
     class JobOffer{
         private $jobOfferId;
+        private $name;
         private $startDay;
         private $deadLine;
         private $active;
+        private $description;
+        private $salary;
         private $jobPossitionId;
         private $companyId;
+        private $career;
 
         public function __construct()
         {
@@ -130,6 +134,86 @@
         public function setCompanyId($companyId)
         {
                 $this->companyId = $companyId;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of description
+         */ 
+        public function getDescription()
+        {
+                return $this->description;
+        }
+
+        /**
+         * Set the value of description
+         *
+         * @return  self
+         */ 
+        public function setDescription($description)
+        {
+                $this->description = $description;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of salary
+         */ 
+        public function getSalary()
+        {
+                return $this->salary;
+        }
+
+        /**
+         * Set the value of salary
+         *
+         * @return  self
+         */ 
+        public function setSalary($salary)
+        {
+                $this->salary = $salary;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of name
+         */ 
+        public function getName()
+        {
+                return $this->name;
+        }
+
+        /**
+         * Set the value of name
+         *
+         * @return  self
+         */ 
+        public function setName($name)
+        {
+                $this->name = $name;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of career
+         */ 
+        public function getCareer()
+        {
+                return $this->career;
+        }
+
+        /**
+         * Set the value of career
+         *
+         * @return  self
+         */ 
+        public function setCareer($career)
+        {
+                $this->career = $career;
 
                 return $this;
         }

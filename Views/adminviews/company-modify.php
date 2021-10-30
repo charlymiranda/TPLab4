@@ -9,16 +9,16 @@ require_once('navcompany.php');
                     
                     <span>&nbsp;</span>
                     <div>
-                         <input type="number" name="companyId" class="form-control form-control-ml" hidden value="<?php  if(isset($this->company)){ echo $this->company->getCompanyId();} ?>">
+                       
                          <div class="row">
                               <div class="col-lg-4">
                                    <label for="">Nombre</label>
-                                   <input type="text" name="name" class="form-control form-control-ml" value="<?php  if(isset($this->company)){ echo $this->company->getName();}; ?>">
+                                   <input type="text" name="name" class="form-control " value="<?php  if(isset($this->company)){ echo $this->company->getName();}; ?>">
                               </div>
 
                               <div class="col-lg-4">
                                    <label for="">Año de Fundacion</label>
-                                   <input type="date" min="1900" max="2021" step="1" name="yearFoundation" class="form-control form-control-ml" value="<?php if(isset($company)){echo $company->getYearFoundantion();}; ?>">
+                                   <input type="date" min="1900" max="2021" step="1" name="yearFoundation" class="form-control " value="<?php if(isset($company)){echo $company->getYearFoundantion();}; ?>">
                               </div>
 
                               <div class="col-lg-4">
