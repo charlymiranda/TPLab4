@@ -22,17 +22,17 @@ if (isset($_SESSION["admin"])) {
     }
 </script>
 <main class="py-5">
-    <section id="listado" class="mb-5">
+    <section id="list" class="mb-5">
 
         <div class="container">
-            <h2 class="mb-4">Companies List</h2>
+            <h2 class="mb-4">Job Offers</h2>
             <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
 
 
                 <div class="container" position="fixed">
 
 
-                    <form action="<?php echo FRONT_ROOT ?>Company/ShowCompaniesViews" method="POST" enctype="multipart/form-data">
+                    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobsViews" method="POST" enctype="multipart/form-data">
 
                         <input type="text" name="search" class="form-control form-control-ml" required value="">
 
@@ -41,15 +41,15 @@ if (isset($_SESSION["admin"])) {
                 </div>
                 <table class="table bg-light-alpha">
                     <thead>
-                        <th class="header" scope="col" position="sticky">Name</th>
-                        <th class="header" scope="col" position="sticky">City</th>
+                        <th class="header" scope="col" position="sticky">Start Date</th>
+                        <th class="header" scope="col" position="sticky">Limit Date</th>
                         <!-- <th>yearFoundation</th> -->
                         <!-- <th>Description</th>   -->
-                        <th class="header" scope="col" position="sticky">Email</th>
-                        <th class="header" scope="col" position="sticky">PhoneNumber</th>
-                        <th class="header" scope="col" position="sticky">-</th>
-                        <th class="header" scope="col" position="sticky">-</th>
-                        <th class="header" scope="col" position="sticky">-</th>
+                        <th class="header" scope="col" position="sticky">Description</th>
+                        <th class="header" scope="col" position="sticky">Hours</th>
+                        <th class="header" scope="col" position="sticky">Salary</th>
+                        <th class="header" scope="col" position="sticky">Career</th>
+                        <th class="header" scope="col" position="sticky">Job Position ID</th>
                         <th class="header" scope="col" position="sticky">-</th>
 
 
@@ -58,41 +58,38 @@ if (isset($_SESSION["admin"])) {
                         <?php
 
 
-                        if ($this->companiesList !=NULL) {
-                            foreach ($this->companiesList as $company) {
+                        if ($this->jobOfferList !=NULL) {
+                            foreach ($this->jobOfferList as $jobOffer) {
                                 echo "<tr>";
-                                echo  "<td>" . $company->getName() . "</td>";
-                                echo  "<td>" . $company->getCity() . "</td>";
-                                echo  "<td>" . $company->getEmail() . "</td>";
-                                echo  "<td>" . $company->getPhoneNumber() . "</td>";
+                                echo  "<td>" . $jobOffer->getStartDay() . "</td>";
+                                echo  "<td>" . $company->getDeadline() . "</td>";
+                                echo  "<td>" . $company->getDescription() . "</td>";
+                                echo  "<td>" . $company->getSalary() . "</td>";
+                                echo  "<td>" . $company->getJobPossitionId() . "</td>";
+                                
 
                                 if (isset($_SESSION["admin"])) {
 
                                     $companyId = $company->getCompanyId();
                                     echo "<div class='row'>";
                                     echo "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "Company/deleteCompany/" . $company->getCompanyId() . ">
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/deleteJobOffer/" . $company->getCompanyId() . ">
                                 <button type='button' class= 'btn btn-danger' > Delete</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
 
                                     echo "<div class='row'>";
                                     echo  "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "Company/ShowModifyCompany/" . $company->getCompanyId() . ">
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/updateJobOffery/" . $company->getCompanyId() . ">
                                  <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
                                 }
 
-                                echo "<div class='row'>";
-                                echo  "<div class='button-conteiner'>";
-                                echo "<td><a href=" . FRONT_ROOT . "Company/updateCompany/" . $company->getCompanyId() . ">
-                                  <button type='button' class= 'btn btn-info' > Jobs Offer</button></a></td>";
-                                echo "</div>";
-                                echo "</div>";
+                              
                             }
                         }else{
-                            echo "The companies list is empty";
+                            echo "The job Offers list is empty";
                         }
                         ?>
                     </tbody>

@@ -31,13 +31,15 @@ class CompanyController
     public function RedirectAddForm()
     {
         Utils::checkAdminSession();
-        require_once(VIEWS_PATH . "company-add.php");
+        require_once(ADMIN_VIEWS . "company-add.php");
     }
+
+    
     public function RedirectDeleteForm()
     {
         Utils::checkAdminSession();
         $this->companiesList = $this->companyDAO->GetAll();
-        require_once(VIEWS_PATH . "company-delete.php");
+        require_once(ADMIN_VIEWS . "company-delete.php");
 
     }
     public function ShowSingleCompany($companyId)
@@ -83,7 +85,7 @@ class CompanyController
     }
 
 
-    public function AddCompany($name, $yearFoundation, $city, $description, $logo, $email, $phoneNumber, $cuit)
+    public function AddCompany($name, $yearFoundation, $city, $description, $email, $phoneNumber, $pre, $dni, $ultimo)
     {
         Utils::checkSession();
         $company = new Company();
@@ -91,32 +93,33 @@ class CompanyController
         $company->setYearFoundation($yearFoundation);
         $company->setCity($city);
         $company->setDescription($description);
-        $company->setLogo($logo);
+        //$company->setLogo($logo);
         $company->setEmail($email);
         $company->setPhoneNumber($phoneNumber);
-        $company->setCuit($cuit);
+        $company->buildCuit($pre, $dni, $ultimo);
 
-        $result = $this->checkCUIT($company->getCuit());      
+        $result = $this->checkCUIT($company->getCuit());  
 
-        if($result == true)
+        if($result == false)
         {
             $this->companyDAO->AddCompany($company);
+        }else{
+            require_once(ADMIN_VIEWS . "company-add.php");
         }
-        else{
-            echo "The CUIT already exists in the Data Base";
-        }
+        
         $this->ShowAddView();
     }
 
     //Validacion CUIT
     private function checkCUIT($cuit){
-        $result = null;
+        $result = false;
         $this->companiesList = $this->companyDAO->GetAll();
         foreach($this->companiesList as $company){
-            if($company['cuit'] != $cuit){
+            if($company->getCuit() == $cuit){
                 $result = true;
             }
         }
+
         return $result;
     }
     

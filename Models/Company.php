@@ -192,6 +192,13 @@
          *
          * @return  self
          */ 
+        public function buildCuit($pre, $dni, $ultimo)
+        {
+                $this->cuit = $pre . $dni . $ultimo;
+
+                return $this;
+        }
+
         public function setCuit($cuit)
         {
                 $this->cuit = $cuit;
