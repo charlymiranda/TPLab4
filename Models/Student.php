@@ -15,8 +15,7 @@ class Student
     private $birthDate;
     private $email;
     private $phoneNumber;
-    private $active;
-
+    private $password;  
 
     public function __construct()
     {
@@ -242,6 +241,26 @@ class Student
     public function setCareerId($careerId)
     {
         $this->careerId = $careerId;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of password
+     */ 
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */ 
+    public function setPassword($password)
+    {
+        $this->password = $password;
 
         return $this;
     }

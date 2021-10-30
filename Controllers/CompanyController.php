@@ -96,14 +96,7 @@ class CompanyController
 
         $result = null;
 
-        //Validacion nombre
-        $this->companiesList = $this->companyDAO->GetAll();
-        foreach($this->companiesList as $companies){
-            if($companies['name'] == $name){
-                $result = $companies;
-                echo "The company $result already exists in the Data Base";
-            }
-        }
+        
 
         if($result != null)
         {

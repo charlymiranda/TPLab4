@@ -1,6 +1,6 @@
 <?php
-    require_once('navcompany.php');
-    include('Views/header.php');
+    require_once(ADMIN_VIEWS.'navcompany.php');
+ 
 ?>
 
 <main class="py-5">

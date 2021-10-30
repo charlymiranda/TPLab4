@@ -68,24 +68,24 @@ class StudentDAO implements IStudentDAO
                     return $student;
                 }
             }
-    
-            return null;
-            
+                return null;
+           
         }
 
-     /*   public function Add($student)
+       public function Add(Student $student)
         {
             
-          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active)
-                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active);";
+          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active, password)
+                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active, :password);";
             $parameters["firstName"]=$student->getFirstName();
             $parameters['lastName']=$student->getLastName();
             $parameters['dni']=$student->getDni();
             $parameters['gender']=$student->getGender();
+            $parameters['fileNumber']=$student->getFileNumber();
             $parameters['birthDate']=$student->getBirthDate();
             $parameters['phoneNumber']=$student->getPhoneNumber();
             $parameters['active']=true;
-
+            $parameters['password']=$student->getPassword();
             
             try {
                 $this->connection= Connection::getInstance();
@@ -94,7 +94,7 @@ class StudentDAO implements IStudentDAO
                 throw $ex;
             }
         }
-
+/*
         public function Delete($idToDelete){
 
             $sql = "DELETE FROM students WHERE studentId=:studentId";
@@ -128,8 +128,8 @@ class StudentDAO implements IStudentDAO
             }
                      
         }
-
-        public function Search($email){
+*/
+       /* public function getLoginStudent($email){
             $sql = "SELECT * FROM students WHERE email=:email";
             $parameters['email']=$email;
             try{
@@ -148,20 +148,20 @@ class StudentDAO implements IStudentDAO
 
         }*/
 
-
+        /*
         private function mapear($studentList){
 
             $studentList=is_array($studentList)?$studentList:[];
 
             $studentArray=array_map(function($pos){
                 $newStudent = new Student($pos['careerId'],$pos['firstName'],$pos['lastName'],$pos['dni'],$pos['fileNumber'],$pos['gender'],
-                                        $pos['birthDate'],$pos['email'],$pos['phoneNumber']);//crear student
+                                        $pos['birthDate'],$pos['email'],$pos['phoneNumber'],$pos['password']);//crear student
                 $newStudent->setstudentId($pos['studentId']);
 
                 return $newStudent;
             }, $studentList);
-            return count($studentArray)>1? $studentArray:$studentArray['0'];
-        }
+            return count($studentArray)>=1? $studentArray:$studentArray['0'];
+        }*/
 
 
 
@@ -184,7 +184,7 @@ class StudentDAO implements IStudentDAO
             file_put_contents('Data/students.json', $jsonContent);
         }*/
 
-      /*  private function RetrieveData()
+      /* private function RetrieveData()
         {
             $this->studentList = array();
 

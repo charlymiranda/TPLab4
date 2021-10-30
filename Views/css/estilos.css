@@ -95,7 +95,7 @@ h1 {
 	border: none;
 	cursor: pointer;
 	text-transform: uppercase;
-	transition: .3s ease all;
+	transition: .8s ease all;
 	border-radius: 5px;
 	position: relative;
 	overflow: hidden;
@@ -104,5 +104,5 @@ h1 {
 .boton span {
 	position: relative;
 	z-index: 2;
-	transition: .3s ease all;
+	transition: .8s ease all;
 }
