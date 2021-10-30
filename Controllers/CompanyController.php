@@ -19,7 +19,7 @@ class CompanyController
 
     public function ShowAddView()
     {
-        require_once(VIEWS_PATH . "company-add.php");
+        require_once(ADMIN_VIEWS . "company-add.php");
     }
 
 
@@ -83,7 +83,7 @@ class CompanyController
     }
 
 
-    public function AddCompany($name, $yearFoundation, $city, $description, $email, $phoneNumber)
+    public function AddCompany($name, $yearFoundation, $city, $description, $logo, $email, $phoneNumber, $cuit)
     {
         Utils::checkSession();
         $company = new Company();
@@ -91,21 +91,35 @@ class CompanyController
         $company->setYearFoundation($yearFoundation);
         $company->setCity($city);
         $company->setDescription($description);
+        $company->setLogo($logo);
         $company->setEmail($email);
         $company->setPhoneNumber($phoneNumber);
+        $company->setCuit($cuit);
 
-        $result = null;
+        $result = $this->checkCUIT($company->getCuit());      
 
-        
-
-        if($result != null)
+        if($result == true)
         {
             $this->companyDAO->AddCompany($company);
         }
-        
-
+        else{
+            echo "The CUIT already exists in the Data Base";
+        }
         $this->ShowAddView();
     }
+
+    //Validacion CUIT
+    private function checkCUIT($cuit){
+        $result = null;
+        $this->companiesList = $this->companyDAO->GetAll();
+        foreach($this->companiesList as $company){
+            if($company['cuit'] != $cuit){
+                $result = true;
+            }
+        }
+        return $result;
+    }
+    
 
     public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber)
     {
