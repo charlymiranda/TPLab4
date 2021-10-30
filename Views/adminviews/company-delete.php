@@ -63,8 +63,6 @@ if (isset($_SESSION["admin"])) {
                                 echo "<tr>";
                                 echo  "<td>" . $company->getName() . "</td>";
                                 echo  "<td>" . $company->getCity() . "</td>";
-                                // echo  "<td>" . $company->getYearFoundation() . "</td>";
-                                // echo  "<td>" . $company->getDescription() . "</td>";
                                 echo  "<td>" . $company->getEmail() . "</td>";
                                 echo  "<td>" . $company->getPhoneNumber() . "</td>";
 
@@ -72,7 +70,7 @@ if (isset($_SESSION["admin"])) {
 
                                     $companyId = $company->getCompanyId();
                                     echo "<div class='row'>";
-                                    echo  "<div class='button-conteiner'>";
+                                    echo "<div class='button-conteiner'>";
                                     echo "<td><a href=" . FRONT_ROOT . "Company/deleteCompany/" . $company->getCompanyId() . ">
                                 <button type='button' class= 'btn btn-danger' > Delete</button></a></td>";
                                     echo "</div>";
@@ -80,7 +78,7 @@ if (isset($_SESSION["admin"])) {
 
                                     echo "<div class='row'>";
                                     echo  "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "Company/updateCompany/" . $company->getCompanyId() . ">
+                                    echo "<td><a href=" . FRONT_ROOT . "Company/ShowModifyCompany/" . $company->getCompanyId() . ">
                                  <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";

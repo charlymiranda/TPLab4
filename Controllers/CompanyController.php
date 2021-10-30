@@ -11,6 +11,7 @@ class CompanyController
 {
     private $companyDAO;
     private $companiesList = array();
+    private $company;
 
 
     public function __construct()
@@ -20,7 +21,7 @@ class CompanyController
 
     public function ShowAddView()
     {
-        require_once(VIEWS_PATH . "company-add.php");
+        require_once(ADMIN_VIEWS . "company-add.php");
     }
 
 
@@ -41,6 +42,7 @@ class CompanyController
         require_once(VIEWS_PATH . "company-delete.php");
 
     }
+
     public function ShowSingleCompany($companyId)
     {
         Utils::checkSession();
@@ -75,6 +77,12 @@ class CompanyController
         }
     }
 
+    public function ShowModifyCompany($companyId)
+    {   
+        $this->company = $this->companyDAO->Search($companyId);
+        require_once(ADMIN_VIEWS . "company-modify.php");
+    }
+
 
     public function ListCompanies()
     {
@@ -105,24 +113,7 @@ class CompanyController
         $this->ShowAddView();
     }
 
-    public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber)
-    {
-        Utils::checkSession();
-        $company = new Company();
-
-        $company->setCompanyId($companyId);
-        $company->setName($name);
-        $company->setYearFoundation($yearFoundation);
-        $company->setCity($city);
-        $company->setDescription($description);
-        $company->setEmail($email);
-        $company->setPhoneNumber($phoneNumber);
-
-        $this->CompanyDAO->update($company);
-
-        $this->ShowAddView();
-    }
-
+ 
     public function deleteCompany($companyId)
     {
 

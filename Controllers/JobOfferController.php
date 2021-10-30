@@ -92,6 +92,11 @@
             return $results;
         }
 
+        public function jobsOffersByCompany($companyId){
+            
+
+        }
+
     }
 
 ?>

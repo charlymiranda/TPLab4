@@ -99,12 +99,12 @@ class CompanyDAO implements ICompanyDAO
         try {
             $this->connection = Connection::getInstance();
             $this->companiesList = $this->connection->execute($sql, $parameters);
+
         } catch (\PDOException $exception) {
             throw $exception;
         }
-        //var_dump($companiesList);
-      //  die;
-        if (!empty($companiesList)) {
+     
+        if (!empty($this->companiesList)) {
             return $this->retrieveData();
         } else {
             return false;
@@ -113,10 +113,6 @@ class CompanyDAO implements ICompanyDAO
 
     private function retrieveData()
     {
-            //$this->companiesList = array();
-        
-           // $jsonContent = file_get_contents($this->fileName);
-           // $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
            $listToReturn = array();
 
             foreach ($this->companiesList as $values) {
