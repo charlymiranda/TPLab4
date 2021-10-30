@@ -165,8 +165,7 @@ class CompanyController
     public function ShowModifyCompanyView($companyId)
     {   
         $this->company = $this->companyDAO->Search($companyId);
-        //var_dump($this->companiesList);
-        //die;
+
         require_once(ADMIN_VIEWS . "company-modify.php");
     }
 

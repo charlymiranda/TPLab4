@@ -11,10 +11,18 @@ use DAO\Connection as Connection;
 
 class CompanyDAO implements ICompanyDAO
 {
-    private $companiesList = array();
+    private $companiesList ;
     private $company;
+    private $companyBD;
     private $connection;
     private $tableName = "companies";
+
+    public function __construct()
+    {
+        $this->companyBD = new Company();
+        $this->company = new Company();
+        $this->companiesList = array();
+    }
 
     public function GetAll()
     {
@@ -98,14 +106,15 @@ class CompanyDAO implements ICompanyDAO
         $parameters['companyId'] = $companyId;
         try {
             $this->connection = Connection::getInstance();
-            $companyBD = $this->connection->execute($sql, $parameters);
+            $this->companyBD = $this->connection->execute($sql, $parameters);
         } catch (\PDOException $exception) {
             throw $exception;
         }
 
-        if (!empty($companyBD)) {
-           return $this->retrieveOneCompanyData($companyBD);
+        if ($this->companyBD != null) {
+            $this->retrieveOneCompanyData();
 
+            return $this->company;
         } else {
             return false;
         }
@@ -113,39 +122,38 @@ class CompanyDAO implements ICompanyDAO
 
     private function retrieveData()
     {
-           $listToReturn = array();
+        $listToReturn = array();
 
-            foreach ($this->companiesList as $values) {
-                $company = new Company();
-                $company->setCompanyId($values['companyId']);
-                $company->setName($values['name']);
-                $company->setYearFoundation($values['yearFoundation']);
-                $company->setDescription(($values['description']));
-                $company->setCity($values['city']);
-               // $company->setLogo($values['logo']);
-                $company->setEmail($values['email']);
-                $company->setPhoneNumber($values['phoneNumber']);
-                $company->setCuit($values['cuit']);
-                array_push($listToReturn, $company);
-            }
-            return  $listToReturn;
-        
+        foreach ($this->companiesList as $values) {
+            $company = new Company();
+            $company->setCompanyId($values['companyId']);
+            $company->setName($values['name']);
+            $company->setYearFoundation($values['yearFoundation']);
+            $company->setDescription(($values['description']));
+            $company->setCity($values['city']);
+            // $company->setLogo($values['logo']);
+            $company->setEmail($values['email']);
+            $company->setPhoneNumber($values['phoneNumber']);
+            $company->setCuit($values['cuit']);
+            array_push($listToReturn, $company);
+        }
+        return  $listToReturn;
     }
 
-    private function retrieveOneCompanyData($companyBD)
+    private function retrieveOneCompanyData()
     {
-        
-        $this->company->setCompanyId($companyBD['companyId']);
-        $this->company->setName($companyBD['name']);
-        $this->company->setYearFoundation($companyBD['yearFoundation']);
-        $this->company->setDescription(($companyBD['description']));
-        $this->company->setCity($companyBD['city']);
-        // $companyToReturn->setLogo($values['logo']);
-        $this->company->setEmail($companyBD['email']);
-        $this->company->setPhoneNumber($companyBD['phoneNumber']);
-       
+        foreach ($this->companyBD as $com) {
+            $this->company->setCompanyId($com['companyId']);
+            $this->company->setName($com['name']);
+            $this->company->setYearFoundation($com['yearFoundation']);
+            $this->company->setDescription(($com['description']));
+            $this->company->setCity($com['city']);
+            // $companyToReturn->setLogo($values['logo']);
+            $this->company->setEmail($com['email']);
+            $this->company->setPhoneNumber($com['phoneNumber']);
+        }
     }
-    
+
     /*
     private function mapear($companiesList)
     {
