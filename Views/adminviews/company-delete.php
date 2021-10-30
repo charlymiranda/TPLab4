@@ -7,7 +7,7 @@ if (isset($_SESSION["admin"])) {
     require_once(VIEWS_PATH . 'nav.php');
 }
 
-include('Views/header.php');
+
 ?>
 <script type="text/javascript">
     function confirmDelete() {
