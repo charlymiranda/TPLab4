@@ -39,15 +39,20 @@
             require_once(VIEWS_PATH . "jobOffer-view.php");      ///Falta crear
         }
 
-        public function addJobOffer($jobOfferId, $startDay, $deadLine, $active, $jobPositionId){
+        public function addJobOffer($jobOfferId, $career, $startDay, $deadLine, $active, $jobPositionId, $name, $salary, $description){
             Utils::checkAdminSession();
 
             $jobOffer = new JobOffer();
             $jobOffer->setJobOfferId($jobOfferId);
+            $jobOffer->setName($name);
             $jobOffer->setStartDay($startDay);
             $jobOffer->setDeadLine($deadLine);
             $jobOffer->setActive($active);
+            $jobOffer->setSalary($salary);
+            $jobOffer->setDescription($description);
             $jobOffer->setJobPossitionId($jobPositionId);
+            $jobOffer->setCareer($career);
+
 
             $this->jobOfferDAO->addJobOffer($jobOffer);
 
@@ -79,9 +84,9 @@
         }
 
         ///Filtro de job offers
-        public function jobOffersForJobPosition($positionId){
+      public function jobOffersForJobPosition($positionId){
             Utils::checkSession();
-            //$this->jobOfferList = $this->jobOfferDAO->GetAllJobPosition();
+        //    $this->jobOfferList = $this->jobOfferDAO->GetAllJobPosition();
             $results = array();
 
             foreach($this->jobOfferList as $offer){
@@ -97,6 +102,44 @@
 
         }
 
+
+
+        public function ShowJobsViews($search = "")
+        {
+            if ($search == "") {
+                Utils::checkSession();
+                $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+               
+                require_once(ADMIN_VIEWS . "company-job-offers.php");
+            } else {
+                $search = strtolower($search);
+                $filteredOffers = array();
+                foreach ($this->jobOfferDAO->getAllJobOffer() as $jobOffer) {
+                    $jobOffer = strtolower($jobOffer->getName());
+    
+                    if (Utils::strStartsWith($jobOffer, $search)) {
+                        array_push($filteredOffers, $jobOffer);
+                    }
+                }
+                $this->jobOffersList = $filteredOffers;
+                require_once(ADMIN_VIEWS . "company-job-offers.php");
+            }
+        }
+
+
+
+        public function RedirectAddJobForm()
+        {
+            Utils::checkAdminSession();
+            require_once(ADMIN_VIEWS . "jobOffer-add.php");
+        }
+    
+    
+
     }
+
+  
+
+
 
 ?>

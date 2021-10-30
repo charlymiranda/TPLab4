@@ -8,9 +8,10 @@
         private $yearFoundation;
         private $city;
         private $description;
-        //private $logo;
+        private $logo;
         private $email;
         private $phoneNumber;
+        private $cuit;
         
 
         public function __construct()
@@ -177,6 +178,33 @@
 
                         return $this;
             }
+
+        /**
+         * Get the value of cuit
+         */ 
+        public function getCuit()
+        {
+                return $this->cuit;
+        }
+
+        /**
+         * Set the value of cuit
+         *
+         * @return  self
+         */ 
+        public function buildCuit($pre, $dni, $ultimo)
+        {
+                $this->cuit = $pre . $dni . $ultimo;
+
+                return $this;
+        }
+
+        public function setCuit($cuit)
+        {
+                $this->cuit = $cuit;
+
+                return $this;
+        }
     }
 
     ?>

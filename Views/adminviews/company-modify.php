@@ -11,7 +11,7 @@ require_once('navcompany.php');
                                    <div class="col-lg-4">
                                         <div class="form-group">
                                              <label for="">Name</label>
-                                             <input type="text" name="name" value="<?php echo $this->company->getName(); ?>">
+                                             <input type="text" name="name" value ="<?php echo $this->company->getName(); ?>">
                                         </div>
                                    </div>
                                    <div class="col-lg-4">
