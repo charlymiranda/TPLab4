@@ -1,13 +1,8 @@
 <?php
     require_once(ADMIN_VIEWS.'navcompany.php');
- 
-?>
+ ?>
 
-<?php
-     if($result == true){
-          echo "The CUIT already exists in the Data Base";
-     }
-?>
+
 
 <main class="py-5">
      <section id="listado" class="mb-5">
@@ -69,6 +64,8 @@
                          </div>-->
                                         </div>
                     <button type="submit" name="" class="btn btn-dark ml-auto d-block">Add</button>
+
+    
                     <?php
 
 echo '<script>';
