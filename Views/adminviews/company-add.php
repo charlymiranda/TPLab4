@@ -12,47 +12,56 @@
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Name</label>
-                                   <input type="text" name="name" value="" class="form-control">
+                                   <input type="text" name="name" value="" class="form-control" required value="">
+                              </div>
+                         </div>
+                         <div class="col-lg-4">
+                              <div class="form-group">
+                                   <label for="">CUIT</label>
+                                   <br>
+                                   <input type="number" placeholder="20" min= "11" max="88" name="cuit" value="" class="form-control-sm" required value="">
+                                   <input type="number" placeholder="28417555" min= "11111111" max="99999999" name="cuit" value="" class="form-control-sm" required value="">
+                                   <input type="number" placeholder="5" min= "1" max="9" name="cuit" value="" class="form-control-sm" required value="">
                               </div>
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Year Foundation</label>
-                                   <input type="date" name="yearFoundation" value="" min= "1960-01-01" max="2021-10-15" class="form-control">
+                                   <input type="date" name="yearFoundation" value="" min= "2010-01-01" max="2021-10-30" class="form-control" required value="">
                               </div>
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">City</label>
-                                   <input type="text" name="city" value="" class="form-control">
+                                   <input type="text" name="city" value="" class="form-control" required value="">
                               </div>
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Description</label>
-                                   <input type="text" name="description" value="" class="form-control">
+                                   <input type="text" name="description" value="" class="form-control" required value="">
                               </div>
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Email</label>
-                                   <input type="mail" name="email" value="" class="form-control">
+                                   <input type="mail" name="email" value="" class="form-control" required value="">
                               </div>
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Phone Number</label>
-                                   <input type="number" name="phoneNumber" value="" class="form-control">
+                                   <input type="number" name="phoneNumber" value="" class="form-control" required value="">
                               </div>
                          </div>
 
-                          <!--<div class="col-lg-4">
+                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Logo</label>
-                                   <input type="file" name="logo" value="" class="form-control">
+                                   <input type="file" name="logo" value="" class="form-control" required value="">
                               </div>
-                         </div>-->
-                    </div>
+                         </div>
+                                        </div>
                     <button type="submit" name="" class="btn btn-dark ml-auto d-block">Add</button>
                     <?php
 
