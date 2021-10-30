@@ -8,7 +8,7 @@ require_once(ADMIN_VIEWS.'navcompany.php');
 
 }
 
-include('Views/header.php');
+
 ?>
   <script type="text/javascript">
         function confirmDelete()

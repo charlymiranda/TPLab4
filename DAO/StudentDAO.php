@@ -184,7 +184,7 @@ class StudentDAO implements IStudentDAO
             file_put_contents('Data/students.json', $jsonContent);
         }*/
 
-      /*  private function RetrieveData()
+        private function RetrieveData()
         {
             $this->studentList = array();
 

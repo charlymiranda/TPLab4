@@ -1,6 +1,4 @@
-<?php
-require_once('header.php');
-?>
+
 <main class="d-flex align-items-center justify-content-center height-100">
      <div class="content">
           <section class="text-center">
