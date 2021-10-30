@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use DAO\CompanyDAO as CompanyDAO;
-use Models\Administrator;
 use Models\Company as Company;
 use Utils\Utils as Utils;
 
@@ -11,7 +10,6 @@ class CompanyController
 {
     private $companyDAO;
     private $companiesList = array();
-    private $company;
 
 
     public function __construct()
@@ -41,10 +39,9 @@ class CompanyController
     {
         Utils::checkAdminSession();
         $this->companiesList = $this->companyDAO->GetAll();
-        require_once(VIEWS_PATH . "company-delete.php");
+        require_once(ADMIN_VIEWS . "company-delete.php");
 
     }
-
     public function ShowSingleCompany($companyId)
     {
         Utils::checkSession();
@@ -63,7 +60,7 @@ class CompanyController
             // die;
             //var_dump($this->companiesList);
             //  $this->ShowCompaniesViews();   
-            require_once(ADMIN_VIEWS . "company-delete.php");
+            require_once(VIEWS_PATH . "company-delete.php");
         } else {
             $search = strtolower($search);
             $filteredCompanies = array();
@@ -75,16 +72,9 @@ class CompanyController
                 }
             }
             $this->companiesList = $filteredCompanies;
-            require_once(ADMIN_VIEWS . "company-delete.php");
+            require_once(VIEWS_PATH . "company-list.php");
         }
     }
-
-    public function ShowModifyCompany($companyId)
-    {   
-        $this->company = $this->companyDAO->Search($companyId);
-        require_once(ADMIN_VIEWS . "company-modify.php");
-    }
-
 
     public function ListCompanies()
     {
@@ -95,11 +85,7 @@ class CompanyController
     }
 
 
-
-   
-
-
-    public function AddCompany($name, $yearFoundation, $city, $description, $email, $phoneNumber)
+    public function AddCompany($name, $yearFoundation, $city, $description, $email, $phoneNumber, $pre, $dni, $ultimo)
     {
         Utils::checkSession();
         $company = new Company();
@@ -107,15 +93,55 @@ class CompanyController
         $company->setYearFoundation($yearFoundation);
         $company->setCity($city);
         $company->setDescription($description);
+        //$company->setLogo($logo);
+        $company->setEmail($email);
+        $company->setPhoneNumber($phoneNumber);
+        $company->buildCuit($pre, $dni, $ultimo);
+
+        $result = $this->checkCUIT($company->getCuit());  
+
+        if($result == false)
+        {
+            $this->companyDAO->AddCompany($company);
+        }else{
+            require_once(ADMIN_VIEWS . "company-add.php");
+        }
+        
+        $this->ShowAddView();
+    }
+
+    //Validacion CUIT
+    private function checkCUIT($cuit){
+        $result = false;
+        $this->companiesList = $this->companyDAO->GetAll();
+        foreach($this->companiesList as $company){
+            if($company->getCuit() == $cuit){
+                $result = true;
+            }
+        }
+
+        return $result;
+    }
+    
+
+    public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber)
+    {
+        Utils::checkSession();
+        $company = new Company();
+
+        $company->setCompanyId($companyId);
+        $company->setName($name);
+        $company->setYearFoundation($yearFoundation);
+        $company->setCity($city);
+        $company->setDescription($description);
         $company->setEmail($email);
         $company->setPhoneNumber($phoneNumber);
 
-        $this->companyDAO->AddCompany($company);
+        $this->CompanyDAO->update($company);
 
         $this->ShowAddView();
     }
 
- 
     public function deleteCompany($companyId)
     {
 
