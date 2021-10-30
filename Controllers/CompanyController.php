@@ -8,6 +8,7 @@ use Utils\Utils as Utils;
 
 class CompanyController
 {
+    private $company;
     private $companyDAO;
     private $companiesList = array();
 
@@ -60,7 +61,7 @@ class CompanyController
             // die;
             //var_dump($this->companiesList);
             //  $this->ShowCompaniesViews();   
-            require_once(VIEWS_PATH . "company-delete.php");
+            require_once(ADMIN_VIEWS . "company-delete.php");
         } else {
             $search = strtolower($search);
             $filteredCompanies = array();
@@ -159,6 +160,14 @@ class CompanyController
                 $jobs = $company;
             }
         }
+    }
+
+    public function ShowModifyCompanyView($companyId)
+    {   
+        $this->company = $this->companyDAO->Search($companyId);
+        //var_dump($this->companiesList);
+        //die;
+        require_once(ADMIN_VIEWS . "company-modify.php");
     }
 
     /*public function searchCompanyByName($name){

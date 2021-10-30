@@ -12,6 +12,7 @@ use DAO\Connection as Connection;
 class CompanyDAO implements ICompanyDAO
 {
     private $companiesList = array();
+    private $company;
     private $connection;
     private $tableName = "companies";
 
@@ -95,16 +96,15 @@ class CompanyDAO implements ICompanyDAO
     {
         $sql = "SELECT * FROM companies WHERE companyId=:companyId";
         $parameters['companyId'] = $companyId;
-        $company = new Company();
         try {
             $this->connection = Connection::getInstance();
-            $company = $this->connection->execute($sql, $parameters);
+            $companyBD = $this->connection->execute($sql, $parameters);
         } catch (\PDOException $exception) {
             throw $exception;
         }
 
-        if (!empty($company)) {
-           return $this->retrieveData();
+        if (!empty($companyBD)) {
+           return $this->retrieveOneCompanyData($companyBD);
 
         } else {
             return false;
@@ -131,6 +131,21 @@ class CompanyDAO implements ICompanyDAO
             return  $listToReturn;
         
     }
+
+    private function retrieveOneCompanyData($companyBD)
+    {
+        
+        $this->company->setCompanyId($companyBD['companyId']);
+        $this->company->setName($companyBD['name']);
+        $this->company->setYearFoundation($companyBD['yearFoundation']);
+        $this->company->setDescription(($companyBD['description']));
+        $this->company->setCity($companyBD['city']);
+        // $companyToReturn->setLogo($values['logo']);
+        $this->company->setEmail($companyBD['email']);
+        $this->company->setPhoneNumber($companyBD['phoneNumber']);
+       
+    }
+    
     /*
     private function mapear($companiesList)
     {
