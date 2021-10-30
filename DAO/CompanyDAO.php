@@ -98,7 +98,7 @@ class CompanyDAO implements ICompanyDAO
 
         try {
             $this->connection = Connection::getInstance();
-            $companiesList = $this->connection->execute($sql, $parameters);
+            $this->companiesList = $this->connection->execute($sql, $parameters);
         } catch (\PDOException $exception) {
             throw $exception;
         }

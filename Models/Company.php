@@ -11,6 +11,7 @@
         //private $logo;
         private $email;
         private $phoneNumber;
+        
 
         public function __construct()
         {
@@ -157,13 +158,13 @@
                 return $this;
         }
 
-            /**
-             * Get the value of companyId
-             */ 
-            public function getCompanyId()
-            {
-                        return $this->companyId;
-            }
+        /**
+        * Get the value of companyId
+        */ 
+        public function getCompanyId()
+        {
+                return $this->companyId;
+        }
 
             /**
              * Set the value of companyId
