@@ -151,7 +151,7 @@ class CompanyDAO implements ICompanyDAO
             $this->company->setYearFoundation($com['yearFoundation']);
             $this->company->setDescription(($com['description']));
             $this->company->setCity($com['city']);
-            // $companyToReturn->setLogo($values['logo']);
+            $this->company->setLogo($com['logo']);
             $this->company->setEmail($com['email']);
             $this->company->setPhoneNumber($com['phoneNumber']);
             $this->company->setCuit($com['cuit']);
@@ -169,5 +169,5 @@ class CompanyDAO implements ICompanyDAO
         }, $companiesList);
         return count($companiesArray) >= 0 ? $companiesArray : $companiesArray['0'];
     }
-*/
+    */
 }

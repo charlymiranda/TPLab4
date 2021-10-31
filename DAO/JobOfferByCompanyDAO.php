@@ -26,10 +26,12 @@ class JobOfferByCompanyDAO implements IJobOfferByCompanyDAO
 
 
     }
+
     function getAllJobOfferByCompany($companyId){
 
-        $sql = "SELECT * FROM job_offer_x_company WHERE companyId=:companyId";
+        $sql = "SELECT * FROM job_offer_x_company WHERE companyId=:companyId AND active=:active";
         $parameters['companyId'] = $companyId;
+        $parameters['active'] = true;
 
         try {
             $this->connection = Connection::getInstance();
