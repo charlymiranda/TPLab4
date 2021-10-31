@@ -7,46 +7,53 @@ require_once('navcompany.php');
                <h2 class="mb-4">Ver Empresa</h2>
                <form action="<?php echo FRONT_ROOT . "Company/updateCompany" ?>" method="POST" class="bg-light-alpha p-5">
                     <div class="row">
-                    <input type="hidden" name="companyId"  value="<?php echo $this->company->getCompanyId(); ?>"/>
+                         <input type="hidden" name="companyId" value="<?php echo $this->company->getCompanyId(); ?>" />
                          <div class="col-lg-4">
                               <label for="">Name</label>
-                              <input type="text" name="name" class="form-control" value="<?php echo $this->company->getName(); ?>"/>
+                              <input type="text" name="name" class="form-control" required value="<?php echo $this->company->getName(); ?>" />
 
                          </div>
                          <div class="col-lg-4">
 
                               <label for="">Año de Fundacion</label>
-                              <input type="date" name="yearFoundation" class="form-control" value="<?php echo $this->company->getYearFoundation(); ?>"/>
+                              <input type="date" name="yearFoundation" class="form-control" required value="<?php echo $this->company->getYearFoundation(); ?>" />
 
                          </div>
 
                          <div class="col-lg-4">
 
                               <label for="">Ciudad</label>
-                              <input type="text" name="city" class="form-control" value="<?php echo $this->company->getCity(); ?>"/>
+                              <input type="text" name="city" class="form-control" required value="<?php echo $this->company->getCity(); ?>" />
 
                          </div>
                          <div class="col-lg-4">
 
                               <label for="">Descripcion</label>
-                              <textarea type="text" name="description" class="form-control" value=""><?php echo $this->company->getDescription(); ?></textarea>
+                              <textarea type="text" name="description" class="form-control" required value=""><?php echo $this->company->getDescription(); ?></textarea>
 
                          </div>
                          <div class="col-lg-4">
 
                               <label for="">Email</label>
-                              <input type="email" name="email" class="form-control" value="<?php echo $this->company->getEmail(); ?>"/>
+                              <input type="email" name="email" class="form-control" required value="<?php echo $this->company->getEmail(); ?>" />
 
                          </div>
                          <div class="col-lg-4">
 
                               <label for="">Telefono</label>
-                              <input type="number" name="phoneNumber" class="form-control" value="<?php echo $this->company->getPhoneNumber(); ?>"/>
+                              <input type="number" name="phoneNumber" class="form-control" required value="<?php echo $this->company->getPhoneNumber(); ?>" />
 
                          </div>
                          <div class="col-lg-4">
                               <labelfor="">Cuit</label>
-                              <input type="text" name="cuit" class="form-control" value="<?php echo $this->company->getCuit(); ?>"/>
+                                   <input type="text" name="cuit" class="form-control" required value="<?php echo $this->company->getCuit(); ?>" />
+                         </div>
+
+                         <div class="col-lg-4">
+
+                              <label for="">Logo</label>
+                              <input type="file" name="logo" class="form-control" required value="<?php echo $this->company->getLogo(); ?>">
+
                          </div>
                     </div>
                     <button type="submit" name="" class="btn btn-primary ml-auto d-block">Save</button>

@@ -4,7 +4,7 @@
 namespace DAO;
 
 use COM;
-use interfaces\Idaos as IDaos;
+
 use DAO\ICompanyDAO as ICompanyDAO;
 use Models\Company as Company;
 use DAO\Connection as Connection;
