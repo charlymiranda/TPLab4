@@ -9,16 +9,29 @@
     use DAO\IJobPossitionDAO as IJobPositionDAO;
     use DAO\CompanyDAO as CompanyDAO;
     use Utils\Utils as Utils;
+    use DAO\CareerDAO as CareerDAO;
+    use Models\Career as Career;
+    use DAO\JobOfferByCompanyDAO as JobOfferByCompanyDAO;
+    use Models\JobOfferByCompany as JobOfferByCompany;
 
     class JobOfferController{
         private $jobPositionDAO;
         private $jobOfferDAO;
         private $jobOfferList = array();
+        private $careerDAO;
+        private $career;
+        private $jobOfferByCompanyDAO;
+        private $jobOfferByCompany;
 
         public function __construct()
         {
             $this->jobPositionDAO = new JobPositionDAO();
             $this->jobOfferDAO = new JobOfferDAO();
+            $this->careerDAO = new CareerDAO();
+            $this->career = new Career();
+            $this->jobOfferByCompanyDAO = new JobOfferByCompanyDAO();
+            $this->jobOfferByCompany = new JobOfferByCompany();
+
         }
 
         public function ShowJobOfferAddView($message = "")
@@ -98,6 +111,18 @@
             return $results;
         }
 
+
+        
+
+
+        public function showJobsOffersViewByCareer($careerId){
+        
+            
+
+              
+
+
+        }
 
 
 

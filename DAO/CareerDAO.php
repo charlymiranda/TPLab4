@@ -17,11 +17,11 @@
         public function GetAll(){
             
             $sql = "SELECT * FROM careers WHERE active=:active";
-            $parameters['active']=true;
+            $parameters['active']=1;
 
             try {
                 $this->connection = Connection::getInstance();
-                $this->careerList = $this->connection->execute($sql);
+                $this->careerList = $this->connection->execute($sql,$parameters);
             } catch (\PDOException $exeption) {
                 throw $exeption;
             }
@@ -84,7 +84,20 @@
                 }
             }
             return null;
-    }
+        }
+
+
+        public function GetJobOffersByIdB($careerId){
+            $this->consumeFromApi();
+
+            foreach ($this->careerList as $career) {
+                if ($career->getCareerId() == $careerId){
+                    return $career;
+                }
+            }
+            return null;
+        }
+
 
     public function getCareerStudent($student){
         $this->consumeFromApi();
@@ -105,8 +118,8 @@
             $career = new Career();
             $career->setCareerId($values['careerId']);
             $career->setDescription($values['description']);
-            $career->setActive($values['yearFoundation']);
-           
+            $career->setActive($values['active']);
+                     
             array_push($listToReturn, $career);
         }
         return  $listToReturn;

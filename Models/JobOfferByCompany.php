@@ -8,6 +8,8 @@ class JobOfferByCompany
     private $companyId;
     private $jobOfferId;
     private $jobPossitionId;
+    private $active;
+    private $careerId;
 
     /**
      * Get the value of jobOfferByCompanyId
@@ -85,6 +87,46 @@ class JobOfferByCompany
     public function setJobPossitionId($jobPossitionId)
     {
         $this->jobPossitionId = $jobPossitionId;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of active
+     */ 
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set the value of active
+     *
+     * @return  self
+     */ 
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of careerId
+     */ 
+    public function getCareerId()
+    {
+        return $this->careerId;
+    }
+
+    /**
+     * Set the value of careerId
+     *
+     * @return  self
+     */ 
+    public function setCareerId($careerId)
+    {
+        $this->careerId = $careerId;
 
         return $this;
     }

@@ -7,11 +7,12 @@
 
     class CareerController{
         private $careerDAO;
-        private $careersList = array();
+        private $careerList;
 
         public function __construct()
         {
             $this->careerDAO = new CareerDAO();
+            $this->careerList = array();
         }
 
         public function ShowSingleCareer($careerId)
@@ -23,10 +24,10 @@
         
         }
 
-        public function CareersList()
+        public function showCareerListView()
         {
             Utils::checkSession();
-            $this->careersList = $this->careerDAO->GetAll();
+            $this->careerList = $this->careerDAO->GetAll();
             
             require_once(VIEWS_PATH . "career-list.php");
         }
