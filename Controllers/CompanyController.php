@@ -8,6 +8,7 @@ use Utils\Utils as Utils;
 
 class CompanyController
 {
+    private $company;
     private $companyDAO;
     private $companiesList = array();
 
@@ -123,9 +124,9 @@ class CompanyController
     }
     
 
-    public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber)
+    public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber, $cuit)
     {
-        Utils::checkSession();
+        //Utils::checkSession();
         $company = new Company();
 
         $company->setCompanyId($companyId);
@@ -135,8 +136,9 @@ class CompanyController
         $company->setDescription($description);
         $company->setEmail($email);
         $company->setPhoneNumber($phoneNumber);
+        $company->setCuit($cuit);
 
-        $this->CompanyDAO->update($company);
+        $this->companyDAO->Update($company);
 
         $this->ShowAddView();
     }
@@ -159,6 +161,13 @@ class CompanyController
                 $jobs = $company;
             }
         }
+    }
+
+    public function ShowModifyCompanyView($companyId)
+    {   
+        $this->company = $this->companyDAO->Search($companyId);
+
+        require_once(ADMIN_VIEWS . "company-modify.php");
     }
 
     /*public function searchCompanyByName($name){

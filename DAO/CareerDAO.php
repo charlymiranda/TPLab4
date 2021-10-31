@@ -15,9 +15,22 @@
 
 
         public function GetAll(){
+            
+            $sql = "SELECT * FROM careers WHERE active=:active";
+            $parameters['active']=true;
 
-            $this->consumeFromApi();
-            return $this->careerList;
+            try {
+                $this->connection = Connection::getInstance();
+                $this->careerList = $this->connection->execute($sql);
+            } catch (\PDOException $exeption) {
+                throw $exeption;
+            }
+    
+            if (!empty($this->careerList)) {
+                return $this->retrieveData();
+            } else {
+                return false;
+            }
 
         }
 
@@ -82,9 +95,25 @@
         
     }
 
+    
+
+    private function retrieveData()
+    {
+        $listToReturn = array();
+
+        foreach ($this->careerList as $values) {
+            $career = new Career();
+            $career->setCareerId($values['careerId']);
+            $career->setDescription($values['description']);
+            $career->setActive($values['yearFoundation']);
+           
+            array_push($listToReturn, $career);
+        }
+        return  $listToReturn;
     }
 
 
+}
 
 
 ?> 

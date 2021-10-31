@@ -1,9 +1,7 @@
 <?php
     require_once(ADMIN_VIEWS.'navcompany.php');
  ?>
-
-
-
+ 
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
