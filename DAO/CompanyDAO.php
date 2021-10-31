@@ -62,6 +62,7 @@ class CompanyDAO implements ICompanyDAO
             return $this->connection->executeNonQuery($sql, $parameters);
         } catch (\PDOException $exeption) {
             throw $exeption;
+            require_once(ADMIN_VIEWS."company-modify.php");
         }
     }
 
@@ -80,17 +81,19 @@ class CompanyDAO implements ICompanyDAO
 
     public function Update(Company $company)
     {
-        $sql = "UPDATE campanies SET name=:name, yearFoundation=:yearFoundation, city=:city, description=:description, logo=:logo, email=:email, phoneNumber=:phoneNumber WHERE companyId= :companyId;";
-
+        $sql = "UPDATE companies SET name = :name, yearFoundation = :yearFoundation, city = :city, description = :description, email = :email, phoneNumber = :phoneNumber, cuit= :cuit WHERE companyId= :companyId";
+        
         $parameters['companyId'] = $company->getCompanyId();
         $parameters['name'] = $company->getName();
         $parameters['yearFoundation'] = $company->getYearFoundation();
         $parameters['city'] = $company->getCity();
         $parameters['description'] = $company->getDescription();
-        $parameters['logo'] = $company->getLogo();
+       // $parameters['logo'] = $company->getLogo();
         $parameters['email'] = $company->getEmail();
         $parameters['phoneNumber'] = $company->getPhoneNumber();
-
+        $parameters['cuit']= $company->getCuit();
+       // var_dump($sql);
+        //die;
         try {
             $this->connection = Connection::getInstance();
             return $this->connection->executeNonQuery($sql, $parameters);
@@ -151,6 +154,7 @@ class CompanyDAO implements ICompanyDAO
             // $companyToReturn->setLogo($values['logo']);
             $this->company->setEmail($com['email']);
             $this->company->setPhoneNumber($com['phoneNumber']);
+            $this->company->setCuit($com['cuit']);
         }
     }
 

@@ -7,8 +7,8 @@ require_once('navcompany.php');
                <h2 class="mb-4">Ver Empresa</h2>
                <form action="<?php echo FRONT_ROOT . "Company/updateCompany" ?>" method="POST" class="bg-light-alpha p-5">
                     <div class="row">
+                    <input type="hidden" name="companyId"  value="<?php echo $this->company->getCompanyId(); ?>"/>
                          <div class="col-lg-4">
-
                               <label for="">Name</label>
                               <input type="text" name="name" class="form-control" value="<?php echo $this->company->getName(); ?>"/>
 
@@ -44,8 +44,12 @@ require_once('navcompany.php');
                               <input type="number" name="phoneNumber" class="form-control" value="<?php echo $this->company->getPhoneNumber(); ?>"/>
 
                          </div>
+                         <div class="col-lg-4">
+                              <labelfor="">Cuit</label>
+                              <input type="text" name="cuit" class="form-control" value="<?php echo $this->company->getCuit(); ?>"/>
+                         </div>
                     </div>
-                    <button type="submit" name="modify-company-button" class="btn btn-primary ml-auto d-block">Guardar</button>
+                    <button type="submit" name="" class="btn btn-primary ml-auto d-block">Save</button>
                </form>
           </div>
 
