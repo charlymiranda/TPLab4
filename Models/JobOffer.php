@@ -9,8 +9,7 @@
         private $active;
         private $description;
         private $salary;
-
-
+        
         public function __construct()
         {
                 
@@ -24,7 +23,6 @@
         {
                 return $this->jobOfferId;
         }
-
 
         public function setJobOfferId($jobOfferId)
         {
@@ -93,7 +91,6 @@
                 return $this;
         }
 
-
         /**
          * Get the value of description
          */ 
@@ -153,5 +150,6 @@
 
                 return $this;
         }
+   
 }
 ?>
