@@ -7,6 +7,7 @@
     use DAO\IJobOfferDAO as IJobOfferDAO;
     use DAO\JobPositionDAO as JobPositionDAO;
     use DAO\IJobPossitionDAO as IJobPositionDAO;
+    use DAO\CompanyDAO as CompanyDAO;
     use Utils\Utils as Utils;
 
     class JobOfferController{
@@ -97,8 +98,13 @@
             return $results;
         }
 
-        public function jobsOffersByCompany($companyId){
+
+
+
+        public function showJobsOffersViewByCompany($companyId){
+        
             
+
 
         }
 

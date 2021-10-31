@@ -9,9 +9,7 @@
         private $active;
         private $description;
         private $salary;
-        private $jobPossitionId;
-        private $companyId;
-        private $career;
+        
 
         public function __construct()
         {
@@ -98,45 +96,7 @@
   
 
 
-        /**
-         * Get the value of jobPossitionId
-         */ 
-        public function getJobPossitionId()
-        {
-                return $this->jobPossitionId;
-        }
-
-        /**
-         * Set the value of jobPossitionId
-         *
-         * @return  self
-         */ 
-        public function setJobPossitionId($jobPossitionId)
-        {
-                $this->jobPossitionId = $jobPossitionId;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of companyId
-         */ 
-        public function getCompanyId()
-        {
-                return $this->companyId;
-        }
-
-        /**
-         * Set the value of companyId
-         *
-         * @return  self
-         */ 
-        public function setCompanyId($companyId)
-        {
-                $this->companyId = $companyId;
-
-                return $this;
-        }
+          
 
         /**
          * Get the value of description
@@ -198,24 +158,9 @@
                 return $this;
         }
 
-        /**
-         * Get the value of career
-         */ 
-        public function getCareer()
-        {
-                return $this->career;
-        }
+       
+     
 
-        /**
-         * Set the value of career
-         *
-         * @return  self
-         */ 
-        public function setCareer($career)
-        {
-                $this->career = $career;
-
-                return $this;
-        }
+   
 }
 ?>

@@ -43,7 +43,7 @@ if (isset($_SESSION["admin"])) {
                         <!-- <th>Description</th>   -->
                         <th class="header" scope="col" position="sticky">Email</th>
                         <th class="header" scope="col" position="sticky">PhoneNumber</th>
-                        <th class="header" scope="col" position="sticky">-</th>
+                        <th class="header" scope="col" position="sticky">Logo</th>
                         <th class="header" scope="col" position="sticky">-</th>
                         <th class="header" scope="col" position="sticky">-</th>
                         <th class="header" scope="col" position="sticky">-</th>
@@ -51,9 +51,12 @@ if (isset($_SESSION["admin"])) {
 
                     </thead>
                     <tbody>
+
+
+                   
                         <?php
-
-
+                            
+                            
                         if ($this->companiesList !=NULL) {
                             foreach ($this->companiesList as $company) {
                                 echo "<tr>";
@@ -61,9 +64,10 @@ if (isset($_SESSION["admin"])) {
                                 echo  "<td>" . $company->getCity() . "</td>";
                                 echo  "<td>" . $company->getEmail() . "</td>";
                                 echo  "<td>" . $company->getPhoneNumber() . "</td>";
+                                echo  "<td>" . $company->getLogo()."<td/>";
 
                                 if (isset($_SESSION["admin"])) {
-
+                                    
                                     $companyId = $company->getCompanyId();
                                     echo "<div class='row'>";
                                     echo "<div class='button-conteiner'>";
@@ -79,11 +83,11 @@ if (isset($_SESSION["admin"])) {
                                     echo "</div>";
                                     echo "</div>";
                                 }
-
+                                
                                 echo "<div class='row'>";
                                 echo  "<div class='button-conteiner'>";
-                                echo "<td><a href=" . FRONT_ROOT . "Company/updateCompany/" . $company->getCompanyId() . ">
-                                  <button type='button' class= 'btn btn-info' > Jobs Offer</button></a></td>";
+                                echo "<td><a href=" . FRONT_ROOT . "JobOffer/showJobsOffersViewByCompany/" . $company->getCompanyId() . ">
+                                  <button type='button' class= 'btn btn-info' > Job Offers</button></a></td>";
                                 echo "</div>";
                                 echo "</div>";
                             }

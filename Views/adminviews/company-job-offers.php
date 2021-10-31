@@ -62,25 +62,25 @@ if (isset($_SESSION["admin"])) {
                             foreach ($this->jobOfferList as $jobOffer) {
                                 echo "<tr>";
                                 echo  "<td>" . $jobOffer->getStartDay() . "</td>";
-                                echo  "<td>" . $company->getDeadline() . "</td>";
-                                echo  "<td>" . $company->getDescription() . "</td>";
-                                echo  "<td>" . $company->getSalary() . "</td>";
-                                echo  "<td>" . $company->getJobPossitionId() . "</td>";
+                                echo  "<td>" . $jobOffer->getDeadline() . "</td>";
+                                echo  "<td>" . $jobOffer->getDescription() . "</td>";
+                                echo  "<td>" . $jobOffer->getSalary() . "</td>";
+                                echo  "<td>" . $jobOffer->getJobPossitionId() . "</td>";
                                 
 
                                 if (isset($_SESSION["admin"])) {
 
-                                    $companyId = $company->getCompanyId();
+                                    $jobOfferId = $jobOffer->getjobOfferId();
                                     echo "<div class='row'>";
                                     echo "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/deleteJobOffer/" . $company->getCompanyId() . ">
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/deleteJobOffer/" . $jobOffer->getjobOfferId() . ">
                                 <button type='button' class= 'btn btn-danger' > Delete</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
 
                                     echo "<div class='row'>";
                                     echo  "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/updateJobOffery/" . $company->getCompanyId() . ">
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/updateJobOffer/" . $jobOffer->getjobOfferId() . ">
                                  <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";

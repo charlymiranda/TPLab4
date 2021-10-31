@@ -10,41 +10,41 @@
                <form action="<?php echo FRONT_ROOT ?>JobOffer/addJobOffer" method="POST" class="bg-light-alpha p-5">
                     <div class="row">                         
                          <div class="col-lg-4">
-                              <div class="form-group">
+                             
                                    <label for="">Name</label>
                                    <input type="text" name="name" value="" class="form-control">
                               </div>
-                         </div>
+                       
                          <div class="col-lg-4">
-                              <div class="form-group">
+                              
                                    <label for="">Start Day</label>
                                    <input type="date" name="Inital Date" value="" min= "2021-10-25" max="2021-10-30" class="form-control">
-                              </div>
+                             
                          </div>
                          <div class="col-lg-4">
-                              <div class="form-group">
+                              
                                    <label for="">Deadline</label>
                                    <input type="date" name="Inital Date" value="" min= "2021-10-30" max="2021-11-15" class="form-control">
-                              </div>
+                             
                          </div>
                          
                          <div class="col-lg-4">
-                              <div class="form-group">
+                              
                                    <label for="">Description</label>
                                    <input type="text" name="description" value="" class="form-control">
-                              </div>
+                              
                          </div>
                          <div class="col-lg-4">
-                              <div class="form-group">
+                              
                                    <label for="">Salary</label>
                                    <input type="number" name="salary" value="" class="form-control">
-                              </div>
+                             
                          </div>
                          <div class="col-lg-4">
-                              <div class="form-group">
+                           
                                    <label for="">Career</label>
                                    <input type="text" name="career" value="" class="form-control">
-                              </div>
+                              
                          </div>
                         
 
