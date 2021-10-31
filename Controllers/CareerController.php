@@ -23,12 +23,12 @@
         
         }
 
-        public function ListCareers()
+        public function CareersList()
         {
             Utils::checkSession();
-            $this->careerList = $this->careerDAO->GetAll();
-            //var_dump($this->companiesList);
-            require_once(VIEWS_PATH . "student-list.php");  ///Modificar
+            $this->careersList = $this->careerDAO->GetAll();
+            
+            require_once(VIEWS_PATH . "career-list.php");
         }
 
     }

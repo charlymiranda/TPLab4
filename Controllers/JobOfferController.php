@@ -102,8 +102,6 @@
 
         }
 
-
-
         public function ShowJobsViews($search = "")
         {
             if ($search == "") {
@@ -125,8 +123,6 @@
                 require_once(ADMIN_VIEWS . "company-job-offers.php");
             }
         }
-
-
 
         public function RedirectAddJobForm()
         {
