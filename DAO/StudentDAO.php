@@ -11,7 +11,7 @@ use PDOException;
 class StudentDAO implements IStudentDAO
     {
         private $connection;
-
+        private $student;
         private $studentList = array();
 
         
@@ -129,7 +129,7 @@ class StudentDAO implements IStudentDAO
                      
         }
 */
-       /* public function getLoginStudent($email){
+       public function getLoginStudent($email){
             $sql = "SELECT * FROM students WHERE email=:email";
             $parameters['email']=$email;
             try{
@@ -140,13 +140,32 @@ class StudentDAO implements IStudentDAO
                 throw $exeption;
             }
 
-            if(!empty($result)){
-                return $this->mapear($result);
+            if($result != null){
+                $this->retrieveOneStudent();
+
+                return $this->student;
             }else{
                 return false;
             }
 
-        }*/
+        }
+
+        private function retrieveOneStudent()
+    {
+        foreach ($this->studentBD as $stud) {
+            $this->student->setStudentId($stud['studentId']);
+            $this->student->setCareerId($stud['careerId']);
+            $this->student->setFirstName($stud['firstName']);
+            $this->student->setLastName(($stud['lastName']));
+            $this->student->setDni($stud['dni']);
+            $this->student->setFileNumber($stud['fileNumber']);
+            $this->student->setGender($stud['gender']);
+            $this->student->setBirthDate($stud['birthDate']);
+            $this->student->setEmail($stud['email']);
+            $this->student->setPhoneNumber($stud['phoneNumber']);
+            $this->student->setPassword($stud['password']);
+        }
+    }
 
         /*
         private function mapear($studentList){
