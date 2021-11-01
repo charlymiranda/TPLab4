@@ -59,6 +59,8 @@ if (isset($_SESSION["admin"])) {
                                                       
                         if ($this->companiesList !=NULL) {
                             foreach ($this->companiesList as $company) {
+                                
+                                
                                 echo "<tr>";
                                 ?>   
                                 <td> <img src="<?php echo $company->getLogo(); ?>" alt="" title="<?php echo $company->getLogo(); ?>" width="50" height="50" class="img-responsive" /></td>
@@ -102,10 +104,13 @@ if (isset($_SESSION["admin"])) {
                             echo "The companies list is empty";
                         }
                         ?>
+                        
                     </tbody>
                 </table>
             </div>
         </div>
         </form>
     </section>
+    
 </main>
+<br>

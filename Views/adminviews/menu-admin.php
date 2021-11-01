@@ -32,3 +32,4 @@ require_once(ADMIN_VIEWS . 'navcompany.php');
 
 </body>
 </html>
+<br></br><br></br>
