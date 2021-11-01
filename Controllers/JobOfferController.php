@@ -13,6 +13,7 @@
     use Models\Career as Career;
     use DAO\JobOfferByCompanyDAO as JobOfferByCompanyDAO;
     use Models\JobOfferByCompany as JobOfferByCompany;
+    use \PDOException as PDOException;
 
     class JobOfferController{
         private $jobPositionDAO;
@@ -36,7 +37,7 @@
 
         public function ShowJobOfferAddView($message = "")
         {
-            require_once(VIEWS_PATH . "jobOffer-add.php");
+            require_once(ADMIN_VIEWS . "jobOffer-add.php");
         }
 
         public function showJobOfferView(){
@@ -46,14 +47,20 @@
             require_once(VIEWS_PATH."jobOffer-list.php");    ///Falta crear
         }
 
-        public function getJobOfferId($id){
+        public function getJobOfferById($id){
             Utils::checkSession();
-            $jobOffer = $this->jobOfferDAO->SearchJobOffer($id);
+            $jobOffer = $this->jobOfferDAO->searchJobOfferById($id);
+        
+            require_once(VIEWS_PATH . "jobOffer-view.php");      ///Falta crear
+        }
+        public function getJobOfferByName($id){
+            Utils::checkSession();
+            $jobOffer = $this->jobOfferDAO->searchJobOfferById($id);
         
             require_once(VIEWS_PATH . "jobOffer-view.php");      ///Falta crear
         }
 
-        public function addJobOffer($jobOfferId, $career, $startDay, $deadLine, $active, $jobPositionId, $name, $salary, $description){
+        public function addJobOffer($jobOfferId, $name, $startDay, $deadLine, $active,  $description, $salary, $companyId, $careerId, $jobPositionId ){
             Utils::checkAdminSession();
 
             $jobOffer = new JobOffer();
@@ -62,12 +69,13 @@
             $jobOffer->setStartDay($startDay);
             $jobOffer->setDeadLine($deadLine);
             $jobOffer->setActive($active);
-            $jobOffer->setSalary($salary);
             $jobOffer->setDescription($description);
-            $jobOffer->setJobPossitionId($jobPositionId);
-            $jobOffer->setCareer($career);
-
-
+            $jobOffer->setSalary($salary);
+            $jobOffer->setCareerId($careerId);
+            $jobOffer->setCompanyId($companyId);
+            $jobOffer->setCareerId($careerId);
+            $jobOffer->setJobPositionId($jobPositionId);
+          
             $this->jobOfferDAO->addJobOffer($jobOffer);
 
             $this->ShowjobOfferAddView("The job offer had been loaded successfully");
@@ -82,7 +90,7 @@
             $jobOffer->setStartDay($startDay);
             $jobOffer->setDeadLine($deadLine);
             $jobOffer->setActive($active);
-            $jobOffer->setJobPossitionId($jobPositionId);
+            $jobOffer->setJobPositionId($jobPositionId);
 
             $this->JobOfferDAO->update($jobOffer);
 
@@ -111,7 +119,19 @@
             return $results;
         }
 
+        public function addStudentToAJobOffer($jobOfferId, $studentId){
+            $controlScritpt=1;
+            try{
+                $this->jobOfferDAO->addStudentToAJobOffer($jobOfferId, $studentId);
 
+            }catch(PDOException $ex){
+                $controlScritpt=1;
+                $message='error en la base';
+                require_once(ADMIN_VIEWS . "jobOffer-add.php");
+            }
+            $message = "student added to a job offer";
+            require_once(ADMIN_VIEWS . "jobOffer-add.php");
+        }
         
 
 

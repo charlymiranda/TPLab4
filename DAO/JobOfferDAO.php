@@ -46,12 +46,19 @@ class JobOfferDAO implements IJobOfferDAO
 
     public function addJobOffer(JobOffer $jobOffer)
     {
-        $sql = "INSERT INTO job_offer(startDay, deadline, active) 
-                VALUES(:startDay, :deadline, :active);";
+        $sql = "INSERT INTO job_offer(name, startDay, deadline, active, description, salary, companyId, studentId, careerId, jobPositionId) 
+                VALUES(:name, :startDay, :deadline, :active, :description, :salary, :companyId, :studentId, :careerId, :jobPositionId);";
 
-        $parameters['startDay'] = $jobOffer->getstartDay();
-        $parameters['deadline'] = $jobOffer->getdeadline();
-        $parameters['active'] = $jobOffer->getactive();
+        $parameters['name'] = $jobOffer->getName();
+        $parameters['startDay'] = $jobOffer->getStartDay();
+        $parameters['deadline'] = $jobOffer->getDeadline();
+        $parameters['active'] = $jobOffer->getActive();
+        $parameters['description'] = $jobOffer->getDescription();
+        $parameters['salary'] = $jobOffer->getSalary();
+        $parameters['companyId'] = $jobOffer->getCompanyId();
+        $parameters['studentId'] = $jobOffer->getStudentId();
+        $parameters['careerId'] = $jobOffer->getCareerId();
+        $parameters['jobPositionId'] = $jobOffer->getJobPositionId();
 
         try {
             $this->connection = Connection::getInstance();
@@ -78,7 +85,7 @@ class JobOfferDAO implements IJobOfferDAO
         }
     }
 
-    public function searchJobOffer($jobOfferId)
+    public function searchJobOfferById($jobOfferId)
     {
         $sql = "SELECT * FROM job_offer WHERE jobOfferId=:jobOfferId";
         $parameters['jobOfferId'] = $jobOfferId;
@@ -96,17 +103,55 @@ class JobOfferDAO implements IJobOfferDAO
             return false;
         }
     }
+    public function searchJobOfferByName($jobOfferName)
+    {
+        $sql = "SELECT * FROM job_offer WHERE name=:name";
+        $parameters['name'] = $jobOfferName;
 
+        try {
+            $this->connection = Connection::getInstance();
+            $this->jobOfferList = $this->connection->execute($sql, $parameters);
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+       
+        if (!empty($jobOfferList)) {
+            return $this->retrieveDataJobOffer();
+        } else {
+            return false;
+        }
+    }
+
+    public function addStudentToAJobOffer($jobOfferId, $studentId){
+        $sql = "UPDATE job_offer SET studentId=:studentId WHERE jobOfferId=:jobOfferId;";
+
+        $parameters['studentId'] = $studentId;
+        $parameters['jobOfferId'] = $jobOfferId;
+        
+        try {
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+
+    }
     private function retrieveDataJobOffer()
     {
         $listToReturn = array();
 
         foreach ($this->jobOfferList as $values) {
             $jobOffer = new JobOffer();
+            $jobOffer->setName($values['name']);
             $jobOffer->setJobOfferId($values['jobOfferId']);
             $jobOffer->setstartDay($values['startDay']);
             $jobOffer->setdeadLine($values['deadLine']);
             $jobOffer->setActive($values['active']);
+            $jobOffer->setDescription($values['description']);
+            $jobOffer->setSalary($values['salary']);
+            $jobOffer->setCompanyId($values['companyId']);
+            $jobOffer->setStudentId($values['studentId']);
+            $jobOffer->setCareerId($values['careerId']);
             $jobOffer->setjobPositionId(($values['jobPositionId']));
 
             array_push($listToReturn, $jobOffer);

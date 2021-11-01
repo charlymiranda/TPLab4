@@ -9,6 +9,10 @@
         private $active;
         private $description;
         private $salary;
+        private $companyId;
+        private $studentId;
+        private $careerId;
+        private $jobPositionId;
         
         public function __construct()
         {
@@ -151,5 +155,85 @@
                 return $this;
         }
    
+
+        /**
+         * Get the value of companyId
+         */ 
+        public function getCompanyId()
+        {
+                return $this->companyId;
+        }
+
+        /**
+         * Set the value of companyId
+         *
+         * @return  self
+         */ 
+        public function setCompanyId($companyId)
+        {
+                $this->companyId = $companyId;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of studentId
+         */ 
+        public function getStudentId()
+        {
+                return $this->studentId;
+        }
+
+        /**
+         * Set the value of studentId
+         *
+         * @return  self
+         */ 
+        public function setStudentId($studentId)
+        {
+                $this->studentId = $studentId;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of careerId
+         */ 
+        public function getCareerId()
+        {
+                return $this->careerId;
+        }
+
+        /**
+         * Set the value of careerId
+         *
+         * @return  self
+         */ 
+        public function setCareerId($careerId)
+        {
+                $this->careerId = $careerId;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of jobPositionId
+         */ 
+        public function getJobPositionId()
+        {
+                return $this->jobPositionId;
+        }
+
+        /**
+         * Set the value of jobPositionId
+         *
+         * @return  self
+         */ 
+        public function setJobPositionId($jobPositionId)
+        {
+                $this->jobPositionId = $jobPositionId;
+
+                return $this;
+        }
 }
 ?>
