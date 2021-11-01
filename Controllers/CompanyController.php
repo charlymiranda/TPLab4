@@ -85,7 +85,7 @@ class CompanyController
     }
 
 
-    public function AddCompany($name, $yearFoundation, $city, $description, $email, $phoneNumber, $pre, $dni, $ultimo)
+    public function AddCompany($name, $yearFoundation, $city, $description, $email, $phoneNumber, $pre, $dni, $ultimo,$logo)
     {
         Utils::checkSession();
         $company = new Company();
@@ -93,7 +93,7 @@ class CompanyController
         $company->setYearFoundation($yearFoundation);
         $company->setCity($city);
         $company->setDescription($description);
-        //$company->setLogo($logo);
+        $company->setLogo($logo);
         $company->setEmail($email);
         $company->setPhoneNumber($phoneNumber);
         $company->buildCuit($pre, $dni, $ultimo);

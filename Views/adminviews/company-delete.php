@@ -36,36 +36,45 @@ if (isset($_SESSION["admin"])) {
                     </form>
                 </div>
                 <table class="table bg-light-alpha">
+                    <div class="container" position="fixed">
                     <thead>
+                        <th class="header" scope="col" position="sticky"></th>
                         <th class="header" scope="col" position="sticky">Name</th>
                         <th class="header" scope="col" position="sticky">City</th>
                         <!-- <th>yearFoundation</th> -->
                         <!-- <th>Description</th>   -->
                         <th class="header" scope="col" position="sticky">Email</th>
                         <th class="header" scope="col" position="sticky">PhoneNumber</th>
-                        <th class="header" scope="col" position="sticky">Logo</th>
-                        <th class="header" scope="col" position="sticky">-</th>
-                        <th class="header" scope="col" position="sticky">-</th>
-                        <th class="header" scope="col" position="sticky">-</th>
+                        
+                        <th class="header" scope="col" position="sticky"></th>
+                        <th class="header" scope="col" position="sticky"></th>
+                        <th class="header" scope="col" position="sticky"></th>
 
-
+                        
                     </thead>
+                    </div>
                     <tbody>
-
-
                    
                         <?php
-                            
-                            
+                                                      
                         if ($this->companiesList !=NULL) {
                             foreach ($this->companiesList as $company) {
+                                
+                                
                                 echo "<tr>";
+                                ?>   
+                                <td> <img src="<?php echo $company->getLogo(); ?>" alt="" title="<?php echo $company->getLogo(); ?>" width="50" height="50" class="img-responsive" /></td>
+ 
+                                    <?php
                                 echo  "<td>" . $company->getName() . "</td>";
                                 echo  "<td>" . $company->getCity() . "</td>";
                                 echo  "<td>" . $company->getEmail() . "</td>";
                                 echo  "<td>" . $company->getPhoneNumber() . "</td>";
-                                echo  "<td>" . $company->getLogo()."<td/>";
+                            
 
+                                //echo "<td> <img height='50px' width='50px' src=".base64_encode( $company->getLogo())."> </td>";  
+                                // echo '<td><img src="'.$company->getLogo().'" alt="Logo sera" style="width:128px;height:128px"></td>'; 
+                        
                                 if (isset($_SESSION["admin"])) {
                                     
                                     $companyId = $company->getCompanyId();
@@ -95,10 +104,13 @@ if (isset($_SESSION["admin"])) {
                             echo "The companies list is empty";
                         }
                         ?>
+                        
                     </tbody>
                 </table>
             </div>
         </div>
         </form>
     </section>
+    
 </main>
+<br>

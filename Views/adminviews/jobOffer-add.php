@@ -1,6 +1,16 @@
+
 <?php
-    require_once(ADMIN_VIEWS.'navcompany.php');
- 
+     require_once(ADMIN_VIEWS.'navcompany.php');
+
+      if(isset($controlScript))
+        {
+          if($controlScript==1)
+          {
+?>
+              <script>alert('<?php echo $message?>')</script>
+<?php
+    }
+  }
 ?>
 
 <main class="py-5">
@@ -18,13 +28,13 @@
                          <div class="col-lg-4">
                               
                                    <label for="">Start Day</label>
-                                   <input type="date" name="Inital Date" value="" min= "2021-10-25" max="2021-10-30" class="form-control">
+                                   <input type="date" name="Inital Date" value="" min= "2021-10-28" max="2021-11-01" class="form-control">
                              
                          </div>
                          <div class="col-lg-4">
                               
                                    <label for="">Deadline</label>
-                                   <input type="date" name="Inital Date" value="" min= "2021-10-30" max="2021-11-15" class="form-control">
+                                   <input type="date" name="Expiration Date" value="" min= "2021-11-01" max="2021-11-15" class="form-control">
                              
                          </div>
                          
@@ -48,23 +58,18 @@
                          </div>
                         
 
-                          <!--<div class="col-lg-4">
-                              <div class="form-group">
-                                   <label for="">Logo</label>
-                                   <input type="file" name="logo" value="" class="form-control">
-                              </div>
-                         </div>-->
                     </div>
                     <button type="submit" name="" class="btn btn-dark ml-auto d-block">Add</button>
-                    <?php
+                   <?php
 
-echo '<script>';
+/* echo '<script>';
      echo 'alert("job Offer SUCCESFULLY added)';
      echo 'jobOffer/ addJobOffer';
 echo '</script>';
-
+*/
 ?>
                </form>
           </div>
      </section>
 </main>
+<br><br><br><br><br><br>

@@ -45,14 +45,14 @@ class CompanyDAO implements ICompanyDAO
 
     public function AddCompany(Company $company)
     {
-        $sql = "INSERT INTO companies(name, yearFoundation, city, description, email, phoneNumber, cuit) 
-                VALUES(:name, :yearFoundation, :city, :description, :email, :phoneNumber, :cuit);";
+        $sql = "INSERT INTO companies(name, yearFoundation, city, description, email, phoneNumber, cuit, logo) 
+                VALUES(:name, :yearFoundation, :city, :description, :email, :phoneNumber, :cuit, :logo);";
 
         $parameters['name'] = $company->getName();
         $parameters['yearFoundation'] = $company->getYearFoundation();
         $parameters['city'] = $company->getCity();
         $parameters['description'] = $company->getDescription();
-        //$parameters['logo']=$company->getLogo();
+        $parameters['logo']=$company->getLogo();
         $parameters['email'] = $company->getEmail();
         $parameters['phoneNumber'] = $company->getPhoneNumber();
         $parameters['cuit'] = $company->getCuit();
@@ -134,7 +134,7 @@ class CompanyDAO implements ICompanyDAO
             $company->setYearFoundation($values['yearFoundation']);
             $company->setDescription(($values['description']));
             $company->setCity($values['city']);
-            // $company->setLogo($values['logo']);
+            $company->setLogo($values['logo']);
             $company->setEmail($values['email']);
             $company->setPhoneNumber($values['phoneNumber']);
             $company->setCuit($values['cuit']);
