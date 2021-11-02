@@ -2,38 +2,56 @@
     namespace Controllers;
 
     use Models\JobOffer as JobOffer;
-    use Models\JobPosition as JobPosition;
     use DAO\JobOfferDAO as JobOfferDAO;
-    use DAO\IJobOfferDAO as IJobOfferDAO;
+    use Models\JobPosition as JobPosition;
     use DAO\JobPositionDAO as JobPositionDAO;
+    use Models\Career as Career;
+    use DAO\CareerDAO as CareerDAO;
+
+    use DAO\IJobOfferDAO as IJobOfferDAO;
     use DAO\IJobPossitionDAO as IJobPositionDAO;
     use DAO\CompanyDAO as CompanyDAO;
-    use Utils\Utils as Utils;
-    use DAO\CareerDAO as CareerDAO;
-    use Models\Career as Career;
+    use Utils\Utils as Utils; 
     use DAO\JobOfferByCompanyDAO as JobOfferByCompanyDAO;
     use Models\JobOfferByCompany as JobOfferByCompany;
     use \PDOException as PDOException;
 
     class JobOfferController{
         private $jobPositionDAO;
+        private $jobPositionList;
         private $jobOfferDAO;
         private $jobOfferList = array();
         private $careerDAO;
-        private $career;
+        private $careerList;
         private $jobOfferByCompanyDAO;
         private $jobOfferByCompany;
+        private $companiesList;
+        private $companyDao;
+
 
         public function __construct()
         {
             $this->jobPositionDAO = new JobPositionDAO();
+            $this->jobPositionList = array();
             $this->jobOfferDAO = new JobOfferDAO();
             $this->careerDAO = new CareerDAO();
-            $this->career = new Career();
+            $this->careerList = array();
             $this->jobOfferByCompanyDAO = new JobOfferByCompanyDAO();
             $this->jobOfferByCompany = new JobOfferByCompany();
+            $this->companiesList = array();
+            $this->companyDao = new CompanyDAO;
 
         }
+
+        public function RedirectAddJobForm()
+        {
+            Utils::checkAdminSession();
+            $this->companiesList = $this->companyDao->GetAll();
+            $this->careerList = $this->careerDAO->GetAllActive();
+            $this->jobPositionList= $this->jobPositionDAO->getAllJobpositions();
+            require_once(ADMIN_VIEWS . "jobOffer-add.php");
+        }
+    
 
         public function ShowJobOfferAddView($message = "")
         {
@@ -60,15 +78,15 @@
             require_once(VIEWS_PATH . "jobOffer-view.php");      ///Falta crear
         }
 
-        public function addJobOffer($jobOfferId, $name, $startDay, $deadLine, $active,  $description, $salary, $companyId, $careerId, $jobPositionId ){
+        public function addJobOffer($name, $startDay, $deadLine, $description, $salary, $companyId, $careerId, $jobPositionId){
             Utils::checkAdminSession();
 
             $jobOffer = new JobOffer();
-            $jobOffer->setJobOfferId($jobOfferId);
+        
             $jobOffer->setName($name);
             $jobOffer->setStartDay($startDay);
             $jobOffer->setDeadLine($deadLine);
-            $jobOffer->setActive($active);
+            $jobOffer->setActive(true);
             $jobOffer->setDescription($description);
             $jobOffer->setSalary($salary);
             $jobOffer->setCareerId($careerId);
@@ -175,12 +193,7 @@
             }
         }
 
-        public function RedirectAddJobForm()
-        {
-            Utils::checkAdminSession();
-            require_once(ADMIN_VIEWS . "jobOffer-add.php");
-        }
-    
+      
     
 
     }

@@ -9,10 +9,14 @@ use DAO\Connection as Connection;
 class JobPositionDAO implements IJobPositionDAO
 {
 
-    private $jobPositionList = array();
+    private $jobPositionList;
     private $conection;
     private $tableName = "jobpositions";
 
+    public function __construct()
+    {
+        $this->jobPositionList= array();
+    }
     public function getAllJobpositions()
     {
 
@@ -20,11 +24,13 @@ class JobPositionDAO implements IJobPositionDAO
 
         try {
             $this->connection = Connection::getInstance();
-            $this->jobpositions = $this->connection->execute($sql);
+            $this->jobPositionList = $this->connection->execute($sql);
+            //var_dump($this->jobPositionList);
+            //die;
         } catch (\PDOException $exeption) {
             throw $exeption;
         }
-        if (!empty($this->jobpositions)) {
+        if (!empty($this->jobPositionList)) {
             return $this->retrieveDataJobPosition();
         } else {
             return false;
@@ -100,9 +106,9 @@ class JobPositionDAO implements IJobPositionDAO
 
         foreach ($this->jobPositionList as $values) {
             $jobPosition = new JobPosition();
-            $jobPosition->setJobPossitionId($values['jobPositionId']);
+            $jobPosition->setJobPositionId($values['jobPositionId']);
             $jobPosition->setDescription($values['description']);
-            $jobPosition->setCareerId($values['carrerId']);
+            $jobPosition->setCareerId($values['careerId']);
 
             array_push($listToReturn, $jobPosition);
         }
