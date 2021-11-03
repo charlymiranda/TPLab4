@@ -4,7 +4,7 @@ if (isset($_SESSION["admin"])) {
     require_once(ADMIN_VIEWS . 'navcompany.php');
 } else {
 
-    require_once(VIEWS_PATH . 'nav.php');
+    require_once(STUDENT_VIEWS . 'nav.php');
 }
 
 

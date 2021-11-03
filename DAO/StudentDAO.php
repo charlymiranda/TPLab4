@@ -12,7 +12,15 @@ class StudentDAO implements IStudentDAO
     {
         private $connection;
         private $student;
-        private $studentList = array();
+        private $studentBD;
+        private $studentList;
+
+        public function __construct()
+        {
+            $this->student = new Student();
+            $this->studentBD = new Student();
+            $this->studentList = array();
+        } 
 
         
         public function GetAll()
@@ -75,8 +83,8 @@ class StudentDAO implements IStudentDAO
        public function Add(Student $student)
         {
             
-          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active, password)
-                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active, :password);";
+          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active, password, email)
+                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active, :password, :email);";
             $parameters["firstName"]=$student->getFirstName();
             $parameters['lastName']=$student->getLastName();
             $parameters['dni']=$student->getDni();
@@ -86,7 +94,7 @@ class StudentDAO implements IStudentDAO
             $parameters['phoneNumber']=$student->getPhoneNumber();
             $parameters['active']=true;
             $parameters['password']=$student->getPassword();
-            
+            $parameters['email']=$student->getEmail();
             try {
                 $this->connection= Connection::getInstance();
                 return $this->connection->executeNonQuery($sql, $parameters);
@@ -134,16 +142,17 @@ class StudentDAO implements IStudentDAO
             $parameters['email']=$email;
             try{
                 $this->connection = Connection::getInstance();
-                $result=$this->connection->execute($sql, $parameters);
-
+                $this->studentBD= $this->connection->execute($sql, $parameters);
+                
             }catch(\PDOException $exeption){
                 throw $exeption;
             }
 
-            if($result != null){
-                $this->retrieveOneStudent();
-
-                return $this->student;
+            if($this->studentBD != null){
+                return $this->retrieveOneStudent();
+                //var_dump($student);
+                //die;
+                //return $this->student;
             }else{
                 return false;
             }
@@ -153,18 +162,20 @@ class StudentDAO implements IStudentDAO
         private function retrieveOneStudent()
     {
         foreach ($this->studentBD as $stud) {
-            $this->student->setStudentId($stud['studentId']);
-            $this->student->setCareerId($stud['careerId']);
-            $this->student->setFirstName($stud['firstName']);
-            $this->student->setLastName(($stud['lastName']));
-            $this->student->setDni($stud['dni']);
-            $this->student->setFileNumber($stud['fileNumber']);
-            $this->student->setGender($stud['gender']);
-            $this->student->setBirthDate($stud['birthDate']);
-            $this->student->setEmail($stud['email']);
-            $this->student->setPhoneNumber($stud['phoneNumber']);
-            $this->student->setPassword($stud['password']);
+            $loginStudent = new Student();
+            $loginStudent->setStudentId($stud['studentId']);
+            $loginStudent->setCareerId($stud['careerId']);
+            $loginStudent->setFirstName($stud['firstName']);
+            $loginStudent->setLastName(($stud['lastName']));
+            $loginStudent->setDni($stud['dni']);
+            $loginStudent->setFileNumber($stud['fileNumber']);
+            $loginStudent->setGender($stud['gender']);
+            $loginStudent->setBirthDate($stud['birthDate']);
+            $loginStudent->setEmail($stud['email']);
+            $loginStudent->setPhoneNumber($stud['phoneNumber']);
+            $loginStudent->setPassword($stud['password']);
         }
+        return $loginStudent;
     }
 
         /*

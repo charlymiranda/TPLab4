@@ -1,5 +1,5 @@
 <?php
-    require_once(VIEWS_PATH . "nav.php");
+    require_once(STUDENT_VIEWS . "nav.php");
            
 ?>
 
