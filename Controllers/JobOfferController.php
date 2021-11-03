@@ -78,19 +78,19 @@
             require_once(VIEWS_PATH . "jobOffer-view.php");      ///Falta crear
         }
 
-        public function addJobOffer($name, $startDay, $deadLine, $description, $salary, $companyId, $careerId, $jobPositionId){
-            Utils::checkAdminSession();
+        public function addJobOffer($name, $startDay, $deadline, $description, $salary, $careerId, $jobPositionId){
+            //Utils::checkAdminSession();
 
             $jobOffer = new JobOffer();
         
             $jobOffer->setName($name);
             $jobOffer->setStartDay($startDay);
-            $jobOffer->setDeadLine($deadLine);
+            $jobOffer->setDeadLine($deadline);
             $jobOffer->setActive(true);
             $jobOffer->setDescription($description);
             $jobOffer->setSalary($salary);
             $jobOffer->setCareerId($careerId);
-            $jobOffer->setCompanyId($companyId);
+            $jobOffer->setCompanyId(4);
             $jobOffer->setCareerId($careerId);
             $jobOffer->setJobPositionId($jobPositionId);
           

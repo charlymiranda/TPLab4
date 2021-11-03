@@ -2,7 +2,7 @@
     namespace Controllers;
 
     use Models\JobPosition as JobPosition;
-    use DAO\JobPossitionDAO as JobPossitionDAO;
+    use DAO\JobPositionDAO as JobPositionDAO;
     use DAO\IJobPossitionDAO as IJobPositionDAO;
     use Utils\Utils as Utils;
 
@@ -22,23 +22,29 @@
 
         public function showJobPositionView(){
             Utils::checkSession();
-            $this->jobsList = $this->jobPositionDAO->GetAllJobPosition();
+            $this->jobsList = $this->jobPositionDAO->GetAllJobPositions();
             
             require_once(VIEWS_PATH."jobPosition-list.php");    ///Falta crear
         }
 
-        public function getJobPositionId($id){
+        public function ShowJobPositionViewById($id){
             Utils::checkSession();
-            $jobPosition = $this->jobPositionDAO->SearchJobPosition($id);
+            $jobPosition = $this->jobPositionDAO->SearchJobPositionById($id);
         
             require_once(VIEWS_PATH . "jobPosition-view.php");      ///Falta crear
+        }
+
+        public function getJobPositionByCareerId($careerId){
+
+            $this->jobsList=$this->jobPositionDAO->searchJobPositionByCareerId($careerId);
+            return $this->jobsList;
         }
 
         public function addJobPosition($jobId, $careerId, $descrpition){
             Utils::checkAdminSession();
 
             $jobPosition = new JobPosition();
-            $jobPosition->setJobPossitionId($jobId);
+            $jobPosition->setJobPositionId($jobId);
             $jobPosition->setCareerId($careerId);
             $jobPosition->setDescription($descrpition);
 
@@ -53,7 +59,7 @@
             $jobPosition = new JobPosition();
 
             $jobPosition = new JobPosition();
-            $jobPosition->setJobPossitionId($jobId);
+            $jobPosition->setJobPositionId($jobId);
             $jobPosition->setCareerId($careerId);
             $jobPosition->setDescription($descrpition);
 

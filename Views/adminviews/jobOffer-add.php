@@ -8,8 +8,10 @@ if (isset($controlScript)) {
                alert('<?php echo $message ?>')
           </script>
 <?php
+
      }
 }
+
 ?>
 <?php //var_dump($this->careerList);
 //var_dump($this->jobPositionList);
@@ -31,13 +33,13 @@ if (isset($controlScript)) {
                          <div class="col-lg-4">
 
                               <label for="">Start Day</label>
-                              <input type="date" name="Inital Date" value="" min="2021-10-28" max="2021-11-01" class="form-control">
+                              <input type="date" name="startDay" value=""  class="form-control">
 
                          </div>
                          <div class="col-lg-4">
 
                               <label for="">Deadline</label>
-                              <input type="date" name="Expiration Date" value="" min="2021-11-01" max="2021-11-15" class="form-control">
+                              <input type="date" name="deadline" value=""  class="form-control">
 
                          </div>
 
@@ -53,34 +55,30 @@ if (isset($controlScript)) {
                               <input type="number" name="salary" value="" class="form-control">
 
                          </div>
-                         <div class="col-lg-4">
 
-                              <label for="">Career</label>
-                              <input type="text" name="career" value="" class="form-control">
+                         <div class="col-lg-10">
+                              <?php
+                              echo "<select name='careerId' autofocus class='form-control'>";
+                              if (isset($this->careerList)) {
+                                   foreach ($this->careerList as $career) {
+                                        echo "<option value=" . $career->getCareerId() . ">" . $career->getDescription() . "</option>";
+                                   }
+                              }
+                              echo "</select>";
 
+                              ?>
                          </div>
 
                          <div class="col-lg-10">
+                              <?php
+                              echo "<select name='jobPositionId' autofocus class='form-control'>";
+                              if (isset($this->jobPositionList)) {
+                                   foreach ($this->jobPositionList as $jobPosition) {
+                                        echo "<option value=" . $jobPosition->getJobPositionId() . ">" . $jobPosition->getDescription() . "</option>";
+                                   }
 
-                              <select name="careerId" autofocus class="form-control">
-                                   <?php
-                                   if (isset($this->careerList)) {
-                                        foreach ($this->careerList as $career) {
-                                             echo "<option value=" . $career->getCareerId() . ">" . $career->getName() . "</option>";
-                                        }
-                                   } ?>
-                              </select>
-                         </div>
-
-                         <div class="col-lg-10">
-
-                              <select name="jobPositionId" autofocus class="form-control">
-                                   <?php if (isset($jobPositionList)) {
-                                        foreach ($this->jobPositionList as $jobPosition) {
-                                             echo "<option value=" . $jobPosition->getJobPositionId() . ">" . $jobPosition->getDescription() . "</option>";
-                                        }
-                                   } ?>
-                              </select>
+                                   echo "</select>";
+                              } ?>
                          </div>
                     </div>
                     <button type="submit" name="" class="btn btn-dark ml-auto d-block">Add</button>

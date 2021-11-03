@@ -12,6 +12,7 @@ class JobPositionDAO implements IJobPositionDAO
     private $jobPositionList;
     private $conection;
     private $tableName = "jobpositions";
+    private $jobPositionfilteredList;
 
     public function __construct()
     {
@@ -80,7 +81,7 @@ class JobPositionDAO implements IJobPositionDAO
         }
     }
 
-    public function searchJobPosition($jobPosition)
+    public function searchJobPositionById($jobPosition)
     {
         $sql = "SELECT * FROM jobposition WHERE jobPositionId=:jobPositionId";
         $parameters['jobPositionId'] = $jobPosition;
@@ -98,7 +99,27 @@ class JobPositionDAO implements IJobPositionDAO
         } else {
             return false;
         }
-    }
+    }   
+    public function searchJobPositionByCareerId($careerId)
+    {
+        $sql = "SELECT * FROM jobposition WHERE careerId=:careerId";
+        $parameters['careerId'] = $careerId;
+
+        try {
+            $this->connection = Connection::getInstance();
+            $this->jobPositionList = $this->connection->execute($sql, $parameters);
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+        //var_dump($companiesList);
+      //  die;
+        if (!empty($jobPositionList)) {
+            return $this->retrieveDataJobPosition();
+        } else {
+            return false;
+        }
+    }   
+
 
      private function retrieveDataJobPosition()
     {
@@ -114,6 +135,8 @@ class JobPositionDAO implements IJobPositionDAO
         }
         return  $listToReturn;
     }
+
+
 
    
 }

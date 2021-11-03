@@ -145,7 +145,7 @@ class JobOfferDAO implements IJobOfferDAO
             $jobOffer->setName($values['name']);
             $jobOffer->setJobOfferId($values['jobOfferId']);
             $jobOffer->setstartDay($values['startDay']);
-            $jobOffer->setdeadLine($values['deadLine']);
+            $jobOffer->setdeadLine($values['deadline']);
             $jobOffer->setActive($values['active']);
             $jobOffer->setDescription($values['description']);
             $jobOffer->setSalary($values['salary']);
