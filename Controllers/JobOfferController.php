@@ -20,13 +20,14 @@
         private $jobPositionDAO;
         private $jobPositionList;
         private $jobOfferDAO;
-        private $jobOfferList = array();
+        private $jobOfferList;
         private $careerDAO;
         private $careerList;
         private $jobOfferByCompanyDAO;
         private $jobOfferByCompany;
         private $companiesList;
         private $companyDao;
+        private $jobOffer;
 
 
         public function __construct()
@@ -40,6 +41,8 @@
             $this->jobOfferByCompany = new JobOfferByCompany();
             $this->companiesList = array();
             $this->companyDao = new CompanyDAO;
+            $this->jobOffer = new JobOffer();
+            $this->jobOfferList = array();
 
         }
 
@@ -78,6 +81,13 @@
             require_once(VIEWS_PATH . "jobOffer-view.php");      ///Falta crear
         }
 
+        public function showModifyJobOfferView($jobOfferId){
+            $this->jobOffer = $this->jobOfferDAO->searchJobOfferById($jobOfferId);                
+            $this->careerList = $this->careerDAO->GetAllActive();
+            $this->jobPositionList= $this->jobPositionDAO->getAllJobpositions();
+            require_once(ADMIN_VIEWS . "modify-jobOffer-view.php");
+        }
+
         public function addJobOffer($name, $startDay, $deadline, $description, $salary, $careerId, $jobPositionId){
             //Utils::checkAdminSession();
 
@@ -90,27 +100,30 @@
             $jobOffer->setDescription($description);
             $jobOffer->setSalary($salary);
             $jobOffer->setCareerId($careerId);
-            $jobOffer->setCompanyId(4);
+            $jobOffer->setCompanyId(10);
             $jobOffer->setCareerId($careerId);
             $jobOffer->setJobPositionId($jobPositionId);
           
             $this->jobOfferDAO->addJobOffer($jobOffer);
 
-            $this->ShowjobOfferAddView("The job offer had been loaded successfully");
+            $this->ShowJobOfferAddView("The job offer had been loaded successfully");
         }
 
-        public function updateJobOffer($jobOfferId, $startDay, $deadLine, $active, $jobPositionId)
+        public function updateJobOffer($jobOfferId, $name, $startDay, $deadline, $description, $salary, $careerId, $jobPositionId)
         {
             Utils::checkSession();
 
             $jobOffer = new JobOffer();
             $jobOffer->setJobOfferId($jobOfferId);
+            $jobOffer->setName($name);
             $jobOffer->setStartDay($startDay);
-            $jobOffer->setDeadLine($deadLine);
-            $jobOffer->setActive($active);
+            $jobOffer->setDeadLine($deadline);
+            $jobOffer->setDescription($description);
+            $jobOffer->setSalary($salary);
+            $jobOffer->setCareerId($careerId);
             $jobOffer->setJobPositionId($jobPositionId);
 
-            $this->JobOfferDAO->update($jobOffer);
+            $this->jobOfferDAO->updateJobOffer($jobOffer);
 
             $this->ShowJobOfferAddView("The job offer had been updated successfully");
         }
@@ -176,6 +189,7 @@
             if ($search == "") {
                 Utils::checkSession();
                 $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+                $this->careerList = $this->careerDAO->GetAll();
                
                 require_once(ADMIN_VIEWS . "company-job-offers.php");
             } else {

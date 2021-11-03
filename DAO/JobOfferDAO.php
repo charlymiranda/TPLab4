@@ -9,9 +9,14 @@ use DAO\Connection as Connection;
 
 class JobOfferDAO implements IJobOfferDAO
 {
-    private $jobOfferList = array();
+    private $jobOfferList;
     private $connection;
     private $tableName = "job_Offer";
+
+    public function __construct()
+    {
+        $this->jobOfferList = array();
+    }
 
     public function getAllJobOffer()
     {
@@ -33,8 +38,8 @@ class JobOfferDAO implements IJobOfferDAO
 
     public function deleteJobOffer($jobOfferId)
     {
-        $sql = "DELETE FROM job_Offer WHERE job_Positionid=:job_Positionid";
-        $parameters['job_offer_id'] = $jobOfferId;
+        $sql = "DELETE FROM job_Offer WHERE jobOfferId=:jobOfferId";
+        $parameters['jobOfferId'] = $jobOfferId;
 
         try {
             $this->connection = Connection::getInstance();
@@ -70,12 +75,16 @@ class JobOfferDAO implements IJobOfferDAO
 
     public function updateJobOffer(JobOffer $jobOffer)
     {
-        $sql = "UPDATE job_offer SET startDay=:startDay, deadline=:deadline, active=:active;";
+        $sql = "UPDATE job_offer SET name =:name, startDay=:startDay, deadline=:deadline, description=:description, salary=:salary, careerId=:careerId, jobPositionId=:jobPositionId WHERE jobOfferId=:jobOfferId";
 
-        $parameters['JobOfferId'] = $jobOffer->getjobOfferId();
+        $parameters['jobOfferId'] = $jobOffer->getjobOfferId();
+        $parameters['name'] = $jobOffer->getName();
+        $parameters['description'] = $jobOffer->getDescription();
         $parameters['startDay'] = $jobOffer->getstartDay();
         $parameters['deadline'] = $jobOffer->getdeadline();
-        $parameters['active'] = $jobOffer->getactive();
+        $parameters['salary'] = $jobOffer->getSalary();
+        $parameters['careerId'] = $jobOffer->getCareerId();
+        $parameters['jobPositionId'] = $jobOffer->getJobPositionId();
 
         try {
             $this->connection = Connection::getInstance();
@@ -97,8 +106,8 @@ class JobOfferDAO implements IJobOfferDAO
             throw $exception;
         }
        
-        if (!empty($jobOfferList)) {
-            return $this->retrieveDataJobOffer();
+        if (!empty($this->jobOfferList)) {
+            return $this->retrieveDataSingleJobOffer();
         } else {
             return false;
         }
@@ -157,5 +166,26 @@ class JobOfferDAO implements IJobOfferDAO
             array_push($listToReturn, $jobOffer);
         }
         return  $listToReturn;
+    }
+
+    public function retrieveDataSingleJobOffer(){
+
+        foreach ($this->jobOfferList as $values) {
+            $jobOffer = new JobOffer();
+            $jobOffer->setName($values['name']);
+            $jobOffer->setJobOfferId($values['jobOfferId']);
+            $jobOffer->setstartDay($values['startDay']);
+            $jobOffer->setdeadLine($values['deadline']);
+            $jobOffer->setActive($values['active']);
+            $jobOffer->setDescription($values['description']);
+            $jobOffer->setSalary($values['salary']);
+            $jobOffer->setCompanyId($values['companyId']);
+            $jobOffer->setStudentId($values['studentId']);
+            $jobOffer->setCareerId($values['careerId']);
+            $jobOffer->setjobPositionId(($values['jobPositionId']));
+
+            
+        }
+        return  $jobOffer;
     }
 }
