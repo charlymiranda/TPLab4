@@ -145,6 +145,30 @@ class JobOfferDAO implements IJobOfferDAO
         }
 
     }
+
+    public function getJobOfferByCompany(int $companyId){
+        $sql = "SELECT * FROM job_offer WHERE companyId=:companyId AND active=:active";
+        $parameters['companyId']=$companyId;
+        $parameters['active']=true;
+       var_dump($companyId);
+
+        try {
+            $this->connection = Connection::getInstance();
+            $this->jobOfferList = $this->connection->execute($sql, $parameters);
+            var_dump($this->jobOfferList);
+            die;
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+       
+        if (!empty($jobOfferList)) {
+            return $this->retrieveDataJobOffer();
+        } else {
+            return false;
+        }
+
+    }
+
     private function retrieveDataJobOffer()
     {
         $listToReturn = array();

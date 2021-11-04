@@ -8,9 +8,11 @@
     use Models\Career as Career;
     use DAO\CareerDAO as CareerDAO;
 
+
     use DAO\IJobOfferDAO as IJobOfferDAO;
     use DAO\IJobPossitionDAO as IJobPositionDAO;
     use DAO\CompanyDAO as CompanyDAO;
+    use Models\Company as Company;
     use Utils\Utils as Utils; 
     use DAO\JobOfferByCompanyDAO as JobOfferByCompanyDAO;
     use Models\JobOfferByCompany as JobOfferByCompany;
@@ -27,6 +29,7 @@
         private $jobOfferByCompany;
         private $companiesList;
         private $companyDao;
+        private $company;
         private $jobOffer;
 
 
@@ -41,6 +44,7 @@
             $this->jobOfferByCompany = new JobOfferByCompany();
             $this->companiesList = array();
             $this->companyDao = new CompanyDAO;
+            $this->company = new Company();
             $this->jobOffer = new JobOffer();
             $this->jobOfferList = array();
 
@@ -169,17 +173,15 @@
         public function showJobsOffersViewByCareer($careerId){
         
             
-
-              
-
-
         }
 
 
 
         public function showJobsOffersViewByCompany($companyId){
-        
             
+            $this->jobOfferList = $this->jobOfferDAO->getJobOfferByCompany($companyId);
+            $this->company = $this->companyDao->Search($companyId);
+            require_once(VIEWS_PATH . "job-offers-by-company.php");
 
 
         }

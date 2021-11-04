@@ -20,7 +20,7 @@
             <h5 class="mb-5"><em>Please choose one of the next action </em></h5>
             <a class="btn btn-warning btn-xl" href="<?php echo FRONT_ROOT ?>Company/ListCompanies">See Companies</a>
             <a class="btn btn-warning btn-xl" href="#">See Jobs</a>      
-            <a class="btn btn-warning btn-xl" href="<?php echo FRONT_ROOT ?> Student/getStudentByMail/  <?php $this->student->getStudentByMail()?>"> Perfil</a>               
+            <a class="btn btn-warning btn-xl" href="<?php echo FRONT_ROOT ?> Student/getStudentByMail/  <?php $student->getStudentByMail()?>"> Perfil</a>               
            
         </div>
     </header>
