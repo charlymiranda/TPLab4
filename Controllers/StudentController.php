@@ -28,7 +28,7 @@ class StudentController
         $this->companyDAO = new CompanyDAO();
         $this->careerDAO = new CareerDAO();
     }
-
+    
     public function ShowStudentRegistration()
     {
 
@@ -53,7 +53,7 @@ class StudentController
             $student = $this->studentDAO->getStudentByMail($email);
             // $career = $this->careerDAO->getCareerStudent($student);
 
-            require_once(VIEWS_PATH . "student-profile.php");
+            require_once(STUDENT_VIEWS . "student-profile.php");
         } else {
             $message = "This mail doesn't exist";
             require_once(VIEWS_PATH . "registration.php");

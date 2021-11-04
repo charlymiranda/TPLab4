@@ -76,14 +76,21 @@
         }
 
         public function GetCareerById($careerId){
-            $this->consumeFromApi();
+              $sql = "SELECT * FROM careers WHERE careerId=:careerId";
+            $parameters['careerId']=$careerId;
 
-            foreach ($this->careerList as $career) {
-                if ($career->getCareerId() == $careerId){
-                    return $career;
-                }
+            try {
+                $this->connection = Connection::getInstance();
+                $this->careerList = $this->connection->execute($sql,$parameters);
+            } catch (\PDOException $exeption) {
+                throw $exeption;
             }
-            return null;
+    
+            if (!empty($this->careerList)) {
+                return $this->retrieveOneCareerData();
+            } else {
+                return false;
+            }
         }
 
 
@@ -124,6 +131,19 @@
         }
         return  $listToReturn;
     }
+
+    
+    private function retrieveOneCareerData()
+    {
+        foreach ($this->careerList as $values) {
+            $career = new Career();
+            $career->setCareerId($values['careerId']);
+            $career->setDescription($values['description']);
+            $career->setActive($values['active']);
+        }
+        return  $career;
+    }
+
 
 
 }
