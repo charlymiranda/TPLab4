@@ -20,13 +20,25 @@ if (isset($_SESSION["admin"])) {
 
         return false;
     }
+  
 </script>
+<?php 
+if (isset($controlScript)) {
+
+?>
+          <script>
+               alert('<?php echo $message ?>')
+          </script>
+<?php
+     
+}
+?>
 <main class="py-5">
     <section id="listado" class="mb-5">
 
         <div class="container">
             <h2 class="mb-4">Companies List</h2>
-            <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
+            <div class="container" style="width: 5500; height: 400px; overflow-y: scroll;">
                 <div class="container" position="fixed">
                     <form action="<?php echo FRONT_ROOT ?>Company/ShowCompaniesViews" method="POST" enctype="multipart/form-data">
 
@@ -38,14 +50,14 @@ if (isset($_SESSION["admin"])) {
                 <table class="table bg-light-alpha">
                     <div class="container" position="fixed">
                     <thead>
-                        <th class="header" scope="col" position="sticky"></th>
+                
                         <th class="header" scope="col" position="sticky">Name</th>
                         <th class="header" scope="col" position="sticky">City</th>
                         <!-- <th>yearFoundation</th> -->
                         <!-- <th>Description</th>   -->
                         <th class="header" scope="col" position="sticky">Email</th>
-                        <th class="header" scope="col" position="sticky">PhoneNumber</th>
-                        
+                        <th class="header" scope="col" position="sticky"></th>
+                        <th class="header" scope="col" position="sticky"></th>
                         <th class="header" scope="col" position="sticky"></th>
                         <th class="header" scope="col" position="sticky"></th>
                         <th class="header" scope="col" position="sticky"></th>
@@ -62,14 +74,11 @@ if (isset($_SESSION["admin"])) {
                                 //var_dump($company->getCompanyId());
                                 
                                 echo "<tr>";
-                                ?>   
-                                <td> <img src="<?php echo $company->getLogo(); ?>" alt="" title="<?php echo $company->getLogo(); ?>" width="50" height="50" class="img-responsive" /></td>
- 
-                                    <?php
+           
                                 echo  "<td>" . $company->getName() . "</td>";
                                 echo  "<td>" . $company->getCity() . "</td>";
                                 echo  "<td>" . $company->getEmail() . "</td>";
-                                echo  "<td>" . $company->getPhoneNumber() . "</td>";
+           
                             
 
                                 //echo "<td> <img height='50px' width='50px' src=".base64_encode( $company->getLogo())."> </td>";  
@@ -81,14 +90,21 @@ if (isset($_SESSION["admin"])) {
                                     echo "<div class='row'>";
                                     echo "<div class='button-conteiner'>";
                                     echo "<td><a href=" . FRONT_ROOT . "Company/deleteCompany/" . $company->getCompanyId() . ">
-                                <button type='button' class= 'btn btn-danger' > Delete</button></a></td>";
+                                <button type='button' class= 'btn btn-danger' >Delete</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
 
                                     echo "<div class='row'>";
                                     echo  "<div class='button-conteiner'>";
                                     echo "<td><a href=" . FRONT_ROOT . "Company/ShowModifyCompanyView/" . $company->getCompanyId() . ">
-                                 <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
+                                 <button type='button' class= 'btn btn-success' >Modify</button></a></td>";
+                                    echo "</div>";
+                                    echo "</div>";
+
+                                    echo "<div class='row'>";
+                                    echo  "<div class='button-conteiner'>";
+                                    echo "<td><a href=" . FRONT_ROOT . "jobOffer/showAddjobOfferForCompany/" . $company->getCompanyId() . ">
+                                 <button type='button' class= 'btn btn-info' >Add Job Offer</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
                                 }

@@ -1,31 +1,18 @@
 <?php
 require_once(ADMIN_VIEWS . 'navcompany.php');
 
-if (isset($controlScript)) {
-     if ($controlScript == 1) {
 ?>
-          <script>
-               alert('<?php echo $message ?>')
-          </script>
-<?php
 
-     }
-}
-
-?>
-<?php //var_dump($this->careerList);
-//var_dump($this->jobPositionList);
-//                            die;
-
-?>
 <main class="py-5">
      <section id="list" class="mb-5">
           <div class="container">
                <h2 class="mb-4">Add Job Offer</h2>
+               <h3>Company Selected: <?php echo $this->company->getName();?></h3>
                <form action="<?php echo FRONT_ROOT ?>JobOffer/addJobOffer" method="POST" class="bg-light-alpha p-5">
                     <div class="row">
+                    <input type="hidden" name="companyId" value="<?php echo $this->company->getCompanyId(); ?>" />
+                       
                          <div class="col-lg-4">
-
                               <label for="">Name</label>
                               <input type="text" name="name" value="" class="form-control">
                          </div>

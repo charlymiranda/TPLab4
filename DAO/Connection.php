@@ -41,14 +41,16 @@ class Connection
               }
 
               $this->pdoStatement->execute();
-
+             // echo $this->pdoStatement;
+              //die;
               return $this->pdoStatement->fetchAll();
          }
          catch(\Exception $ex)
          {
               throw $ex; 
          }
-    } 
+    }   
+
 
     public function executeNonQuery($query, $parameters = array())
     {

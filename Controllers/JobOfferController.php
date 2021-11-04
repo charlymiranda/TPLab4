@@ -65,6 +65,20 @@
             require_once(ADMIN_VIEWS . "jobOffer-add.php");
         }
 
+        public function ShowListCompanyList($message = "")
+        {
+            require_once(ADMIN_VIEWS . "company-delete.php");
+        }
+
+        public function showAddjobOfferForCompany($companyId){
+
+            $this->company=$this->companyDao->Search($companyId);
+            $this->careerList = $this->careerDAO->GetAllActive();
+            $this->jobPositionList= $this->jobPositionDAO->getAllJobpositions();
+
+            require_once(ADMIN_VIEWS . "jobOffer-add.php");
+        }
+
         public function showJobOfferView(){
             Utils::checkSession();
             $this->jobOfferList = $this->jobOfferDAO->GetAllJobOffer();
@@ -92,11 +106,11 @@
             require_once(ADMIN_VIEWS . "modify-jobOffer-view.php");
         }
 
-        public function addJobOffer($name, $startDay, $deadline, $description, $salary, $careerId, $jobPositionId){
+        public function addJobOffer($companyId, $name, $startDay, $deadline, $description, $salary, $careerId, $jobPositionId){
             //Utils::checkAdminSession();
-
+          
             $jobOffer = new JobOffer();
-        
+            $jobOffer->setCompanyId($companyId);
             $jobOffer->setName($name);
             $jobOffer->setStartDay($startDay);
             $jobOffer->setDeadLine($deadline);
@@ -104,13 +118,11 @@
             $jobOffer->setDescription($description);
             $jobOffer->setSalary($salary);
             $jobOffer->setCareerId($careerId);
-            $jobOffer->setCompanyId(10);
-            $jobOffer->setCareerId($careerId);
             $jobOffer->setJobPositionId($jobPositionId);
           
             $this->jobOfferDAO->addJobOffer($jobOffer);
 
-            $this->ShowJobOfferAddView("The job offer had been loaded successfully");
+            $this->ShowListCompanyList("The job offer had been loaded successfully");
         }
 
         public function updateJobOffer($jobOfferId, $name, $startDay, $deadline, $description, $salary, $careerId, $jobPositionId)
@@ -162,10 +174,10 @@
             }catch(PDOException $ex){
                 $controlScritpt=1;
                 $message='error en la base';
-                require_once(ADMIN_VIEWS . "jobOffer-add.php");
+                require_once(ADMIN_VIEWS . "company-delete.php");
             }
             $message = "student added to a job offer";
-            require_once(ADMIN_VIEWS . "jobOffer-add.php");
+            require_once(ADMIN_VIEWS . "company-delete.php");
         }
         
 
@@ -174,7 +186,6 @@
         
             
         }
-
 
 
         public function showJobsOffersViewByCompany($companyId){

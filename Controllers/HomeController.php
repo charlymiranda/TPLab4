@@ -57,7 +57,7 @@ class HomeController
 
                 $this->student = $this->studentDAO->getLoginStudent($email);
                 $this->career = $this->careerDAO->GetCareerById($this->student->getCareerId());
-                
+
                 if($password == $this->student->getPassword()){
                     
                     $_SESSION['student'] = $this->student;

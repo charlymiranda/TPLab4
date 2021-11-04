@@ -52,7 +52,7 @@ require_once('navcompany.php');
                          <div class="col-lg-4">
 
                               <label for="">Logo</label>
-                              <input type="file" name="logo" class="form-control" required value="<?php echo $this->company->getLogo(); ?>">
+                              <input type="file" name="logo" class="form-control" value="null">
 
                          </div>
                     </div>

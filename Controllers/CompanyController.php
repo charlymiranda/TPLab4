@@ -124,7 +124,7 @@ class CompanyController
     }
     
 
-    public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber, $cuit)
+    public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber, $cuit, $logo)
     {
         //Utils::checkSession();
         $company = new Company();
@@ -137,10 +137,11 @@ class CompanyController
         $company->setEmail($email);
         $company->setPhoneNumber($phoneNumber);
         $company->setCuit($cuit);
+        $company->setLogo($logo);
 
         $this->companyDAO->Update($company);
 
-        $this->ShowAddView();
+        $this->ShowCompaniesViews();
     }
 
     public function deleteCompany($companyId)

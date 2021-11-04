@@ -53,7 +53,7 @@ class JobOfferDAO implements IJobOfferDAO
     {
         $sql = "INSERT INTO job_offer(name, startDay, deadline, active, description, salary, companyId, studentId, careerId, jobPositionId) 
                 VALUES(:name, :startDay, :deadline, :active, :description, :salary, :companyId, :studentId, :careerId, :jobPositionId);";
-
+     
         $parameters['name'] = $jobOffer->getName();
         $parameters['startDay'] = $jobOffer->getStartDay();
         $parameters['deadline'] = $jobOffer->getDeadline();
@@ -64,6 +64,7 @@ class JobOfferDAO implements IJobOfferDAO
         $parameters['studentId'] = $jobOffer->getStudentId();
         $parameters['careerId'] = $jobOffer->getCareerId();
         $parameters['jobPositionId'] = $jobOffer->getJobPositionId();
+      
 
         try {
             $this->connection = Connection::getInstance();
@@ -132,10 +133,11 @@ class JobOfferDAO implements IJobOfferDAO
     }
 
     public function addStudentToAJobOffer($jobOfferId, $studentId){
-        $sql = "UPDATE job_offer SET studentId=:studentId WHERE jobOfferId=:jobOfferId;";
+        $sql = "UPDATE job_offer SET studentId=:studentId, active=:active WHERE jobOfferId=:jobOfferId;";
 
         $parameters['studentId'] = $studentId;
         $parameters['jobOfferId'] = $jobOfferId;
+        $parameters['active'] = false;
         
         try {
             $this->connection = Connection::getInstance();
@@ -146,22 +148,20 @@ class JobOfferDAO implements IJobOfferDAO
 
     }
 
-    public function getJobOfferByCompany(int $companyId){
-        $sql = "SELECT * FROM job_offer WHERE companyId=:companyId AND active=:active";
-        $parameters['companyId']=$companyId;
+    public function getJobOfferByCompany($companyId){
+        $sql = 'SELECT*FROM letswork.job_offer WHERE companyId = ' . $companyId . ' AND active = :active';
         $parameters['active']=true;
-       var_dump($companyId);
-
+   
+               
         try {
             $this->connection = Connection::getInstance();
             $this->jobOfferList = $this->connection->execute($sql, $parameters);
-            var_dump($this->jobOfferList);
-            die;
+       
         } catch (\PDOException $exception) {
             throw $exception;
         }
        
-        if (!empty($jobOfferList)) {
+        if (!empty($this->jobOfferList)) {
             return $this->retrieveDataJobOffer();
         } else {
             return false;

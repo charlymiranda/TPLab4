@@ -51,35 +51,23 @@ if (isset($_SESSION["admin"])) {
                                 echo "<tr>";
                            
                                 echo  "<td>" . $jobOffer->getName() . "</td>";
-                                echo  "<td>" . $jobOffer->getCity() . "</td>";
-                                echo  "<td>" . $jobOffer->getEmail() . "</td>";
-                                echo  "<td>" . $jobOffer->getPhoneNumber() . "</td>";
+                                echo  "<td>" . $jobOffer->getStartDay() . "</td>";
+                                echo  "<td>" . $jobOffer->getDeadLine() . "</td>";
+                                echo  "<td>" . $jobOffer->getDescription() . "</td>";
+                                echo  "<td>" . $jobOffer->getSalary() . "</td>";
                             
                         
-                                if (isset($_SESSION["admin"])) {
-                                    
-                                    $companyId = $company->getCompanyId();
+                                if (isset($_SESSION["student"])) {
+                                    $student = $_SESSION["student"];
                                     echo "<div class='row'>";
                                     echo "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "Company/deleteCompany/" . $company->getCompanyId() . ">
-                                <button type='button' class= 'btn btn-danger' > Delete</button></a></td>";
-                                    echo "</div>";
-                                    echo "</div>";
-
-                                    echo "<div class='row'>";
-                                    echo  "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "Company/ShowModifyCompanyView/" . $company->getCompanyId() . ">
-                                 <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/addStudentToAJobOffer/" . $jobOffer->getJobOfferId() ."/".$student->getStudentId() . ">
+                                <button type='button' class= 'btn btn-success' > Add me</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
                                 }
                                 
-                                echo "<div class='row'>";
-                                echo  "<div class='button-conteiner'>";
-                                echo "<td><a href=" . FRONT_ROOT . "JobOffer/showJobsOffersViewByCompany/" . $company->getCompanyId() . ">
-                                  <button type='button' class= 'btn btn-info' > Job Offers</button></a></td>";
-                                echo "</div>";
-                                echo "</div>";
+ 
                             }
                         }else{
                             echo "The companies list is empty";
