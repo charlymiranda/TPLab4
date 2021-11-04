@@ -63,15 +63,16 @@ class StudentController
 
     public function studentValidation($email)
     {
+        $student = $this->studentDAO->getStudentByMail($email);
        
-        if ($email != null) {
-            $student = $this->studentDAO->getStudentByMail($email);
+        if ($student != null) {
+            
             // $career = $this->careerDAO->getCareerStudent($student);
 
             require_once(VIEWS_PATH . "student-registration.php");
         } else {
             $message = "This mail doesn't exist";
-            require_once(VIEWS_PATH . "registration.php");
+            require_once(VIEWS_PATH . "login.php");
         }
     }
 

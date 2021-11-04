@@ -11,8 +11,16 @@ use PDOException;
 class StudentDAO implements IStudentDAO
     {
         private $connection;
+        private $student;
+        private $studentBD;
+        private $studentList;
 
-        private $studentList = array();
+        public function __construct()
+        {
+            $this->student = new Student();
+            $this->studentBD = new Student();
+            $this->studentList = array();
+        } 
 
         
         public function GetAll()
@@ -75,8 +83,8 @@ class StudentDAO implements IStudentDAO
        public function Add(Student $student)
         {
             
-          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active, password)
-                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active, :password);";
+          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active, password, email)
+                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active, :password, :email);";
             $parameters["firstName"]=$student->getFirstName();
             $parameters['lastName']=$student->getLastName();
             $parameters['dni']=$student->getDni();
@@ -86,7 +94,7 @@ class StudentDAO implements IStudentDAO
             $parameters['phoneNumber']=$student->getPhoneNumber();
             $parameters['active']=true;
             $parameters['password']=$student->getPassword();
-            
+            $parameters['email']=$student->getEmail();
             try {
                 $this->connection= Connection::getInstance();
                 return $this->connection->executeNonQuery($sql, $parameters);
@@ -129,24 +137,46 @@ class StudentDAO implements IStudentDAO
                      
         }
 */
-       /* public function getLoginStudent($email){
+       public function getLoginStudent($email){
             $sql = "SELECT * FROM students WHERE email=:email";
             $parameters['email']=$email;
             try{
                 $this->connection = Connection::getInstance();
-                $result=$this->connection->execute($sql, $parameters);
-
+                $this->studentBD= $this->connection->execute($sql, $parameters);
+                
             }catch(\PDOException $exeption){
                 throw $exeption;
             }
 
-            if(!empty($result)){
-                return $this->mapear($result);
+            if($this->studentBD != null){
+                return $this->retrieveOneStudent();
+                //var_dump($student);
+                //die;
+                //return $this->student;
             }else{
                 return false;
             }
 
-        }*/
+        }
+
+        private function retrieveOneStudent()
+    {
+        foreach ($this->studentBD as $stud) {
+            $loginStudent = new Student();
+            $loginStudent->setStudentId($stud['studentId']);
+            $loginStudent->setCareerId($stud['careerId']);
+            $loginStudent->setFirstName($stud['firstName']);
+            $loginStudent->setLastName(($stud['lastName']));
+            $loginStudent->setDni($stud['dni']);
+            $loginStudent->setFileNumber($stud['fileNumber']);
+            $loginStudent->setGender($stud['gender']);
+            $loginStudent->setBirthDate($stud['birthDate']);
+            $loginStudent->setEmail($stud['email']);
+            $loginStudent->setPhoneNumber($stud['phoneNumber']);
+            $loginStudent->setPassword($stud['password']);
+        }
+        return $loginStudent;
+    }
 
         /*
         private function mapear($studentList){

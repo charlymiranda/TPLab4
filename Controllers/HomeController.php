@@ -12,10 +12,12 @@ class HomeController
     {
 
         private $studentDAO;
+        private $student;
 
         public function __construct()
         {
             $this->studentDAO =new StudentDAO;    
+            $this->student = new Student();
         }
 
 
@@ -51,13 +53,13 @@ class HomeController
                 require_once(ADMIN_VIEWS."menu-admin.php");
             } else {
             
-               // $studentController = new StudentController();
-                $student = new Student;
-                $student = $this->studentDAO->getLoginStudent($email);
-                var_dump($student);
-                die;
-                if($password == $student->getPassword()){
-                    $_SESSION['student'] = $student;
+                $studentController = new StudentController();
+                
+                $this->student = $this->studentDAO->getLoginStudent($email);
+                
+                if($password == $this->student->getPassword()){
+                    
+                    $_SESSION['student'] = $this->student;
     
                     require_once(STUDENT_VIEWS."menu-student.php");
                 } else {
