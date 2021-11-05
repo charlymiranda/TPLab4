@@ -4,7 +4,7 @@ if (isset($_SESSION["admin"])) {
     require_once(ADMIN_VIEWS . 'navcompany.php');
 } else {
 
-    require_once(VIEWS_PATH . 'nav.php');
+    require_once(STUDENT_VIEWS . 'nav.php');
 }
 
 
@@ -31,16 +31,14 @@ if (isset($_SESSION["admin"])) {
                 </div>
                 <table class="table bg-light-alpha">
                     <thead>
-                        <th class="header" scope="col" position="sticky">name</th>
+                        <th class="header" scope="col" position="sticky">Name</th>
                         <th class="header" scope="col" position="sticky">Start Date</th>
-                        <th class="header" scope="col" position="sticky">Limit Date</th>
-                        <!-- <th>yearFoundation</th> -->
-                        <!-- <th>Description</th>   -->                               
+                        <th class="header" scope="col" position="sticky">Limit Date</th>                             
                         <th class="header" scope="col" position="sticky">Salary</th>
-                        <th class="header" scope="col" position="sticky">Career</th>                 
-                        
-                        <th class="header" scope="col" position="sticky">Description</th> 
-                        <th class="header" scope="col" position="sticky">-</th>
+                        <th class="header" scope="col" position="sticky">Description</th>                 
+                        <th class="header" scope="col" position="sticky">Career</th> 
+                        <th class="header" scope="col" position="sticky">Company</th>
+                        <th class="header" scope="col" position="sticky"></th>
 
 
                     </thead>
@@ -59,8 +57,12 @@ if (isset($_SESSION["admin"])) {
 
                                 foreach($this->careerList as $career){
                                     if($career->getCareerId() == $jobOffer->getCareerId()){
-
                                         echo  "<td>" . $career->getDescription() . "</td>";
+                                    }
+                                }
+                                foreach($this->companiesList as $company){
+                                    if($company->getCompanyId() == $jobOffer->getCompanyId()){
+                                        echo  "<td>" . $company->getName() . "</td>";
                                     }
                                 }
                                 
@@ -81,6 +83,17 @@ if (isset($_SESSION["admin"])) {
                                  <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
+                                }
+
+                                if (isset($_SESSION["student"])) {
+                                    $student = $_SESSION["student"];
+                                    echo "<div class='row'>";
+                                    echo "<div class='button-conteiner'>";
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/addStudentToAJobOffer/" . $jobOffer->getJobOfferId() ."/".$student->getStudentId() . ">
+                                <button type='button' class= 'btn btn-success' > Add me</button></a></td>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                
                                 }
 
                               

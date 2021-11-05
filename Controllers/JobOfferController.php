@@ -195,6 +195,7 @@ class JobOfferController
         $controlScritpt = 1;
         try {
             $this->jobOfferDAO->addStudentToAJobOffer($jobOfferId, $studentId);
+            $this->companiesList = $this->companyDao->GetAll();
         } catch (PDOException $ex) {
             $controlScritpt = 1;
             $message = 'error en la base';
@@ -225,6 +226,7 @@ class JobOfferController
             Utils::checkSession();
             $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
             $this->careerList = $this->careerDAO->GetAll();
+            $this->companiesList = $this->companyDao->GetAll();
 
             require_once(ADMIN_VIEWS . "company-job-offers.php");
         } else {

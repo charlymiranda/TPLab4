@@ -128,7 +128,7 @@ class JobOfferDAO implements IJobOfferDAO
         if (!empty($this->jobOfferList)) {
             return $this->retrieveDataJobOffer();
         } else {
-            return false;
+            return $this->jobOfferList;
         }
     }
 

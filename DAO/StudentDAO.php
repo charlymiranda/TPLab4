@@ -6,7 +6,8 @@
     use DAO\IStudentDAO as IStudentDAO;
 
     use DAO\Connection as Connection;
-use PDOException;
+    use \PDOException as PDOException;
+
 
 class StudentDAO implements IStudentDAO
     {
@@ -48,7 +49,7 @@ class StudentDAO implements IStudentDAO
 
             foreach($arrayToDecode as $value){
                 
-                $student = new Student;
+                $student = new Student();
 
                 $student->setstudentId($value['studentId']);
                 $student->setCareerId($value['careerId']);
@@ -69,15 +70,22 @@ class StudentDAO implements IStudentDAO
 
         public function getStudentByMail($email)
         {
-            $this->consumeFromApi();
-
-            foreach ($this->studentList as $student) {
-                if ($student->getEmail() == $email){
-                    return $student;
-                }
+            $sql = "SELECT * FROM students WHERE email=:email";
+            $parameters['email']=$email;           
+            
+            try{
+                $this->connection = Connection::getInstance();
+                $this->studentList =  $this->connection->execute($sql, $parameters);
+                var_dump($this->studentList);
+                die;
+            }catch(\PDOException $ex){
+                throw $ex;
             }
-                return null;
-           
+            if (!empty($this->studentBD)) {
+                return $this->retrieveOneStudent();
+            } else {
+                return $this->studentBD;
+            }
         }
 
        public function Add(Student $student)
@@ -177,6 +185,8 @@ class StudentDAO implements IStudentDAO
         }
         return $loginStudent;
     }
+
+    
 
         /*
         private function mapear($studentList){

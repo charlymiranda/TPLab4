@@ -4,6 +4,7 @@
 
     use Models\Career as Career;
     use DAO\ICareerDAO as ICareerDAO;
+    use Models\Student as Student;
 
     class CareerDAO implements ICareerDAO{
 
@@ -106,7 +107,7 @@
         }
 
 
-    public function getCareerStudent($student){
+    public function getCareerStudent(Student $student){
         $this->consumeFromApi();
             foreach($this->careerList as $career){
                 if($student->getCareerId() == $career->getCareerId())

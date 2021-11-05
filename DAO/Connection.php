@@ -33,12 +33,14 @@ class Connection
          {
          // I create a statement by calling prepare. This returns a statement object
               $this->pdoStatement = $this->pdo->prepare($query);
-
+               
               foreach($parameters as $parameterName => $value)
               {
                    // I replace the parameter markers with the actual values using the bindParam () method.
                    $this->pdoStatement->bindParam(":".$parameterName, $value);
+                  
               }
+          
 
               $this->pdoStatement->execute();
              // echo $this->pdoStatement;
