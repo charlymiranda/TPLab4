@@ -40,7 +40,7 @@ if (isset($controlScript)) {
             <h2 class="mb-4">Companies List</h2>
             <div class="container" style="width: 5500; height: 400px; overflow-y: scroll;">
                 <div class="container" position="fixed">
-                    <form action="<?php echo FRONT_ROOT ?>Company/ShowCompaniesViews" method="POST" enctype="multipart/form-data">
+                    <form action="<?php echo FRONT_ROOT ?>Company/ShowCompaniesViews" method="GET" enctype="multipart/form-data">
 
                         <input type="text" name="search" class="form-control form-control-ml" required value="">
 

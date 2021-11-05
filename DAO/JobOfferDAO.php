@@ -120,12 +120,12 @@ class JobOfferDAO implements IJobOfferDAO
 
         try {
             $this->connection = Connection::getInstance();
-            $this->jobOfferList = $this->connection->execute($sql, $parameters);
+            $this->jobOfferList = $this->connection->execute($sql, $parameters);           
         } catch (\PDOException $exception) {
             throw $exception;
         }
        
-        if (!empty($jobOfferList)) {
+        if (!empty($this->jobOfferList)) {
             return $this->retrieveDataJobOffer();
         } else {
             return false;

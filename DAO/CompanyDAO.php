@@ -45,14 +45,13 @@ class CompanyDAO implements ICompanyDAO
 
     public function AddCompany(Company $company)
     {
-        $sql = "INSERT INTO companies(name, yearFoundation, city, description, email, phoneNumber, cuit, logo) 
-                VALUES(:name, :yearFoundation, :city, :description, :email, :phoneNumber, :cuit, :logo);";
+        $sql = "INSERT INTO companies(name, yearFoundation, city, description, email, phoneNumber, cuit) 
+                VALUES(:name, :yearFoundation, :city, :description, :email, :phoneNumber, :cuit);";
 
         $parameters['name'] = $company->getName();
         $parameters['yearFoundation'] = $company->getYearFoundation();
         $parameters['city'] = $company->getCity();
-        $parameters['description'] = $company->getDescription();
-        $parameters['logo']=$company->getLogo();
+        $parameters['description'] = $company->getDescription();       
         $parameters['email'] = $company->getEmail();
         $parameters['phoneNumber'] = $company->getPhoneNumber();
         $parameters['cuit'] = $company->getCuit();

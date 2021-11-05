@@ -73,7 +73,7 @@ class CompanyController
                 }
             }
             $this->companiesList = $filteredCompanies;
-            require_once(ADMIN_VIEWS . "company-list.php");
+            require_once(ADMIN_VIEWS . "company-delete.php");
         }
     }
 
@@ -85,15 +85,14 @@ class CompanyController
     }
 
 
-    public function AddCompany($name, $yearFoundation, $city, $description, $email, $phoneNumber, $pre, $dni, $ultimo,$logo)
+    public function AddCompany($name, $yearFoundation, $city, $description, $email, $phoneNumber, $pre, $dni, $ultimo)
     {
         Utils::checkSession();
         $company = new Company();
         $company->setName($name);
         $company->setYearFoundation($yearFoundation);
         $company->setCity($city);
-        $company->setDescription($description);
-        $company->setLogo($logo);
+        $company->setDescription($description);      
         $company->setEmail($email);
         $company->setPhoneNumber($phoneNumber);
         $company->buildCuit($pre, $dni, $ultimo);

@@ -54,12 +54,12 @@
                             
                          </div>
 
-                         <div class="col-lg-4">
+                        <!-- <div class="col-lg-4">
                          
                                    <label for="" ><b>Logo</b></label>
                                    <input type="file" name="logo" value="" class="form-control" required value="">
                              
-                         </div>
+                         </div>-->
                                         </div>
                     <button type="submit" name="" class="btn btn-dark ml-auto d-block">Add</button>
 
