@@ -21,7 +21,8 @@ class JobOfferDAO implements IJobOfferDAO
     public function getAllJobOffer()
     {
 
-        $sql = "SELECT * FROM " . $this->tableName;
+        $sql = "SELECT * FROM job_offer WHERE active=".true;
+       //    $parameter['active']=true;
 
         try {
             $this->connection = Connection::getInstance();
