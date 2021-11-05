@@ -16,7 +16,7 @@ require_once('navcompany.php');
                          <div class="col-lg-4">
 
                               <label for="">Año de Fundacion</label>
-                              <input type="date" name="yearFoundation" class="form-control" required value="<?php echo $this->company->getYearFoundation(); ?>" />
+                              <input type="date" name="yearFoundation" min="1900-01-01" max="<?php echo date("Y-m-d"); ?>" class="form-control" required value="<?php echo $this->company->getYearFoundation(); ?>" />
 
                          </div>
 

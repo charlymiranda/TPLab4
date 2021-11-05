@@ -101,8 +101,11 @@ class CompanyController
 
         if($result == false)
         {
+            $message = "Empresa cargada correctamente ANIMAL!!";
             $this->companyDAO->AddCompany($company);
+            require_once(ADMIN_VIEWS . "company-add.php");
         }else{
+            $message = "ya existe una empresa con ese cuit";
             require_once(ADMIN_VIEWS . "company-add.php");
         }
         
