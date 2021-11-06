@@ -30,21 +30,28 @@
                     </center>
 
                </form>
-
+               <br>
                <div>
-                    <form action="<?php echo FRONT_ROOT ?>Student/ShowStudentRegistration" method="get" class="login-form  p-1 ">
-                         <center>
-                              <button class="btn btn-info" type="submit">Registration</button>
-                         </center>
-                    </form>
-               </div>
+                    <section>
 
-               <div>
-                    <form action="<?php echo FRONT_ROOT ?>UserCompany/ShowUserCompanyRegistrationView" method="get" class="login-form  p-1 ">
-                         <center>
-                              <button class="btn btn-info" type="submit">Registration</button>
-                         </center>
-                    </form>
+                         <table class="table bg-light-alpha">
+                              <thead>
+                                   <form action="<?php echo FRONT_ROOT ?>Student/ShowStudentRegistration" method="get" class="login-form  p-1 ">
+                                        <center>
+                                             <button class="btn btn-primary" type="submit">Registration for students</button>
+                                        </center>
+
+                                   </form>
+                                   <br>
+                                   <form action="<?php echo FRONT_ROOT ?>UserCompany/ShowUserCompanyRegistrationView" method="get" class="login-form  p-1 ">
+                                        <center>
+                                             <button class="btn btn-info" type="submit">Registration For Companies</button>
+                                        </center>
+
+                                   </form>
+                              </thead>
+
+                    </section>
                </div>
           </div>
      </section>
