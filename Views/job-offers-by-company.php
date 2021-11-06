@@ -10,11 +10,11 @@ if (isset($_SESSION["admin"])) {
 
 ?>
 <main class="py-5">
-    <section id="listado" class="mb-5">
+    
 
         <div class="container">
-            <h2 class="mb-4">Job Offers By Company</h2>
-            <h2 class="mb-4">Company: <?php echo $this->company->getName();?></h2>
+            <h2 class="mb-3">Job Offers By Company</h2>
+            <h4 class="mb-4">Company: <?php echo $this->company->getName();?></h4>
             <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
                 <div class="container" position="fixed">
                     <form action="<?php echo FRONT_ROOT ?>JobOffer/getJobOfferByName" method="POST" enctype="multipart/form-data">
@@ -36,7 +36,6 @@ if (isset($_SESSION["admin"])) {
                         <th class="header" scope="col" position="sticky"></th>
                         <th class="header" scope="col" position="sticky"></th>
                         <th class="header" scope="col" position="sticky"></th>
-
                         
                     </thead>
                     </div>
@@ -46,8 +45,7 @@ if (isset($_SESSION["admin"])) {
                                                       
                         if ($this->jobOfferList !=NULL) {
                             foreach ($this->jobOfferList as $jobOffer) {
-                                
-                                
+                                                                
                                 echo "<tr>";
                            
                                 echo  "<td>" . $jobOffer->getName() . "</td>";
@@ -66,11 +64,10 @@ if (isset($_SESSION["admin"])) {
                                     echo "</div>";
                                     echo "</div>";
                                 }
-                                
- 
+                                 
                             }
                         }else{
-                            echo "The companies list is empty";
+                             echo "There aren't Job Offers for this company";
                         }
                         ?>
                         
@@ -79,7 +76,7 @@ if (isset($_SESSION["admin"])) {
             </div>
         </div>
         </form>
-    </section>
-    
+    <br>
+   
 </main>
-<br>
+

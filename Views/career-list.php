@@ -56,4 +56,5 @@ if (isset($_SESSION["admin"])) {
         </div>
         </form>
     </section>
+    <br>
 </main>

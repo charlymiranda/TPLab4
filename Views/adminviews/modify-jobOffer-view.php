@@ -22,13 +22,13 @@ require_once('navcompany.php');
 
                          <div class="col-lg-4">
 
-                              <label for="">Dead Line</label>
+                              <label for="">Deadline</label>
                               <input type="date" name="deadline" class="form-control" required value="<?php echo $this->jobOffer->getDeadline(); ?>" />
 
                          </div>
                          <div class="col-lg-4">
 
-                              <label for="">Descripcion</label>
+                              <label for="">Description</label>
                               <textarea type="text" name="description" class="form-control" required value=""><?php echo $this->jobOffer->getDescription(); ?></textarea>
 
                          </div>
