@@ -56,6 +56,26 @@ class UserCompanyDAO implements IUserCompanyDAO
 
         $userCompanyObj = mysqli_fetch_object($this->userCompanyBD);
     }
+
+    public function AddUserCompany(UserCompany $userCompany)
+    {
+        
+      $sql = "INSERT INTO user_company (firstName, lastName, dni, phoneNumber, active, password, email)
+                 VALUES (:firstName, :lastName, :dni, :phoneNumber, :active, :password, :email);";
+        $parameters["firstName"]=$userCompany->getFirstName();
+        $parameters['lastName']=$userCompany->getLastName();
+        $parameters['dni']=$userCompany->getDni();       
+        $parameters['phoneNumber']=$userCompany->getPhoneNumber();
+        $parameters['active']=true;
+        $parameters['password']=$userCompany->getPassword();
+        $parameters['email']=$userCompany->getEmail();
+        try {
+            $this->connection= Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
 }
 
 
