@@ -151,7 +151,7 @@ class CompanyController
 
         $this->companyDAO->delete($companyId);
 
-        $this->ShowCompaniesViews();
+        $this->RedirectDeleteForm();
     }
 
     public function jobOffersForCompanies($companyName)
