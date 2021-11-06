@@ -86,7 +86,8 @@
             } catch (\PDOException $exeption) {
                 throw $exeption;
             }
-    
+           // var_dump($this->careerList);
+            //die;
             if (!empty($this->careerList)) {
                 return $this->retrieveOneCareerData();
             } else {

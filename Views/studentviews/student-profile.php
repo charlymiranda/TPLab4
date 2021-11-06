@@ -38,7 +38,8 @@ require_once(STUDENT_VIEWS . 'nav.php');
                          <th>description</th>
                     </thead>
                <tbody>
-                    <?php if (isset($this->career)) {
+                    <?php if ($this->career != null) {
+                        
                          echo  "<td>" . $this->career->getCareerId() . "</td>";
                          echo  "<td>" . $this->career->getDescription() . "</td>";
                     } ?>

@@ -192,17 +192,22 @@ class JobOfferController
 
     public function addStudentToAJobOffer($jobOfferId, $studentId)
     {
-        $controlScritpt = 1;
+        $controlScritpt = null;
         try {
             $this->jobOfferDAO->addStudentToAJobOffer($jobOfferId, $studentId);
+            $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+            $this->careerList = $this->careerDAO->GetAllActive();
             $this->companiesList = $this->companyDao->GetAll();
         } catch (PDOException $ex) {
-            $controlScritpt = 1;
+            $controlScritpt = true;
             $message = 'error en la base';
-            require_once(ADMIN_VIEWS . "company-delete.php");
+            if($_SESSION['admin']){
+                require_once(ADMIN_VIEWS . "menu-admin.php");
+            }
+            require_once(ADMIN_VIEWS . "menu-student.php");
         }
         $message = "student added to a job offer";
-        require_once(ADMIN_VIEWS . "company-delete.php");
+        require_once(ADMIN_VIEWS . "company-job-offers.php");
     }
 
 
