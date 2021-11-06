@@ -40,7 +40,7 @@
                </div>
 
                <div>
-                    <form action="<?php echo FRONT_ROOT ?>User/ShowStudentRegistration" method="get" class="login-form  p-1 ">
+                    <form action="<?php echo FRONT_ROOT ?>UserCompany/ShowUserCompanyRegistrationView" method="get" class="login-form  p-1 ">
                          <center>
                               <button class="btn btn-info" type="submit">Registration</button>
                          </center>
