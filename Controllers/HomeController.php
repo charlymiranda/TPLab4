@@ -7,7 +7,8 @@
     use DAO\StudentDAO as StudentDAO;
     use DAO\CareerDAO as CareerDAO;
     use Models\Career as Career;
-
+    use Models\UserCompany as UserCompany;
+    use DAO\UserCompanyDAO as UserCompanyDAO;
 
 class HomeController
 
@@ -17,6 +18,8 @@ class HomeController
         private $student;
         private $careerDAO;
         private $career;
+        private $userCompany;
+        private $userCompanyDAO;
 
         public function __construct()
         {
@@ -24,6 +27,8 @@ class HomeController
             $this->student = new Student();
              $this->careerDAO = new CareerDAO;
              $this->career = new Career;
+             $this->userCompany = new UserCompany();
+             $this->userCompanyDAO = new UserCompanyDAO();
         }
 
 
@@ -46,27 +51,31 @@ class HomeController
         }
 
         public function login($email, $password){
-           
+            $this->student = $this->studentDAO->getLoginStudent($email);
+            $this->userCompany = $this->userCompanyDAO->getUserCompanyByEmail($email);
             if(($email == 'user@hot.com') && ($password == '123456')){
+
                 $user = new User($email);
                 $user= new User($password);
                 $_SESSION['admin'] = $user;
-              
                 require_once(ADMIN_VIEWS."menu-admin.php");
-            } else {
+            } else if($this->student !=null){
 
-                $this->student = $this->studentDAO->getLoginStudent($email);
-                $this->career = $this->careerDAO->GetCareerById($this->student->getCareerId());
-                
-                if($password == $this->student->getPassword()){
-                    
+                if(($this->student->getEmail() == $email) && ($password == $this->student->getPassword())){
+                    $this->career = $this->careerDAO->GetCareerById($this->student->getCareerId());
                     $_SESSION['student'] = $this->student;
-    
                     require_once(STUDENT_VIEWS."student-profile.php");
-                } else {
-                    $invalidEmail = true;
-                    require_once(VIEWS_PATH ."login.php");
-                }
+                } 
+            }else if($this->userCompany != null){
+                if(($this->userCompany->getEmail == $email) && ($password == $this->userCompany->getPassword())){
+                    
+                    $_SESSION['userCompany'] = $this->student;
+                    require_once(USERCOMPANY_VIEWS."usercompany-profile.php");
+                } 
+
+            }else{
+                $invalidEmail = true;
+                require_once(VIEWS_PATH ."login.php");
             }
         }
 
