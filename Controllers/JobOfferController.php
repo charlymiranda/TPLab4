@@ -33,6 +33,7 @@ class JobOfferController
     private $companyDao;
     private $company;
     private $jobOffer;
+    private $expiredJobOffers;
 
 
     public function __construct()
@@ -49,6 +50,7 @@ class JobOfferController
         $this->company = new Company();
         $this->jobOffer = new JobOffer();
         $this->jobOfferList = array();
+        $this->expiredjobOffers = array();
     }
 
     public function RedirectAddJobForm()
@@ -241,6 +243,39 @@ class JobOfferController
             }
             $this->jobOffersList = $filteredOffers;
             require_once(ADMIN_VIEWS . "company-job-offers.php");
+        }
+    }
+
+    public function finishedJobOffers(){
+        Utils::checkAdminSession();
+        $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+        $this->expiredJobOffers = array();
+
+        foreach($this->jobOfferList as $jobOfferEach){
+            if(strtotime($jobOfferEach->getDeadLine()) < strtotime(date("Y-m-d H:i:00", time()))){
+                array_push($this->expiredjobOffers, $jobOfferEach);     
+            }
+        }
+        require_once(ADMIN_VIEWS . "expired-job-offers.php");
+        return $this->expiredjobOffers;
+    }
+
+    public function notificationByEmail(){
+        Utils::checkAdminSession();
+        $notifications = $this->finishedJobOffers();
+        $to = array();
+        $subject = "Gratitude";
+        $message = "We appreciate your application to the job";
+
+        if($notifications != null){
+            foreach($notifications as $toNotify){
+                $students = $toNotify->getStudentId();
+                array_push($to, $students);
+            }
+        }
+
+        foreach($to as $forEmail){
+            mail($forEmail["email"], $subject, $message);
         }
     }
 }
