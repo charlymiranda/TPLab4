@@ -5,7 +5,7 @@
 
     interface IPostulantesByJobOfferDAO
     {
-      
+        function getAllPostulantesByJobOffer($jobOfferId);
    
         
     }
