@@ -171,6 +171,26 @@ class JobOfferDAO implements IJobOfferDAO
 
     }
 
+    public function getJobOfferByCareer($careerId){
+        $sql = 'SELECT*FROM letswork.job_offer WHERE careerId = ' . $careerId . ' AND active = :active';
+        $parameters['active']=true;
+   
+               
+        try {
+            $this->connection = Connection::getInstance();
+            $this->jobOfferList = $this->connection->execute($sql, $parameters);
+       
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+       
+        if (!empty($this->jobOfferList)) {
+            return $this->retrieveDataJobOffer();
+        } else {
+            return false;
+        }
+    }
+
     private function retrieveDataJobOffer()
     {
         $listToReturn = array();

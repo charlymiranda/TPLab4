@@ -9,6 +9,7 @@
         function GetAll();  
         function GetAllActive(); 
         function Delete(Career $career);
+        public function GetAllWhitInactives();
     }
 
 ?> 

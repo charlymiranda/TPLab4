@@ -35,6 +35,25 @@
 
         }
 
+        public function GetAllWhitInactives(){
+            
+            $sql = "SELECT * FROM careers";
+            
+            try {
+                $this->connection = Connection::getInstance();
+                $this->careerList = $this->connection->execute($sql);
+            } catch (\PDOException $exeption) {
+                throw $exeption;
+            }
+    
+            if (!empty($this->careerList)) {
+                return $this->retrieveData();
+            } else {
+                return false;
+            }
+
+        }
+
         public function Delete(Career $careerToDelete){
 
         }

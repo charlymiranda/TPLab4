@@ -53,7 +53,7 @@ class HomeController
         public function login($email, $password){
             $this->student = $this->studentDAO->getLoginStudent($email);
             $this->userCompany = $this->userCompanyDAO->getUserCompanyByEmail($email);
-            if(($email == 'user@hot.com') && ($password == '123456')){
+            if(($email == 'user@hot.com') && ($password == 'C1234har')){
 
                 $user = new User($email);
                 $user= new User($password);

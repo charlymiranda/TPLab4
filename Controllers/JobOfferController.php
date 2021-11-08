@@ -27,6 +27,7 @@ class JobOfferController
     private $jobOfferList;
     private $careerDAO;
     private $careerList;
+    private $career;
     private $jobOfferByCompanyDAO;
     private $jobOfferByCompany;
     private $companiesList;
@@ -42,8 +43,7 @@ class JobOfferController
         $this->jobOfferDAO = new JobOfferDAO();
         $this->careerDAO = new CareerDAO();
         $this->careerList = array();
-        $this->jobOfferByCompanyDAO = new JobOfferByCompanyDAO();
-        $this->jobOfferByCompany = new JobOfferByCompany();
+        $this->career = new Career();
         $this->companiesList = array();
         $this->companyDao = new CompanyDAO;
         $this->company = new Company();
@@ -172,7 +172,7 @@ class JobOfferController
 
         $this->jobOfferDAO->deleteJobOffer($jobOfferId);
 
-        $this->ShowjobOfferAddView("The job offer had been deleted successfully");
+        $this->showJobOfferView("The job offer had been deleted successfully");
     }
 
     ///Filtro de job offers
@@ -214,6 +214,9 @@ class JobOfferController
 
     public function showJobsOffersViewByCareer($careerId)
     {
+        $this->jobOfferList = $this->jobOfferDAO->getJobOfferByCareer($careerId);
+        $this->career = $this->careerDAO->GetCareerById($careerId);
+       require_once(VIEWS_PATH . "job-offers-by-career.php");
     }
 
 
