@@ -1,12 +1,8 @@
 <?php
 
-if (isset($_SESSION["admin"])) {
-    require_once(ADMIN_VIEWS . 'navcompany.php');
-} else {
+use Utils\Utils;
 
-    require_once(STUDENT_VIEWS . 'nav.php');
-}
-
+Utils::checkNav();
 
 ?>
 <main class="py-5">

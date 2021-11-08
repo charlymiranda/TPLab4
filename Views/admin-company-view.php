@@ -1,5 +1,7 @@
 <?php
-require_once('nav.php');
+use Utils\Utils;
+
+Utils::checkNav();
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
