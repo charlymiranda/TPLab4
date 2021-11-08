@@ -5,12 +5,12 @@ Utils::checkNav();
 
 ?>
 <main class="py-5">
-     <br>
-     <section id="listado" class="mb-3">
-          
+     
+     <section id="listado" class="mb-5">
+     <div class="container">
                
-               <h2 class="mb-12 text-center" >Students List</h2>
-               <br>
+               <h2 class="mb-4" >Students List</h2>
+              
                <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
                <table class="table bg-light-alpha">
                     <thead class="thead-dark">
@@ -52,5 +52,6 @@ Utils::checkNav();
                </table>
           </div>
      </section>
+      </div>
+      <br>
 </main>
-<br>

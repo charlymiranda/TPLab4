@@ -11,7 +11,7 @@ Utils::checkNav();
     <section id="listado" class="mb-5">
 
         <div class="container">
-            <h2 class="mb-4">Job Offers</h2>           
+            <h2 class="mb-4">Job Offers List</h2>           
         
             <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
 
@@ -105,4 +105,5 @@ Utils::checkNav();
         </div>
         </form>
     </section>
+    <br>
 </main>

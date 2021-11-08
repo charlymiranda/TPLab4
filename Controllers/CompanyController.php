@@ -101,11 +101,11 @@ class CompanyController
 
         if($result == false)
         {
-            $message = "Empresa cargada correctamente ANIMAL!!";
+            $message = "The company has been saved correctly. Flawless Victory.";
             $this->companyDAO->AddCompany($company);
             require_once(ADMIN_VIEWS . "company-add.php");
         }else{
-            $message = "ya existe una empresa con ese cuit";
+            $message = "There is already a company with that cuit. Please try again.";
             require_once(ADMIN_VIEWS . "company-add.php");
         }
         
@@ -126,7 +126,7 @@ class CompanyController
     }
     
 
-    public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber, $cuit, $logo)
+    public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber)
     {
         //Utils::checkSession();
         $company = new Company();
@@ -138,12 +138,14 @@ class CompanyController
         $company->setDescription($description);
         $company->setEmail($email);
         $company->setPhoneNumber($phoneNumber);
-        $company->setCuit($cuit);
-        $company->setLogo($logo);
+        //$company->setCuit($cuit);
+        //$company->setLogo($logo);
 
         $this->companyDAO->Update($company);
 
-        $this->ShowCompaniesViews();
+        $this->RedirectDeleteForm("The company had been updated successfully");
+
+      
     }
 
     public function deleteCompany($companyId)

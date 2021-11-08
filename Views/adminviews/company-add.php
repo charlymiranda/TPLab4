@@ -4,14 +4,10 @@ use Utils\Utils;
 
 Utils::checkNav();
 
-
-if ($message != null) {
-     echo "$message";
+if (isset($this->message)) {
+     echo "$this->message";
 }
-
-
 ?>
-
 <main class="py-5">
 
      <section id="listado" class="mb-5">
@@ -31,7 +27,7 @@ if ($message != null) {
 
                               <label for=""><b>CUIT</b></label>
                               <br>
-                              <input type="number" placeholder="00" min="20" max="99" name="pre" value="" class="form-control-sm" required value="">
+                              <input type="number" placeholder="00" min="20" max="27" name="pre" value="" class="form-control-sm" required value="">
                               <input type="number" placeholder="00000000" min="11111111" max="99999999" name="dni" value="" class="form-control-sm" required value="">
                               <input type="number" placeholder="0" min="1" max="9" name="ultimo" value="" class="form-control-sm" required value="">
 
