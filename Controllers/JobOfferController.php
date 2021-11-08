@@ -214,8 +214,6 @@ class JobOfferController
         require_once(ADMIN_VIEWS . "company-delete.php");
     }
 
-
-
     public function showJobsOffersViewByCareer($careerId)
     {
     }
@@ -257,14 +255,18 @@ class JobOfferController
     {
         Utils::checkAdminSession();
         $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
-        $this->expiredJobOffers = array();
-
+        $this->careerList = $this->careerDAO->getAll();
+        $this->companiesList = $this->companyDao->getAll();
+       // $this->expiredJobOffers = array();
+        
         foreach ($this->jobOfferList as $jobOfferEach) {
             if (strtotime($jobOfferEach->getDeadLine()) < strtotime(date("Y-m-d H:i:00", time()))) {
                 array_push($this->expiredjobOffers, $jobOfferEach);
             }
         }
         require_once(ADMIN_VIEWS . "expired-job-offers.php");
+
+        
         return $this->expiredjobOffers;
     }
 
@@ -284,7 +286,7 @@ class JobOfferController
         }
 
         foreach ($to as $forEmail) {
-            mail($forEmail["email"], $subject, $message);
+            $this->sendMail($forEmail["email"]);
         }
     }
     public function sendMail($recipientMail)

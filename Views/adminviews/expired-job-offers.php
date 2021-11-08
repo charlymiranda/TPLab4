@@ -14,15 +14,15 @@ if (isset($_SESSION["admin"])) {
     <section id="listado" class="mb-5">
 
         <div class="container">
-            <h2 class="mb-4">Job Offers</h2>           
-        
+            <h2 class="mb-4">Expired Job Offers</h2>
+
             <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
 
 
                 <div class="container" position="fixed">
 
 
-                    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobsViews" method="POST" enctype="multipart/form-data">
+                    <form action="<?php echo FRONT_ROOT ?>JobOffer/finishedJobOffers" method="POST" enctype="multipart/form-data">
 
                         <input type="text" name="search" class="form-control form-control-ml" required value="">
 
@@ -33,10 +33,10 @@ if (isset($_SESSION["admin"])) {
                     <thead>
                         <th class="header" scope="col" position="sticky">Name</th>
                         <th class="header" scope="col" position="sticky">Start Date</th>
-                        <th class="header" scope="col" position="sticky">Limit Date</th>                             
+                        <th class="header" scope="col" position="sticky">Limit Date</th>
                         <th class="header" scope="col" position="sticky">Salary</th>
-                        <th class="header" scope="col" position="sticky">Description</th>                 
-                        <th class="header" scope="col" position="sticky">Career</th> 
+                        <th class="header" scope="col" position="sticky">Description</th>
+                        <th class="header" scope="col" position="sticky">Career</th>
                         <th class="header" scope="col" position="sticky">Company</th>
                         <th class="header" scope="col" position="sticky"></th>
 
@@ -45,59 +45,40 @@ if (isset($_SESSION["admin"])) {
                     <tbody>
                         <?php
 
-
-                        if ($this->expiredjobOffers !=null) {
+                        if ($this->expiredjobOffers != null) {
                             foreach ($this->expiredjobOffers as $jobOffer) {
                                 echo "<tr>";
                                 echo  "<td>" . $jobOffer->getName() . "</td>";
                                 echo  "<td>" . $jobOffer->getStartDay() . "</td>";
-                                echo  "<td>" . $jobOffer->getDeadline() . "</td>";                                
-                                echo  "<td>" . $jobOffer->getSalary() . "</td>";                                
+                                echo  "<td>" . $jobOffer->getDeadline() . "</td>";
+                                echo  "<td>" . $jobOffer->getSalary() . "</td>";
                                 echo  "<td>" . $jobOffer->getDescription() . "</td>";
-
-                                foreach($this->careerList as $career){
-                                    if($career->getCareerId() == $jobOffer->getCareerId()){
+                               
+                                foreach ($this->careerList as $career) {
+                                    if ($career->getCareerId() == $jobOffer->getCareerId()) {
                                         echo  "<td>" . $career->getDescription() . "</td>";
                                     }
                                 }
-                                foreach($this->companiesList as $company){
-                                    if($company->getCompanyId() == $jobOffer->getCompanyId()){
+                                foreach ($this->companiesList as $company) {
+                                    if ($company->getCompanyId() == $jobOffer->getCompanyId()) {
                                         echo  "<td>" . $company->getName() . "</td>";
                                     }
                                 }
-                                
+
 
                                 if (isset($_SESSION["admin"])) {
-
+            
                                     $jobOfferId = $jobOffer->getjobOfferId();
                                     echo "<div class='row'>";
                                     echo "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/deleteJobOffer/" . $jobOfferId . ">
-                                <button type='button' class= 'btn btn-danger' > Delete</button></a></td>";
-                                    echo "</div>";
-                                    echo "</div>";
-
-                                    echo "<div class='row'>";
-                                    echo  "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/showModifyJobOfferView/" . $jobOfferId . ">
-                                 <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/notificationByEmail/" . $jobOfferId . ">
+                                <button type='button' class= 'btn btn-sucess' > Send Mail</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
                                 }
-
-                                if (isset($_SESSION["student"])) {
-                                    $student = $_SESSION["student"];
-                                    echo "<div class='row'>";
-                                    echo "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/addStudentToAJobOffer/" . $jobOffer->getJobOfferId() ."/".$student->getStudentId() . ">
-                                <button type='button' class= 'btn btn-success' > Add me</button></a></td>";
-                                    echo "</div>";
-                                    echo "</div>";
-                                
-                                }                              
                             }
-                        }else{
-                            echo "The job Offers list is empty";
+                        } else {
+                            echo "There are not expired job Offers";
                         }
                         ?>
                     </tbody>
