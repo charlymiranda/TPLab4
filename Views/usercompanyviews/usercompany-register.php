@@ -44,13 +44,13 @@
                         <div class="col-lg-4">
 
                             <label for=""><b>Password</b></label>
-                            <input type="text" name="password" class="form-control" required value="">
+                            <input type="password" name="password" class="form-control" required value="">
 
                         </div>
                         <div class="col-lg-4">
 
                             <label for=""><b>Confirm Password</b></label>
-                            <input type="text" name="confirm password" class="form-control" required value="">
+                            <input type="password" name="confirmPassword" class="form-control" required value="">
 
                         </div>
 

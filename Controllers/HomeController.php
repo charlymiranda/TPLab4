@@ -67,9 +67,9 @@ class HomeController
                     require_once(STUDENT_VIEWS."student-profile.php");
                 } 
             }else if($this->userCompany != null){
-                if(($this->userCompany->getEmail == $email) && ($password == $this->userCompany->getPassword())){
+                    if(($this->userCompany->getEmail() == $email) && ($password == $this->userCompany->getPassword())){
                     
-                    $_SESSION['userCompany'] = $this->student;
+                    $_SESSION['userCompany'] = $this->userCompany;
                     require_once(USERCOMPANY_VIEWS."usercompany-profile.php");
                 } 
 

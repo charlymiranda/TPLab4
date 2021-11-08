@@ -38,7 +38,7 @@ class CompanyController
     
     public function RedirectDeleteForm()
     {
-        Utils::checkAdminSession();
+        //Utils::checkAdminSession();
         $this->companiesList = $this->companyDAO->GetAll();
         require_once(ADMIN_VIEWS . "company-delete.php");
 

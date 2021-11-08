@@ -31,8 +31,9 @@ class UserCompanyDAO implements IUserCompanyDAO
 
         try{
             $this->connection = Connection::getInstance();
-            $this->userCompanyBD = $this->connection->Execute($sql, $parameters);
-
+            $this->userCompany = $this->connection->Execute($sql, $parameters);
+            //var_dump($this->userCompany);
+           // die;
         }catch(PDOException $ex){
            
             echo "Error message: " . $ex->getMessage();
@@ -41,7 +42,7 @@ class UserCompanyDAO implements IUserCompanyDAO
         if(!empty($this->userCompany)){
             $userCompanyObj = new UserCompany();
 
-            return $userCompanyObj = mysqli_fetch_object($this->userCompanyBD); 
+            return $this->retrieveUserCompanyData(); 
         }
 
     }
@@ -52,9 +53,20 @@ class UserCompanyDAO implements IUserCompanyDAO
 
 
     private function retrieveUserCompanyData(){
-        $userCompanyObj = new UserCompany();
+        foreach($this->userCompany as $userCompany){
+            $userCompanyObj = new UserCompany();
 
-        $userCompanyObj = mysqli_fetch_object($this->userCompanyBD);
+            $userCompanyObj->setUserCompanyId($userCompany['userCompanyId']);
+            $userCompanyObj->setEmail($userCompany['email']);
+            $userCompanyObj->setFirstName($userCompany['firstName']);
+            $userCompanyObj->setLastName($userCompany['lastName']);
+            $userCompanyObj->setPhoneNumber($userCompany['phoneNumber']);
+            $userCompanyObj->setPassword($userCompany['password']);
+            $userCompanyObj->setDni($userCompany['dni']);
+        }
+        
+        return $userCompanyObj;
+        
     }
 
     public function AddUserCompany(UserCompany $userCompany)

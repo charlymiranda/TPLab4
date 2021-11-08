@@ -21,6 +21,10 @@ class UserCompanyController
         $this->userCompanyDAO = new UserCompanyDAO();
     }
 
+    public function userCompanyMenu(){
+        require_once(USERCOMPANY_VIEWS . "menu-usercompany.php");
+    }
+
 
     public function ShowUserCompanyRegistrationView()
     {
@@ -34,17 +38,17 @@ class UserCompanyController
         require_once(USERCOMPANY_VIEWS . "usercompany-profile.php");
     }
 
-    public function userCompanyRegistration($firstName, $lastName, $dni, $email, $phoneNumber, $passwword, $confirmPassword)
+    public function userCompanyRegistration($firstName, $lastName, $dni, $email, $phoneNumber, $password, $confirmPassword)
     {
 
         $userCompany = new UserCompany();
-        if ($passwword == $confirmPassword) {
+        if ($password == $confirmPassword) {
             $userCompany->setFirstName($firstName);
             $userCompany->setLastName($lastName);
             $userCompany->setDni($dni);
             $userCompany->setEmail($email);
             $userCompany->setPhoneNumber($phoneNumber);
-            $userCompany->setPassword($passwword);
+            $userCompany->setPassword($password);
 
             $this->userCompanyDAO->AddUserCompany($userCompany);
             $this->ShowUserCompanyProfile($email);

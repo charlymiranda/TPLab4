@@ -1,5 +1,7 @@
 <?php
-require_once(ADMIN_VIEWS . 'navcompany.php');
+use Utils\Utils;
+
+Utils::checkNav();
 
 ?>
 
