@@ -2,6 +2,9 @@
 
 namespace Controllers;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 use Models\JobOffer as JobOffer;
 use DAO\JobOfferDAO as JobOfferDAO;
 use Models\JobPosition as JobPosition;
@@ -18,6 +21,10 @@ use Utils\Utils as Utils;
 use DAO\JobOfferByCompanyDAO as JobOfferByCompanyDAO;
 use Models\JobOfferByCompany as JobOfferByCompany;
 use \PDOException as PDOException;
+
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
 
 class JobOfferController
 {
@@ -103,7 +110,7 @@ class JobOfferController
     {
         Utils::checkSession();
         $this->jobOfferList = $this->jobOfferDAO->searchJobOfferByName($search);
-       
+
         if ($search != null) {
             $search = strtolower($search);
             $filteredJobOffer = array();
@@ -246,36 +253,75 @@ class JobOfferController
         }
     }
 
-    public function finishedJobOffers(){
+    public function finishedJobOffers()
+    {
         Utils::checkAdminSession();
         $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
         $this->expiredJobOffers = array();
 
-        foreach($this->jobOfferList as $jobOfferEach){
-            if(strtotime($jobOfferEach->getDeadLine()) < strtotime(date("Y-m-d H:i:00", time()))){
-                array_push($this->expiredjobOffers, $jobOfferEach);     
+        foreach ($this->jobOfferList as $jobOfferEach) {
+            if (strtotime($jobOfferEach->getDeadLine()) < strtotime(date("Y-m-d H:i:00", time()))) {
+                array_push($this->expiredjobOffers, $jobOfferEach);
             }
         }
         require_once(ADMIN_VIEWS . "expired-job-offers.php");
         return $this->expiredjobOffers;
     }
 
-    public function notificationByEmail(){
+    public function notificationByEmail()
+    {
         Utils::checkAdminSession();
         $notifications = $this->finishedJobOffers();
         $to = array();
         $subject = "Gratitude";
         $message = "We appreciate your application to the job";
 
-        if($notifications != null){
-            foreach($notifications as $toNotify){
+        if ($notifications != null) {
+            foreach ($notifications as $toNotify) {
                 $students = $toNotify->getStudentId();
                 array_push($to, $students);
             }
         }
 
-        foreach($to as $forEmail){
+        foreach ($to as $forEmail) {
             mail($forEmail["email"], $subject, $message);
+        }
+    }
+    public function sendMail($recipientMail)
+    {
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+                )
+            );
+
+            //Server settings
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'utnmdp2021@gmail.com';
+            $mail->Password   = '123456..!';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port       = 465;
+
+            //Recipients
+            $mail->setFrom('utnmdp2021@gmail.com', 'Lets Work');
+            $mail->addAddress($recipientMail);
+
+            //Content
+            $mail->isHTML(true);
+            $mail->Subject = 'Gratitude';
+            $mail->Body    = 'We appreciate your application to the job';
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
 }
