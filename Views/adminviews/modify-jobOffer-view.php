@@ -2,51 +2,45 @@
 use Utils\Utils;
 
 Utils::checkNav();
-
 ?>
-
 <main class="py-5">
-     <section id="list" class="mb-5">
+     <section id="listado" class="mb-5">
           <div class="container">
-               <h2 class="mb-4">Add Job Offer</h2>
-               <h4>Company Selected: <?php echo $this->company->getName();?></h4>
-               <form action="<?php echo FRONT_ROOT ?>JobOffer/addJobOffer" method="POST" class="bg-light-alpha p-5">
+               <h2 class="mb-4">Job Offer</h2>               
+               <form action="<?php echo FRONT_ROOT . "JobOffer/updateJobOffer" ?>" method="POST" class="bg-light-alpha p-5">
                     <div class="row">
-                    <input type="hidden" name="companyId" value="<?php echo $this->company->getCompanyId(); ?>" />
-                       
+                         <input type="hidden" name="jobOfferId" value="<?php echo $this->jobOffer->getJobOfferId(); ?>" />
                          <div class="col-lg-4">
-                              <label for="">Job Offer Name</label>
-                              <input type="text" name="name" value="" class="form-control">
-                         </div>
+                              <label for="">Name</label>
+                              <input type="text" name="name" class="form-control" required value="<?php echo $this->jobOffer->getName(); ?>" />
 
+                         </div>
                          <div class="col-lg-4">
 
                               <label for="">Start Day</label>
-                              <input type="date" name="startDay" min = "<?php echo date("Y-m-d");?>" value="<?php echo date("Y-m-d");?>" class="form-control">
-
-                         </div>
-                         <div class="col-lg-4">
-
-                              <label for="">Deadline</label>
-                              <input type="date" name="deadline"min = "<?php echo date("Y-m-d");?>" value="<?php echo date("Y-m-d");?>" class="form-control">
+                              <input type="date" name="startDay" class="form-control" required value="<?php echo $this->jobOffer->getStartDay(); ?>" />
 
                          </div>
 
                          <div class="col-lg-4">
 
-                              <label for="">Description</label>
-                              <input type="text" name="description" value="" class="form-control">
+                              <label for="">Dead Line</label>
+                              <input type="date" name="deadline" class="form-control" required value="<?php echo $this->jobOffer->getDeadline(); ?>" />
+
+                         </div>
+                         <div class="col-lg-4">
+
+                              <label for="">Descripcion</label>
+                              <textarea type="text" name="description" class="form-control" required value=""><?php echo $this->jobOffer->getDescription(); ?></textarea>
 
                          </div>
                          <div class="col-lg-4">
 
                               <label for="">Salary</label>
-                              <input type="number" name="salary" value="" class="form-control">
+                              <input type="text" name="salary" class="form-control" required value="<?php echo $this->jobOffer->getSalary(); ?>" />
 
                          </div>
-
                          <div class="col-lg-10">
-                         <label for="">Career List</label>
                               <?php
                               echo "<select name='careerId' autofocus class='form-control'>";
                               if (isset($this->careerList)) {
@@ -60,7 +54,6 @@ Utils::checkNav();
                          </div>
 
                          <div class="col-lg-10">
-                         <label for="">Job Position</label>
                               <?php
                               echo "<select name='jobPositionId' autofocus class='form-control'>";
                               if (isset($this->jobPositionList)) {
@@ -72,10 +65,10 @@ Utils::checkNav();
                               } ?>
                          </div>
                     </div>
-                    <button type="submit" name="" class="btn btn-dark ml-auto d-block">Add</button>
-
+                    <button type="submit" name="" class="btn btn-primary ml-auto d-block">Save</button>
                </form>
           </div>
+
      </section>
+
 </main>
-<br><br><br><br><br><br>

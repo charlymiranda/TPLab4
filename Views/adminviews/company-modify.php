@@ -1,5 +1,7 @@
 <?php
-require_once('navcompany.php');
+use Utils\Utils;
+
+Utils::checkNav();
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
@@ -16,7 +18,7 @@ require_once('navcompany.php');
                          <div class="col-lg-4">
 
                               <label for="">Año de Fundacion</label>
-                              <input type="date" name="yearFoundation" class="form-control" required value="<?php echo $this->company->getYearFoundation(); ?>" />
+                              <input type="date" name="yearFoundation" min="1900-01-01" max="<?php echo date("Y-m-d"); ?>" class="form-control" required value="<?php echo $this->company->getYearFoundation(); ?>" />
 
                          </div>
 
@@ -52,7 +54,7 @@ require_once('navcompany.php');
                          <div class="col-lg-4">
 
                               <label for="">Logo</label>
-                              <input type="file" name="logo" class="form-control" required value="<?php echo $this->company->getLogo(); ?>">
+                              <input type="file" name="logo" class="form-control" value="null">
 
                          </div>
                     </div>

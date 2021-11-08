@@ -2,6 +2,10 @@
 
 namespace DAO;
 
+    use \PDO as PDO;
+    use DAO\QueryType as QueryType;
+     use Exception as Exception;
+
 class Connection
 {
     private $pdo = null; ///Objetos de Datos PHP
@@ -27,28 +31,32 @@ class Connection
         return self::$instance;
     }
 
-    public function execute($query, $parameters = array())
+ /*   public function execute($query, $parameters = array())
     {
          try
          {
          // I create a statement by calling prepare. This returns a statement object
               $this->pdoStatement = $this->pdo->prepare($query);
-
+               
               foreach($parameters as $parameterName => $value)
               {
                    // I replace the parameter markers with the actual values using the bindParam () method.
                    $this->pdoStatement->bindParam(":".$parameterName, $value);
+                  
               }
+          
 
               $this->pdoStatement->execute();
-
+             // echo $this->pdoStatement;
+              //die;
               return $this->pdoStatement->fetchAll();
          }
          catch(\Exception $ex)
          {
               throw $ex; 
          }
-    } 
+    }   
+
 
     public function executeNonQuery($query, $parameters = array())
     {
@@ -71,9 +79,73 @@ class Connection
          {   
               throw $ex;
          }
-    }
+    }*/
+
+    public function Execute($query, $parameters = array(), $queryType = QueryType::Query)
+    {
+       try
+       {
+           $this->Prepare($query);
+           
+           $this->BindParameters($parameters, $queryType);
+           
+           $this->pdoStatement->execute();
+
+           return $this->pdoStatement->fetchAll();
+       }
+       catch(Exception $ex)
+       {
+           throw $ex;
+       }
+   }
+   
+   public function ExecuteNonQuery($query, $parameters = array(), $queryType = QueryType::Query)
+    {            
+       try
+       {
+           $this->Prepare($query);
+           
+           $this->BindParameters($parameters, $queryType);
+
+           $this->pdoStatement->execute();
+
+           return $this->pdoStatement->rowCount();
+       }
+       catch(Exception $ex)
+       {
+           throw $ex;
+       }        	    	
+   }
+   
+   private function Prepare($query)
+   {
+       try
+       {
+           $this->pdoStatement = $this->pdo->prepare($query);
+       }
+       catch(Exception $ex)
+       {
+           throw $ex;
+       }
+   }
+   
+   private function BindParameters($parameters = array(), $queryType = QueryType::Query)
+   {
+       $i = 0;
+
+       foreach($parameters as $parameterName => $value)
+       {                
+           $i++;
+
+           if($queryType == QueryType::Query)
+               $this->pdoStatement->bindParam(":".$parameterName, $parameters[$parameterName]);
+           else
+               $this->pdoStatement->bindParam($i, $parameters[$parameterName]);
+       }
+   }
+}
     
 
-}
+
 
 ?>

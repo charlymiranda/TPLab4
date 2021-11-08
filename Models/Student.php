@@ -38,7 +38,7 @@ class Student
      */
     public function setstudentId($studentId)
     {
-        $this->idStudent = $studentId;
+        $this->studentId = $studentId;
 
         return $this;
     }

@@ -4,6 +4,7 @@
 
     use Models\Career as Career;
     use DAO\ICareerDAO as ICareerDAO;
+    use Models\Student as Student;
 
     class CareerDAO implements ICareerDAO{
 
@@ -76,14 +77,22 @@
         }
 
         public function GetCareerById($careerId){
-            $this->consumeFromApi();
+              $sql = "SELECT * FROM careers WHERE careerId=:careerId";
+            $parameters['careerId']=$careerId;
 
-            foreach ($this->careerList as $career) {
-                if ($career->getCareerId() == $careerId){
-                    return $career;
-                }
+            try {
+                $this->connection = Connection::getInstance();
+                $this->careerList = $this->connection->execute($sql,$parameters);
+            } catch (\PDOException $exeption) {
+                throw $exeption;
             }
-            return null;
+           // var_dump($this->careerList);
+            //die;
+            if (!empty($this->careerList)) {
+                return $this->retrieveOneCareerData();
+            } else {
+                return false;
+            }
         }
 
 
@@ -99,7 +108,7 @@
         }
 
 
-    public function getCareerStudent($student){
+    public function getCareerStudent(Student $student){
         $this->consumeFromApi();
             foreach($this->careerList as $career){
                 if($student->getCareerId() == $career->getCareerId())
@@ -124,6 +133,19 @@
         }
         return  $listToReturn;
     }
+
+    
+    private function retrieveOneCareerData()
+    {
+        foreach ($this->careerList as $values) {
+            $career = new Career();
+            $career->setCareerId($values['careerId']);
+            $career->setDescription($values['description']);
+            $career->setActive($values['active']);
+        }
+        return  $career;
+    }
+
 
 
 }

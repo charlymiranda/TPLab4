@@ -2,14 +2,11 @@
 
 namespace Controllers;
 
-include('Views/header.php');
-
-
-
 use DAO\StudentDAO as StudentDAO;
 use Models\Student as Student;
 use DAO\CompanyDAO as CompanyDAO;
 use DAO\CareerDAO as CareerDAO;
+use Models\Career as Career;
 use Models\Company as Company;
 use Utils\Utils;
 //use Views\validateSession as validateSession;
@@ -22,13 +19,17 @@ class StudentController
     private $careerDAO;
     private $studentList = array();
     private $careerList = array();
+    private $student;
+    private $career;
     public function __construct()
     {
         $this->studentDAO = new StudentDAO();
         $this->companyDAO = new CompanyDAO();
         $this->careerDAO = new CareerDAO();
+        $this->student= new Student;
+        $this->career = new Career();
     }
-
+    
     public function ShowStudentRegistration()
     {
 
@@ -50,10 +51,11 @@ class StudentController
         // Utils::checkSession();
 
         if ($email != null) {
-            $student = $this->studentDAO->getStudentByMail($email);
-            // $career = $this->careerDAO->getCareerStudent($student);
+            $this->student = $this->studentDAO->getLoginStudent($email);
+            //$this->student = $this->studentDAO->getLoginStudent($email);
+            $this->career = $this->careerDAO->getCareerStudent($this->student);
 
-            require_once(VIEWS_PATH . "student-profile.php");
+            require_once(STUDENT_VIEWS . "student-profile.php");
         } else {
             $message = "This mail doesn't exist";
             require_once(VIEWS_PATH . "registration.php");
@@ -63,15 +65,16 @@ class StudentController
 
     public function studentValidation($email)
     {
+        $student = $this->studentDAO->getStudentByMail($email);
        
-        if ($email != null) {
-            $student = $this->studentDAO->getStudentByMail($email);
+        if ($student != null) {
+            
             // $career = $this->careerDAO->getCareerStudent($student);
 
             require_once(VIEWS_PATH . "student-registration.php");
         } else {
             $message = "This mail doesn't exist";
-            require_once(VIEWS_PATH . "registration.php");
+            require_once(VIEWS_PATH . "login.php");
         }
     }
 

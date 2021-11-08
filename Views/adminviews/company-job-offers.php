@@ -1,31 +1,18 @@
 <?php
 
-if (isset($_SESSION["admin"])) {
-    require_once(ADMIN_VIEWS . 'navcompany.php');
-} else {
+use Utils\Utils;
 
-    require_once(VIEWS_PATH . 'nav.php');
-}
+Utils::checkNav();
 
 
 ?>
-<script type="text/javascript">
-    function confirmDelete() {
-        var answer = confirm("Are you sure of the elimination?");
-    }
-    if (answer == true) {
 
-        return true;
-    } else {
-
-        return false;
-    }
-</script>
 <main class="py-5">
-    <section id="list" class="mb-5">
+    <section id="listado" class="mb-5">
 
         <div class="container">
-            <h2 class="mb-4">Job Offers</h2>
+            <h2 class="mb-4">Job Offers</h2>           
+        
             <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
 
 
@@ -41,16 +28,14 @@ if (isset($_SESSION["admin"])) {
                 </div>
                 <table class="table bg-light-alpha">
                     <thead>
+                        <th class="header" scope="col" position="sticky">Name</th>
                         <th class="header" scope="col" position="sticky">Start Date</th>
-                        <th class="header" scope="col" position="sticky">Limit Date</th>
-                        <!-- <th>yearFoundation</th> -->
-                        <!-- <th>Description</th>   -->
-                        <th class="header" scope="col" position="sticky">Description</th>
-                        <th class="header" scope="col" position="sticky">Hours</th>
+                        <th class="header" scope="col" position="sticky">Limit Date</th>                             
                         <th class="header" scope="col" position="sticky">Salary</th>
-                        <th class="header" scope="col" position="sticky">Career</th>
-                        <th class="header" scope="col" position="sticky">Job Position ID</th>
-                        <th class="header" scope="col" position="sticky">-</th>
+                        <th class="header" scope="col" position="sticky">Description</th>                 
+                        <th class="header" scope="col" position="sticky">Career</th> 
+                        <th class="header" scope="col" position="sticky">Company</th>
+                        <th class="header" scope="col" position="sticky"></th>
 
 
                     </thead>
@@ -58,14 +43,25 @@ if (isset($_SESSION["admin"])) {
                         <?php
 
 
-                        if ($this->jobOfferList !=NULL) {
+                        if ($this->jobOfferList !=null) {
                             foreach ($this->jobOfferList as $jobOffer) {
                                 echo "<tr>";
+                                echo  "<td>" . $jobOffer->getName() . "</td>";
                                 echo  "<td>" . $jobOffer->getStartDay() . "</td>";
-                                echo  "<td>" . $jobOffer->getDeadline() . "</td>";
+                                echo  "<td>" . $jobOffer->getDeadline() . "</td>";                                
+                                echo  "<td>" . $jobOffer->getSalary() . "</td>";                                
                                 echo  "<td>" . $jobOffer->getDescription() . "</td>";
-                                echo  "<td>" . $jobOffer->getSalary() . "</td>";
-                                echo  "<td>" . $jobOffer->getJobPossitionId() . "</td>";
+
+                                foreach($this->careerList as $career){
+                                    if($career->getCareerId() == $jobOffer->getCareerId()){
+                                        echo  "<td>" . $career->getDescription() . "</td>";
+                                    }
+                                }
+                                foreach($this->companiesList as $company){
+                                    if($company->getCompanyId() == $jobOffer->getCompanyId()){
+                                        echo  "<td>" . $company->getName() . "</td>";
+                                    }
+                                }
                                 
 
                                 if (isset($_SESSION["admin"])) {
@@ -73,17 +69,28 @@ if (isset($_SESSION["admin"])) {
                                     $jobOfferId = $jobOffer->getjobOfferId();
                                     echo "<div class='row'>";
                                     echo "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/deleteJobOffer/" . $jobOffer->getjobOfferId() . ">
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/deleteJobOffer/" . $jobOfferId . ">
                                 <button type='button' class= 'btn btn-danger' > Delete</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
 
                                     echo "<div class='row'>";
                                     echo  "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/updateJobOffer/" . $jobOffer->getjobOfferId() . ">
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/showModifyJobOfferView/" . $jobOfferId . ">
                                  <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
+                                }
+
+                                if (isset($_SESSION["student"])) {
+                                    $student = $_SESSION["student"];
+                                    echo "<div class='row'>";
+                                    echo "<div class='button-conteiner'>";
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/addStudentToAJobOffer/" . $jobOffer->getJobOfferId() ."/".$student->getStudentId() . ">
+                                <button type='button' class= 'btn btn-success' > Add me</button></a></td>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                
                                 }
 
                               
