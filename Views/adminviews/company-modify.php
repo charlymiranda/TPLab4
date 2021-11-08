@@ -1,9 +1,12 @@
 <?php
-require_once('navcompany.php');
+<use Utils\Utils;
+Utils::checkNav();
+
 if (isset($this->message)) {
      echo "$this->message";
 }
-?>
+
+
 ?>
 <main class="py-5">
      <section id="listado" class="mb-7">
