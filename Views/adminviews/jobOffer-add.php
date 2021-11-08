@@ -10,7 +10,7 @@ require_once(ADMIN_VIEWS . 'navcompany.php');
                <h4>Company Selected: <?php echo $this->company->getName();?></h4>
                <form action="<?php echo FRONT_ROOT ?>JobOffer/addJobOffer" method="POST" class="bg-light-alpha p-5">
                     <div class="row">
-                    <input type="hidden" name="companyId" value="" <?php echo $this->company->getCompanyId(); ?>" />
+                    <input type="hidden" name="companyId" value=" <?php echo $this->company->getCompanyId(); ?>" />
                        
                          <div class="col-lg-4">
                               <label for=""><b>Job Offer Name</b></label>

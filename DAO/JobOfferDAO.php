@@ -52,6 +52,7 @@ class JobOfferDAO implements IJobOfferDAO
 
     public function addJobOffer(JobOffer $jobOffer)
     {
+       
         $sql = "INSERT INTO job_offer(name, startDay, deadline, active, description, salary, companyId, studentId, careerId, jobPositionId) 
                 VALUES(:name, :startDay, :deadline, :active, :description, :salary, :companyId, :studentId, :careerId, :jobPositionId);";
      

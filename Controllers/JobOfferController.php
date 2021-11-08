@@ -87,7 +87,7 @@ class JobOfferController
         Utils::checkSession();
         $this->jobOfferList = $this->jobOfferDAO->GetAllJobOffer();
 
-        require_once(VIEWS_PATH . "jobOffer-list.php");    ///Falta crear
+        require_once(ADMIN_VIEWS . "company-job-offers.php");   
     }
 
     public function getJobOfferById($id)
@@ -164,7 +164,7 @@ class JobOfferController
 
         $this->jobOfferDAO->updateJobOffer($jobOffer);
 
-        $this->ShowJobOfferAddView("The job offer had been updated successfully");
+        $this->showJobOfferView("The job offer had been updated successfully");
     }
 
     public function deleteJobOffer($jobOfferId)
