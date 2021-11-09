@@ -45,8 +45,8 @@ if (isset($_SESSION["admin"])) {
                     <tbody>
                         <?php
 
-                        if ($this->expiredjobOffers != null) {
-                            foreach ($this->expiredjobOffers as $jobOffer) {
+                        if ($this->expiredJobOffers != null) {
+                            foreach ($this->expiredJobOffers as $jobOffer) {
                                 echo "<tr>";
                                 echo  "<td>" . $jobOffer->getName() . "</td>";
                                 echo  "<td>" . $jobOffer->getStartDay() . "</td>";

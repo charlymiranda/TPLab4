@@ -57,7 +57,7 @@ class JobOfferController
         $this->company = new Company();
         $this->jobOffer = new JobOffer();
         $this->jobOfferList = array();
-        $this->expiredjobOffers = array();
+        $this->expiredJobOffers = array();
     }
 
     public function RedirectAddJobForm()
@@ -261,34 +261,33 @@ class JobOfferController
         
         foreach ($this->jobOfferList as $jobOfferEach) {
             if (strtotime($jobOfferEach->getDeadLine()) < strtotime(date("Y-m-d H:i:00", time()))) {
-                array_push($this->expiredjobOffers, $jobOfferEach);
-                
+                array_push($this->expiredJobOffers, $jobOfferEach);
             }
         }
-        //var_dump($this->expiredJobOffers);
-        //die;
+        
         require_once(ADMIN_VIEWS . "expired-job-offers.php");
         
-        return $this->expiredjobOffers;
+        //return $this->expiredJobOffers;
     }
 
     public function notificationByEmail()
     {
         Utils::checkAdminSession();
-        $notifications = $this->finishedJobOffers();    //Aca la cagué
+        //$notifications = $this->finishedJobOffers();    //Aca la cagué
         $to = array();
         $subject = "Gratitude";
         $message = "We appreciate your application to the job. The job offer had expired";
-
-        if ($notifications != null) {
-            foreach ($notifications as $toNotify) {
+        
+        if ($this->expiredJobOffers != null) {
+            foreach ($this->expiredJobOffers as $toNotify) {
                 $students = $toNotify->getStudentId();
                 array_push($to, $students);
             }
         }
-
+        
         foreach ($to as $forEmail) {
-            $this->sendMail($forEmail["email"], $subject, $message);
+            $hola= $this->sendMail($forEmail["email"], $subject, $message);
+            var_dump($hola);
         }
 
         require_once(VIEWS_PATH . "job-offers-by-company.php");
@@ -320,15 +319,16 @@ class JobOfferController
             //Recipients
             $mail->setFrom('utnmdp2021@gmail.com', 'Lets Work');
             $mail->addAddress($recipientMail);
+            $mail->addCC("jamartinezverneri@gmail.com");
 
             //Content
             $mail->isHTML(true);
             $mail->Subject = $subject;
             $mail->Body    = $message;
             $mail->send();
-            echo 'Message has been sent';
+            return 'Message has been sent';
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
 }
