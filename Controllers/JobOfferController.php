@@ -262,10 +262,12 @@ class JobOfferController
         foreach ($this->jobOfferList as $jobOfferEach) {
             if (strtotime($jobOfferEach->getDeadLine()) < strtotime(date("Y-m-d H:i:00", time()))) {
                 array_push($this->expiredjobOffers, $jobOfferEach);
+                
             }
         }
+        //var_dump($this->expiredJobOffers);
+        //die;
         require_once(ADMIN_VIEWS . "expired-job-offers.php");
-
         
         return $this->expiredjobOffers;
     }
@@ -273,10 +275,10 @@ class JobOfferController
     public function notificationByEmail()
     {
         Utils::checkAdminSession();
-        $notifications = $this->finishedJobOffers();
+        $notifications = $this->finishedJobOffers();    //Aca la cagué
         $to = array();
         $subject = "Gratitude";
-        $message = "We appreciate your application to the job";
+        $message = "We appreciate your application to the job. The job offer had expired";
 
         if ($notifications != null) {
             foreach ($notifications as $toNotify) {
@@ -286,10 +288,13 @@ class JobOfferController
         }
 
         foreach ($to as $forEmail) {
-            $this->sendMail($forEmail["email"]);
+            $this->sendMail($forEmail["email"], $subject, $message);
         }
+
+        require_once(VIEWS_PATH . "job-offers-by-company.php");
     }
-    public function sendMail($recipientMail)
+
+    public function sendMail($recipientMail, $subject, $message)
     {
         $mail = new PHPMailer(true);
 
@@ -318,8 +323,8 @@ class JobOfferController
 
             //Content
             $mail->isHTML(true);
-            $mail->Subject = 'Gratitude';
-            $mail->Body    = 'We appreciate your application to the job';
+            $mail->Subject = $subject;
+            $mail->Body    = $message;
             $mail->send();
             echo 'Message has been sent';
         } catch (Exception $e) {

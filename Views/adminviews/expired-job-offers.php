@@ -72,7 +72,7 @@ if (isset($_SESSION["admin"])) {
                                     echo "<div class='row'>";
                                     echo "<div class='button-conteiner'>";
                                     echo "<td><a href=" . FRONT_ROOT . "JobOffer/notificationByEmail/" . $jobOfferId . ">
-                                <button type='button' class= 'btn btn-sucess' > Send Mail</button></a></td>";
+                                <button type='button' class= 'btn btn-success' > Send Mail</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
                                 }
