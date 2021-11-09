@@ -114,6 +114,7 @@ class JobOfferDAO implements IJobOfferDAO
             return false;
         }
     }
+    
     public function searchJobOfferByName($jobOfferName)
     {
         $sql = "SELECT * FROM job_offer WHERE name=:name";

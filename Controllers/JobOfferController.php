@@ -270,7 +270,7 @@ class JobOfferController
         //return $this->expiredJobOffers;
     }
 
-    public function notificationByEmail()
+    public function notificationByEmail($jobOfferId)
     {
         Utils::checkAdminSession();
         //$notifications = $this->finishedJobOffers();    //Aca la cagué
