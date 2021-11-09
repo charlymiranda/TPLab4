@@ -240,14 +240,18 @@ class JobOfferController
         } else {
             $search = strtolower($search);
             $filteredOffers = array();
-            foreach ($this->jobOfferDAO->getAllJobOffer() as $jobOffer) {
-                $jobOffer = strtolower($jobOffer->getName());
+            $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+            $this->careerList = $this->careerDAO->GetAll();
+            $this->companiesList = $this->companyDao->GetAll();
+            
+            foreach ($this->jobOfferList as $jobOffer) {
+                $jobOfferName = strtolower($jobOffer->getName());
 
-                if (Utils::strStartsWith($jobOffer, $search)) {
+                if (Utils::strStartsWith($jobOfferName, $search)) {
                     array_push($filteredOffers, $jobOffer);
                 }
             }
-            $this->jobOffersList = $filteredOffers;
+            $this->jobOfferList = $filteredOffers;
             require_once(ADMIN_VIEWS . "company-job-offers.php");
         }
     }

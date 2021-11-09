@@ -19,7 +19,7 @@ Utils::checkNav();
                 <div class="container" position="fixed">
 
 
-                    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobsViews" method="POST" enctype="multipart/form-data">
+                    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobsViews" method="GET" enctype="multipart/form-data">
 
                         <input type="text" name="search" class="form-control form-control-ml" required value="">
 

@@ -9,11 +9,12 @@ Utils::checkNav();
                <h2 class="mb-4">Student Profile</h2>
                <table class="table bg-light-alpha">
                     <thead>
+                    <th>File Number</th>
                          <th>Name</th>
                          <th>Last Name</th>
                          <th>DNI</th>
                          <th>Birthday</th>
-                         <th>File Number</th>
+                        
                          <th>Email</th>
                          <th>Phone Number</th>
                     </thead>
@@ -21,11 +22,11 @@ Utils::checkNav();
 
                          <?php
                          if (isset($this->student)) {
+                              echo  "<td>" . $this->student->getFileNumber() . "</td>";
                               echo  "<td>" . $this->student->getFirstName() . "</td>";
                               echo  "<td>" . $this->student->getLastName() . "</td>";
                               echo  "<td>" . $this->student->getDni() . "</td>";
                               echo  "<td>" . $this->student->getBirthDate() . "</td>";
-                              echo  "<td>" . $this->student->getFileNumber() . "</td>";
                               echo  "<td>" . $this->student->getEmail() . "</td>";
                               echo  "<td>" . $this->student->getPhoneNumber() . "</tdv>";
                          }

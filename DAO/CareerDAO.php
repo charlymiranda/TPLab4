@@ -96,16 +96,18 @@
         }
 
         public function GetCareerById($careerId){
-              $sql = "SELECT * FROM careers WHERE careerId=:careerId";
-            $parameters['careerId']=$careerId;
+            //var_dump($careerId);
+            //die;
+              $sql = "SELECT * FROM careers WHERE careerId=".$careerId;
+            //$parameters['careerId']=$careerId;
 
             try {
                 $this->connection = Connection::getInstance();
-                $this->careerList = $this->connection->execute($sql,$parameters);
+                $this->careerList = $this->connection->execute($sql);
             } catch (\PDOException $exeption) {
                 throw $exeption;
             }
-           // var_dump($this->careerList);
+           //var_dump($this->careerList);
             //die;
             if (!empty($this->careerList)) {
                 return $this->retrieveOneCareerData();

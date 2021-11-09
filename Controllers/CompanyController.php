@@ -57,10 +57,6 @@ class CompanyController
         if ($search == "") {
             Utils::checkSession();
             $this->companiesList = $this->companyDAO->GetAll();
-            // var_dump($this->companiesList);
-            // die;
-            //var_dump($this->companiesList);
-            //  $this->ShowCompaniesViews();   
             require_once(ADMIN_VIEWS. "company-delete.php");
         } else {
             $search = strtolower($search);
