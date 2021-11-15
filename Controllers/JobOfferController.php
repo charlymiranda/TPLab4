@@ -11,7 +11,10 @@ use Models\JobPosition as JobPosition;
 use DAO\JobPositionDAO as JobPositionDAO;
 use Models\Career as Career;
 use DAO\CareerDAO as CareerDAO;
-
+use DAO\StudentByJobOfferDAO as StudentByJobOfferDao;
+use Models\StudentByJobOffer as StudentByJobOffer;
+use Models\Student as Student;
+use DAO\StudentDAO as StudentDAO;
 
 use DAO\IJobOfferDAO as IJobOfferDAO;
 use DAO\IJobPossitionDAO as IJobPositionDAO;
@@ -40,6 +43,10 @@ class JobOfferController
     private $company;
     private $jobOffer;
     private $expiredJobOffers;
+    private $studentByJobOfferdao;
+    private $studentByJobOffer;
+    private $student;
+    private $stundentDao;
 
 
     public function __construct()
@@ -56,6 +63,10 @@ class JobOfferController
         $this->jobOffer = new JobOffer();
         $this->jobOfferList = array();
         $this->expiredJobOffers = array();
+        $this->studentByJobOfferdao = new StudentByJobOfferDao();
+        $this->studentByJobOffer = new StudentByJobOffer();
+        $this->student = new Student();
+        $this->stundentDao = new StudentDAO();
     }
 
     public function RedirectAddJobForm()
@@ -273,6 +284,7 @@ class JobOfferController
     {
 
         //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
+        $this->jobOfferList = $this->studentByJobOfferdao->getByJobOfferId($jobOfferId);
         
         Utils::checkAdminSession();
         //$notifications = $this->finishedJobOffers();    //Aca la cagué
@@ -280,10 +292,15 @@ class JobOfferController
         $subject = "Gratitude";
         $message = "We appreciate your application to the job. The job offer had expired";
 
-        if ($this->expiredJobOffers != null) {
-            foreach ($this->expiredJobOffers as $toNotify) {
-                $students = $toNotify->getStudentId();
-                array_push($to, $students);
+        if ($this->jobOfferList != null) {
+            foreach ($this->jobOfferList as $jobOffer) {
+                $studentId = $jobOffer['studentId'];
+                $student = new Student();
+                $student = $this->stundentDao->getStudentById($studentId);
+
+
+                $studentsEmail = $student->getEmail();
+                array_push($to, $studentsEmail);
             }
         }
 

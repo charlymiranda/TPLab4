@@ -88,6 +88,26 @@ class StudentDAO implements IStudentDAO
             }
         }
 
+        public function getStudentById($StudentId)
+        {
+            $sql = "SELECT * FROM students WHERE studentId=:studentId";
+            $parameters['email']=$StudentId;           
+            
+            try{
+                $this->connection = Connection::getInstance();
+                $this->studentBD =  $this->connection->execute($sql, $parameters);
+                //var_dump($this->studentList);
+                //die;
+            }catch(\PDOException $ex){
+                throw $ex;
+            }
+            if (!empty($this->studentBD)) {
+                return $this->retrieveOneStudent();
+            } else {
+                return $this->studentBD;
+            }
+        }
+
        public function Add(Student $student)
         {
             
