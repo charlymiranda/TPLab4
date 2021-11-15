@@ -34,7 +34,6 @@ class JobOfferController
     private $jobOfferList;
     private $careerDAO;
     private $careerList;
-    private $jobOfferByCompanyDAO;
     private $jobOfferByCompany;
     private $companiesList;
     private $companyDao;
@@ -50,7 +49,6 @@ class JobOfferController
         $this->jobOfferDAO = new JobOfferDAO();
         $this->careerDAO = new CareerDAO();
         $this->careerList = array();
-        $this->jobOfferByCompanyDAO = new JobOfferByCompanyDAO();
         $this->jobOfferByCompany = new JobOfferByCompany();
         $this->companiesList = array();
         $this->companyDao = new CompanyDAO;
@@ -257,36 +255,40 @@ class JobOfferController
         $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
         $this->careerList = $this->careerDAO->getAll();
         $this->companiesList = $this->companyDao->getAll();
-       // $this->expiredJobOffers = array();
-        
-        foreach ($this->jobOfferList as $jobOfferEach) {
-            if (strtotime($jobOfferEach->getDeadLine()) < strtotime(date("Y-m-d H:i:00", time()))) {
-                array_push($this->expiredJobOffers, $jobOfferEach);
+        // $this->expiredJobOffers = array();
+        if (!empty($this->jobOfferList)) {
+            foreach ($this->jobOfferList as $jobOfferEach) {
+                if (strtotime($jobOfferEach->getDeadLine()) < strtotime(date("Y-m-d H:i:00", time()))) {
+                    array_push($this->expiredJobOffers, $jobOfferEach);
+                }
             }
-        }
-        
+        } 
+
         require_once(ADMIN_VIEWS . "expired-job-offers.php");
-        
+
         //return $this->expiredJobOffers;
     }
 
     public function notificationByEmail($jobOfferId)
     {
+
+        //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
+
         Utils::checkAdminSession();
         //$notifications = $this->finishedJobOffers();    //Aca la cagué
         $to = array();
         $subject = "Gratitude";
         $message = "We appreciate your application to the job. The job offer had expired";
-        
+
         if ($this->expiredJobOffers != null) {
             foreach ($this->expiredJobOffers as $toNotify) {
                 $students = $toNotify->getStudentId();
                 array_push($to, $students);
             }
         }
-        
+
         foreach ($to as $forEmail) {
-            $hola= $this->sendMail($forEmail["email"], $subject, $message);
+            $hola = $this->sendMail($forEmail["email"], $subject, $message);
             var_dump($hola);
         }
 
@@ -300,9 +302,9 @@ class JobOfferController
         try {
             $mail->SMTPOptions = array(
                 'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
                 )
             );
 
