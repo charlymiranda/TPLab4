@@ -273,7 +273,7 @@ class JobOfferController
     {
 
         //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
-
+        
         Utils::checkAdminSession();
         //$notifications = $this->finishedJobOffers();    //Aca la cagué
         $to = array();
