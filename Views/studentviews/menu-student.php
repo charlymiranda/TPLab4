@@ -25,7 +25,10 @@ Utils::checkNav();
             <a class="btn btn-warning btn-xl" href="<?php echo FRONT_ROOT ?> JobOffer/ShowJobsViews/">Job Offers List</a>      
             <?php //echo "<a class='btn btn-warning btn-xl' href=" . FRONT_ROOT .  'Home/getStudentByMail/' . $student->getEmail();?></a>               
            
-        </div>
+    
+       </div>
+       
     </header>
+    <br><br>
 </body>
-
+<br><br>

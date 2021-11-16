@@ -172,7 +172,7 @@ class JobOfferController
 
         $this->jobOfferDAO->deleteJobOffer($jobOfferId);
 
-        $this->ShowjobOfferAddView("The job offer had been deleted successfully");
+        $this->showJobOfferView("The job offer had been deleted successfully");
     }
 
     ///Filtro de job offers
