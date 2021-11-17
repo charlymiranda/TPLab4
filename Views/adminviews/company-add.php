@@ -72,8 +72,6 @@ if (isset($this->message)) {
                     </div>
                     <button type="submit" name="" class="btn btn-dark ml-auto d-block">Add</button>
 
-
-
                </form>
           </div>
      </section>

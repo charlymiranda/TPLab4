@@ -26,6 +26,14 @@ class UserCompanyController
     }
 
 
+    //Ver esta funcion porque tendria que traer los datos de la empresa
+    public function userCompanyProfile(){
+
+        
+        require_once(USERCOMPANY_VIEWS . "usercompany-profile.php");
+    }
+
+
     public function ShowUserCompanyRegistrationView()
     {
 

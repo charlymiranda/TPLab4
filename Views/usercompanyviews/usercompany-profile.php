@@ -27,8 +27,11 @@ Utils::checkNav();
                          }
                          ?>
                     </tbody>
+                    <br><br><br>
                </table>
+               <br><br><br>
           </div>
-
+          <br><br><br>
      </section>
+     <br><br><br><br>
 </main>

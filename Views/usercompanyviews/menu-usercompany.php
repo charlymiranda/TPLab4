@@ -19,7 +19,7 @@ Utils::checkNav();
         <div class="container-menu px-8 px-lg-1 text-center ">
             <!-- <div class="view-container"> -->
 
-            <h1 p class="text-primary" class="mb-1">You are Welcome CAPO</h1>
+            <h1 p class="text-primary" class="mb-1">You are Welcome Recruiter</h1>
 
             <h5 class="mb-5"><em>Please choose one of the next actions</em></h5>
             <a class="btn btn-success btn-x2" href="<?php echo FRONT_ROOT ?>Company/RedirectAddForm">Add Company</a>
@@ -33,3 +33,4 @@ Utils::checkNav();
         </div>
     </header>
 </body>
+<br></br><br></br>
