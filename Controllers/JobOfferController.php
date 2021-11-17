@@ -272,22 +272,19 @@ class JobOfferController
                 if (strtotime($jobOfferEach->getDeadLine()) < strtotime(date("Y-m-d H:i:00", time()))) {
                     array_push($this->expiredJobOffers, $jobOfferEach);
                 }
-            }
+            }       ///De donde es la fecha que devuelve???
         } 
 
         require_once(ADMIN_VIEWS . "expired-job-offers.php");
-
-        //return $this->expiredJobOffers;
     }
 
     public function notificationByEmail($jobOfferId)
     {
+        Utils::checkAdminSession();
 
         //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
         $this->jobOfferList = $this->studentByJobOfferdao->getByJobOfferId($jobOfferId);
         
-        Utils::checkAdminSession();
-        //$notifications = $this->finishedJobOffers();    //Aca la cagué
         $to = array();
         $subject = "Gratitude";
         $message = "We appreciate your application to the job. The job offer had expired";

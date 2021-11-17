@@ -49,7 +49,7 @@ class StudentByJobOfferDAO implements IStudentByJobOfferDAO
             $studentByJobOffer = new StudentByJobOffer();
            $studentByJobOffer->setStudentByJobOfferId($values['studentXJobOffersId']);
            $studentByJobOffer->setJobOfferId($values['jobOfferId']);
-           $studentByJobOffer->setStudentId($values['studentIDd']);
+           $studentByJobOffer->setStudentId($values['studentId']);
 
             array_push($listToReturn, $studentByJobOffer);
         }

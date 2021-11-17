@@ -22,7 +22,7 @@ if (isset($_SESSION["admin"])){
                          <th class="header" scope="col" position="sticky">Name</th>
                          <th class="header" scope="col" position="sticky">SurName</th>
                          <th class="header" scope="col" position="sticky">ID</th>
-                         <th class="header" scope="col" position="sticky">Carrer</th>
+                         <th class="header" scope="col" position="sticky">Career</th>
                        <!--  <th class="header" scope="col" position="sticky">Ver</th> -->
                          
                     </thead>
