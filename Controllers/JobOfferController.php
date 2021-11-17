@@ -47,6 +47,7 @@ class JobOfferController
     private $studentByJobOffer;
     private $student;
     private $stundentDao;
+    private $studentXJobOfferDao;
 
 
     public function __construct()
@@ -67,6 +68,7 @@ class JobOfferController
         $this->studentByJobOffer = new StudentByJobOffer();
         $this->student = new Student();
         $this->stundentDao = new StudentDAO();
+        $this->studentXJobOfferDao = new StudentByJobOfferDAO();
     }
 
     public function RedirectAddJobForm()
@@ -210,17 +212,17 @@ class JobOfferController
 
     public function addStudentToAJobOffer($jobOfferId, $studentId)
     {
-        $controlScritpt = 1;
+        $controlScritpt = 1;        //Que carajo pasa aca??
         try {
-            $this->jobOfferDAO->addStudentToAJobOffer($jobOfferId, $studentId);
+            $this->studentXJobOfferDao->addStudentToAJobOffer($jobOfferId, $studentId);
             $this->companiesList = $this->companyDao->GetAll();
         } catch (PDOException $ex) {
             $controlScritpt = 1;
             $message = 'error en la base';
-            require_once(ADMIN_VIEWS . "company-delete.php");
+            require_once(STUDENT_VIEWS . "student-profile.php");
         }
         $message = "student added to a job offer";
-        require_once(ADMIN_VIEWS . "company-delete.php");
+        require_once(STUDENT_VIEWS . "menu-student.php");
     }
 
     public function showJobsOffersViewByCareer($careerId)
@@ -239,12 +241,18 @@ class JobOfferController
     public function ShowJobsViews($search = "")
     {
         if ($search == "") {
-            Utils::checkSession();
-            $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
-            $this->careerList = $this->careerDAO->GetAll();
-            $this->companiesList = $this->companyDao->GetAll();
+            if ($_SESSION['admin']) {               //PENSAR COMO SOLUCIONAR. CONTROLADORAS SEPARADAS??
+                $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+                $this->careerList = $this->careerDAO->GetAll();
+                $this->companiesList = $this->companyDao->GetAll();
 
-            require_once(ADMIN_VIEWS . "company-job-offers.php");
+                require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
+            }else{
+                $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+                $this->careerList = $this->careerDAO->GetAll();
+                $this->companiesList = $this->companyDao->GetAll();
+                require_once(STUDENT_VIEWS . "company-job-offers-students.php");
+            }
         } else {
             $search = strtolower($search);
             $filteredOffers = array();
@@ -256,7 +264,7 @@ class JobOfferController
                 }
             }
             $this->jobOffersList = $filteredOffers;
-            require_once(ADMIN_VIEWS . "company-job-offers.php");
+            require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
         }
     }
 
@@ -273,7 +281,7 @@ class JobOfferController
                     array_push($this->expiredJobOffers, $jobOfferEach);
                 }
             }       ///De donde es la fecha que devuelve???
-        } 
+        }
 
         require_once(ADMIN_VIEWS . "expired-job-offers.php");
     }
@@ -284,7 +292,7 @@ class JobOfferController
 
         //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
         $this->jobOfferList = $this->studentByJobOfferdao->getByJobOfferId($jobOfferId);
-        
+
         $to = array();
         $subject = "Gratitude";
         $message = "We appreciate your application to the job. The job offer had expired";

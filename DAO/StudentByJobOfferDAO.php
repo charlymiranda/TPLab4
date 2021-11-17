@@ -14,19 +14,20 @@ class StudentByJobOfferDAO implements IStudentByJobOfferDAO
     private $connection;
     private $tableName = "job_Offer";
 
-    public function getOne($studentId, $jobOfferId){
-
+    public function getOne($studentId, $jobOfferId)
+    {
     }
 
-    public function getByJobOfferId($jobOfferId){
-        
-        $sql = "SELECT * FROM students_x_job_offers WHERE jobOfferId=:jobOfferId";
-        $parameters['jobOfferId']=$jobOfferId;
+    public function getByJobOfferId($jobOfferId)
+    {
 
-        try{
+        $sql = "SELECT * FROM students_x_job_offers WHERE jobOfferId=:jobOfferId";
+        $parameters['jobOfferId'] = $jobOfferId;
+
+        try {
             $this->connection = Connection::getInstance();
             $this->jobOfferList = $this->connection->execute($sql, $parameters);
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             throw $ex;
         }
         if (!empty($this->jobOfferList)) {
@@ -36,8 +37,20 @@ class StudentByJobOfferDAO implements IStudentByJobOfferDAO
         }
     }
 
-    public function addStudentToAJobOffer($jobOfferid, $studentId){
+    public function addStudentToAJobOffer($jobOfferId, $studentId)
+    {
+        $sql = "UPDATE students_x_job_offers SET jobOfferId=:jobOfferId, studentId=:studentId";
 
+        $parameters['jobOfferId'] = $jobOfferId;
+        $parameters['studentId'] = $studentId;
+        
+
+        try {
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
     }
 
 
@@ -47,13 +60,12 @@ class StudentByJobOfferDAO implements IStudentByJobOfferDAO
 
         foreach ($this->jobOfferList as $values) {
             $studentByJobOffer = new StudentByJobOffer();
-           $studentByJobOffer->setStudentByJobOfferId($values['studentXJobOffersId']);
-           $studentByJobOffer->setJobOfferId($values['jobOfferId']);
-           $studentByJobOffer->setStudentId($values['studentId']);
+            $studentByJobOffer->setStudentByJobOfferId($values['studentXJobOffersId']);
+            $studentByJobOffer->setJobOfferId($values['jobOfferId']);
+            $studentByJobOffer->setStudentId($values['studentId']);
 
             array_push($listToReturn, $studentByJobOffer);
         }
         return  $listToReturn;
     }
 }
-?>
