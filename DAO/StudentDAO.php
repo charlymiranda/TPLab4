@@ -76,8 +76,6 @@ class StudentDAO implements IStudentDAO
             try{
                 $this->connection = Connection::getInstance();
                 $this->studentList =  $this->connection->execute($sql, $parameters);
-                var_dump($this->studentList);
-                die;
             }catch(\PDOException $ex){
                 throw $ex;
             }
