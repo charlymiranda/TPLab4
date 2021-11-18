@@ -17,6 +17,15 @@ class Utils {
         }
     }
 
+    public static function checkStudentSession(){
+        if(!(isset($_SESSION['student']))){
+            $userNotStudent = true;
+            require_once(VIEWS_PATH ."login.php");
+        } else {
+            $studentLogged = true;
+        }
+    }
+
     public static function strStartsWith(String $haystack, String $needle){
         return $needle != '' && strncmp($haystack, $needle, strlen($needle)) == 0;
     }
