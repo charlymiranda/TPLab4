@@ -25,8 +25,8 @@ class HomeController
         {
             $this->studentDAO =new StudentDAO;    
             $this->student = new Student();
-             $this->careerDAO = new CareerDAO;
-             $this->career = new Career;
+             $this->careerDAO = new CareerDAO();
+             $this->career = new Career();
              $this->userCompany = new UserCompany();
              $this->userCompanyDAO = new UserCompanyDAO();
         }
@@ -53,14 +53,15 @@ class HomeController
         public function login($email, $password){
             $this->student = $this->studentDAO->getLoginStudent($email);
             $this->userCompany = $this->userCompanyDAO->getUserCompanyByEmail($email);
-            if(($email == 'user@hot.com') && ($password == '123456')){
+            if(($email == 'user@hot.com') && ($password == 'C1234har')){
 
                 $user = new User($email);
                 $user= new User($password);
                 $_SESSION['admin'] = $user;
                 require_once(ADMIN_VIEWS."menu-admin.php");
             } else if($this->student !=null){
-
+                //var_dump($this->student);
+                //die;
                 if(($this->student->getEmail() == $email) && ($password == $this->student->getPassword())){
                     $this->career = $this->careerDAO->GetCareerById($this->student->getCareerId());
                     $_SESSION['student'] = $this->student;

@@ -15,6 +15,7 @@ Utils::checkNav();
                          <th>DNI</th>
                          <th>Birthday</th>
                       
+                        
                          <th>Email</th>
                          <th>Phone Number</th>
                     </thead>
@@ -27,7 +28,6 @@ Utils::checkNav();
                               echo  "<td>" . $this->student->getLastName() . "</td>";
                               echo  "<td>" . $this->student->getDni() . "</td>";
                               echo  "<td>" . $this->student->getBirthDate() . "</td>";
-                             
                               echo  "<td>" . $this->student->getEmail() . "</td>";
                               echo  "<td>" . $this->student->getPhoneNumber() . "</tdv>";
                          }
