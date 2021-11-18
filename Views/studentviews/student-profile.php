@@ -1,5 +1,7 @@
 <?php
-require_once(STUDENT_VIEWS . 'nav.php');
+use Utils\Utils;
+
+Utils::checkNav();
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
@@ -7,11 +9,13 @@ require_once(STUDENT_VIEWS . 'nav.php');
                <h2 class="mb-4">Student Profile</h2>
                <table class="table bg-light-alpha">
                     <thead>
+                    <th>File Number</th>
                          <th>Name</th>
                          <th>Last Name</th>
                          <th>DNI</th>
                          <th>Birthday</th>
-                         <th>File Number</th>
+                      
+                        
                          <th>Email</th>
                          <th>Phone Number</th>
                     </thead>
@@ -19,11 +23,11 @@ require_once(STUDENT_VIEWS . 'nav.php');
 
                          <?php
                          if (isset($this->student)) {
+                              echo  "<td>" . $this->student->getFileNumber() . "</td>";
                               echo  "<td>" . $this->student->getFirstName() . "</td>";
                               echo  "<td>" . $this->student->getLastName() . "</td>";
                               echo  "<td>" . $this->student->getDni() . "</td>";
                               echo  "<td>" . $this->student->getBirthDate() . "</td>";
-                              echo  "<td>" . $this->student->getFileNumber() . "</td>";
                               echo  "<td>" . $this->student->getEmail() . "</td>";
                               echo  "<td>" . $this->student->getPhoneNumber() . "</tdv>";
                          }
@@ -38,7 +42,8 @@ require_once(STUDENT_VIEWS . 'nav.php');
                          <th>description</th>
                     </thead>
                <tbody>
-                    <?php if (isset($this->career)) {
+                    <?php if ($this->career != null) {
+                        
                          echo  "<td>" . $this->career->getCareerId() . "</td>";
                          echo  "<td>" . $this->career->getDescription() . "</td>";
                     } ?>

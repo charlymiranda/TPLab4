@@ -9,8 +9,8 @@ Utils::checkNav();
     
 
         <div class="container">
-            <h2 class="mb-3">Job Offers By Company</h2>
-            <h4 class="mb-4">Company: <?php echo $this->company->getName();?></h4>
+            <h2 class="mb-3">Job Offers By Career</h2>
+            <h4 class="mb-4">Career: <?php echo $this->career->getDescription();?></h4>
             <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
                 <div class="container" position="fixed">
                     <form action="<?php echo FRONT_ROOT ?>JobOffer/getJobOfferByName" method="POST" enctype="multipart/form-data">

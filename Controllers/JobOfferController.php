@@ -40,6 +40,8 @@ class JobOfferController
     private $jobOfferList;
     private $careerDAO;
     private $careerList;
+    private $career;
+    private $jobOfferByCompanyDAO;
     private $jobOfferByCompany;
     private $companiesList;
     private $companyDao;
@@ -61,7 +63,7 @@ class JobOfferController
         $this->jobOfferDAO = new JobOfferDAO();
         $this->careerDAO = new CareerDAO();
         $this->careerList = array();
-        $this->jobOfferByCompany = new JobOfferByCompany();
+        $this->career = new Career();
         $this->companiesList = array();
         $this->companyDao = new CompanyDAO;
         $this->company = new Company();
@@ -112,7 +114,7 @@ class JobOfferController
         Utils::checkSession();
         $this->jobOfferList = $this->jobOfferDAO->GetAllJobOffer();
 
-        require_once(VIEWS_PATH . "jobOffer-list.php");    ///Falta crear
+        require_once(ADMIN_VIEWS . "company-job-offers.php");   
     }
 
     public function getJobOfferById($id)
@@ -189,7 +191,7 @@ class JobOfferController
 
         $this->jobOfferDAO->updateJobOffer($jobOffer);
 
-        $this->ShowJobOfferAddView("The job offer had been updated successfully");
+        $this->showJobOfferView("The job offer had been updated successfully");
     }
 
     public function deleteJobOffer($jobOfferId)
@@ -197,7 +199,7 @@ class JobOfferController
 
         $this->jobOfferDAO->deleteJobOffer($jobOfferId);
 
-        $this->ShowjobOfferAddView("The job offer had been deleted successfully");
+        $this->showJobOfferView("The job offer had been deleted successfully");
     }
 
     ///Filtro de job offers
@@ -217,12 +219,12 @@ class JobOfferController
 
     public function addStudentToAJobOffer($jobOfferId, $studentId)
     {
-        $controlScritpt = 1;
+        $controlScritpt = null;
         try {
             $this->studentXJobOfferDao->addStudentToAJobOffer($jobOfferId, $studentId);
             $this->companiesList = $this->companyDao->GetAll();
         } catch (PDOException $ex) {
-            $controlScritpt = 1;
+            $controlScritpt = true;
             $message = 'error en la base';
             require_once(STUDENT_VIEWS . "student-profile.php");
         }
@@ -232,6 +234,9 @@ class JobOfferController
 
     public function showJobsOffersViewByCareer($careerId)
     {
+        $this->jobOfferList = $this->jobOfferDAO->getJobOfferByCareer($careerId);
+        $this->career = $this->careerDAO->GetCareerById($careerId);
+       require_once(VIEWS_PATH . "job-offers-by-career.php");
     }
 
 
@@ -257,10 +262,14 @@ class JobOfferController
         } else {
             $search = strtolower($search);
             $filteredOffers = array();
-            foreach ($this->jobOfferDAO->getAllJobOffer() as $jobOffer) {
-                $jobOffer = strtolower($jobOffer->getName());
+            $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+            $this->careerList = $this->careerDAO->GetAll();
+            $this->companiesList = $this->companyDao->GetAll();
+            
+            foreach ($this->jobOfferList as $jobOffer) {
+                $jobOfferName = strtolower($jobOffer->getName());
 
-                if (Utils::strStartsWith($jobOffer, $search)) {
+                if (Utils::strStartsWith($jobOfferName, $search)) {
                     array_push($filteredOffers, $jobOffer);
                 }
             }

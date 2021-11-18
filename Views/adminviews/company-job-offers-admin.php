@@ -1,11 +1,8 @@
 <?php
 
-if (isset($_SESSION["admin"])) {
-    require_once(ADMIN_VIEWS . 'navcompany.php');
-} else {
+use Utils\Utils;
 
-    require_once(STUDENT_VIEWS . 'nav.php');
-}
+Utils::checkNav();
 
 
 ?>
@@ -14,15 +11,15 @@ if (isset($_SESSION["admin"])) {
     <section id="listado" class="mb-5">
 
         <div class="container">
-            <h2 class="mb-4">Job Offers</h2>
-
+            <h2 class="mb-4">Job Offers List</h2>           
+        
             <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
 
 
                 <div class="container" position="fixed">
 
 
-                    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobsViews" method="POST" enctype="multipart/form-data">
+                    <form action="<?php echo FRONT_ROOT ?>JobOffer/ShowJobsViews" method="GET" enctype="multipart/form-data">
 
                         <input type="text" name="search" class="form-control form-control-ml" required value="">
 
@@ -95,4 +92,5 @@ if (isset($_SESSION["admin"])) {
         </div>
         </form>
     </section>
+    <br>
 </main>

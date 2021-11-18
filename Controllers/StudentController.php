@@ -2,10 +2,6 @@
 
 namespace Controllers;
 
-include('Views/header.php');
-
-
-
 use DAO\StudentDAO as StudentDAO;
 use Models\Student as Student;
 use DAO\CompanyDAO as CompanyDAO;
@@ -44,7 +40,7 @@ class StudentController
     {
         Utils::checkSession();
         $this->studentList = $this->studentDAO->GetAll();
-        $this->careerList = $this->careerDAO->GetAll();
+        $this->careerList = $this->careerDAO->GetAllWhitInactives();
         //var_dump($studentList);
         require_once(VIEWS_PATH . "student-list.php");
     }

@@ -70,6 +70,19 @@ class StudentDAO implements IStudentDAO
 
         public function getStudentByMail($email)
         {
+            $this->consumeFromApi();
+
+            foreach ($this->studentList as $student) {
+                if ($student->getEmail() == $email){
+                    return $student;
+                }
+            }
+                return null;
+
+        }
+
+        public function getStudentByMailNoApi($email)
+        {
             $sql = "SELECT * FROM students WHERE email=:email";
             $parameters['email']=$email;           
             
@@ -96,6 +109,7 @@ class StudentDAO implements IStudentDAO
                 $this->studentBD =  $this->connection->execute($sql, $parameters);
                 //var_dump($this->studentList);
                 //die;
+               
             }catch(\PDOException $ex){
                 throw $ex;
             }

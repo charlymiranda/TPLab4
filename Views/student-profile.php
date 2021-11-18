@@ -1,9 +1,13 @@
 <?php
-require_once(STUDENT_VIEWS.'nav.php');
+use Utils\Utils;
+
+Utils::checkNav();
 ?>
 <main class="py-5">
+     
      <section id="listado" class="mb-5">
           <div class="container">
+               
                <h2 class="mb-4">Student Profile</h2>
                <table class="table bg-light-alpha">
                     <thead>
@@ -33,6 +37,7 @@ require_once(STUDENT_VIEWS.'nav.php');
                          }
                          ?>
                     </tbody>
+                   
           </div>
           <div class="container-menu px-8 px-lg-1 text-center ">
                <!-- <div class="view-container"> -->
@@ -40,6 +45,7 @@ require_once(STUDENT_VIEWS.'nav.php');
                <h5 class="mb-5"><em>Please choose one of the next action </em></h5>
                <a class="btn btn-warning btn-xl" href="<?php echo FRONT_ROOT ?>Company/ListCompanies">See Companies</a>
                <a class="btn btn-warning btn-xl" href="#">See Jobs</a>
+               <br><br>
                <a class="btn btn-warning btn-xl" href="<?php echo FRONT_ROOT .  "Student/getStudentByMail/" . $student->getStudentByMail() ?>"> Perfil</a>
 
           </div>

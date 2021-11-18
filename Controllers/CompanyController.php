@@ -38,11 +38,13 @@ class CompanyController
     
     public function RedirectDeleteForm()
     {
-        Utils::checkAdminSession();
+        //Utils::checkAdminSession();
         $this->companiesList = $this->companyDAO->GetAll();
         require_once(ADMIN_VIEWS . "company-delete.php");
 
     }
+
+    
     public function ShowSingleCompany($companyId)
     {
         Utils::checkSession();
@@ -57,10 +59,7 @@ class CompanyController
         if ($search == "") {
             Utils::checkSession();
             $this->companiesList = $this->companyDAO->GetAll();
-            // var_dump($this->companiesList);
-            // die;
-            //var_dump($this->companiesList);
-            //  $this->ShowCompaniesViews();   
+              
             require_once(ADMIN_VIEWS. "company-delete.php");
         } else {
             $search = strtolower($search);
@@ -101,8 +100,11 @@ class CompanyController
 
         if($result == false)
         {
+            $message = "The company has been saved correctly. Flawless Victory.";
             $this->companyDAO->AddCompany($company);
+            require_once(ADMIN_VIEWS . "company-add.php");
         }else{
+            $message = "There is already a company with that cuit. Please try again.";
             require_once(ADMIN_VIEWS . "company-add.php");
         }
         
@@ -123,7 +125,7 @@ class CompanyController
     }
     
 
-    public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber, $cuit, $logo)
+    public function updateCompany($companyId, $name, $yearFoundation, $city, $description, $email, $phoneNumber)
     {
         //Utils::checkSession();
         $company = new Company();
@@ -135,12 +137,14 @@ class CompanyController
         $company->setDescription($description);
         $company->setEmail($email);
         $company->setPhoneNumber($phoneNumber);
-        $company->setCuit($cuit);
-        $company->setLogo($logo);
+        //$company->setCuit($cuit);
+        //$company->setLogo($logo);
 
         $this->companyDAO->Update($company);
 
-        $this->ShowCompaniesViews();
+        $this->RedirectDeleteForm("The company had been updated successfully");
+
+      
     }
 
     public function deleteCompany($companyId)
@@ -148,7 +152,7 @@ class CompanyController
 
         $this->companyDAO->delete($companyId);
 
-        $this->ShowCompaniesViews();
+        $this->RedirectDeleteForm();
     }
 
     public function jobOffersForCompanies($companyName)
