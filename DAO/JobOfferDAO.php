@@ -52,8 +52,8 @@ class JobOfferDAO implements IJobOfferDAO
 
     public function addJobOffer(JobOffer $jobOffer)
     {
-        $sql = "INSERT INTO job_offer(name, startDay, deadline, active, description, salary, companyId, studentId, careerId, jobPositionId) 
-                VALUES(:name, :startDay, :deadline, :active, :description, :salary, :companyId, :studentId, :careerId, :jobPositionId);";
+        $sql = "INSERT INTO job_offer(name, startDay, deadline, active, description, salary, companyId, careerId, jobPositionId) 
+                VALUES(:name, :startDay, :deadline, :active, :description, :salary, :companyId, :careerId, :jobPositionId);";
      
         $parameters['name'] = $jobOffer->getName();
         $parameters['startDay'] = $jobOffer->getStartDay();
@@ -62,7 +62,6 @@ class JobOfferDAO implements IJobOfferDAO
         $parameters['description'] = $jobOffer->getDescription();
         $parameters['salary'] = $jobOffer->getSalary();
         $parameters['companyId'] = $jobOffer->getCompanyId();
-        $parameters['studentId'] = $jobOffer->getStudentId();
         $parameters['careerId'] = $jobOffer->getCareerId();
         $parameters['jobPositionId'] = $jobOffer->getJobPositionId();
       
@@ -185,7 +184,6 @@ class JobOfferDAO implements IJobOfferDAO
             $jobOffer->setDescription($values['description']);
             $jobOffer->setSalary($values['salary']);
             $jobOffer->setCompanyId($values['companyId']);
-            $jobOffer->setStudentId($values['studentId']);
             $jobOffer->setCareerId($values['careerId']);
             $jobOffer->setjobPositionId(($values['jobPositionId']));
 

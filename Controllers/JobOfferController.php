@@ -115,7 +115,7 @@ class JobOfferController
         Utils::checkSession();
         $jobOffer = $this->jobOfferDAO->searchJobOfferById($id);
 
-        require_once(VIEWS_PATH . "jobOffer-view.php");      ///Falta crear
+        require_once(VIEWS_PATH . "jobOffer-view.php");
     }
     public function getJobOfferByName($search)
     {
@@ -133,7 +133,7 @@ class JobOfferController
                     array_push($filteredJobOffer, $jobOffer);
                 }
             }
-            require_once(VIEWS_PATH . "job-offers-by-company.php");      ///Falta crear
+            require_once(VIEWS_PATH . "job-offers-by-company.php");
         } else {
             echo "Aca";
         }
@@ -212,7 +212,7 @@ class JobOfferController
 
     public function addStudentToAJobOffer($jobOfferId, $studentId)
     {
-        $controlScritpt = 1;        //Que carajo pasa aca??
+        $controlScritpt = 1;
         try {
             $this->studentXJobOfferDao->addStudentToAJobOffer($jobOfferId, $studentId);
             $this->companiesList = $this->companyDao->GetAll();
@@ -241,16 +241,12 @@ class JobOfferController
     public function ShowJobsViews($search = "")
     {
         if ($search == "") {
-            if ($_SESSION['admin']) {               //PENSAR COMO SOLUCIONAR. CONTROLADORAS SEPARADAS??
-                $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+            $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
                 $this->careerList = $this->careerDAO->GetAll();
                 $this->companiesList = $this->companyDao->GetAll();
-
+            if ($_SESSION['admin']) {               //PENSAR COMO SOLUCIONAR. CONTROLADORAS SEPARADAS?
                 require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
             }else{
-                $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
-                $this->careerList = $this->careerDAO->GetAll();
-                $this->companiesList = $this->companyDao->GetAll();
                 require_once(STUDENT_VIEWS . "company-job-offers-students.php");
             }
         } else {
@@ -292,11 +288,11 @@ class JobOfferController
 
         //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
         $this->jobOfferList = $this->studentByJobOfferdao->getByJobOfferId($jobOfferId);
-
+        
         $to = array();
         $subject = "Gratitude";
         $message = "We appreciate your application to the job. The job offer had expired";
-
+        
         if ($this->jobOfferList != null) {
             foreach ($this->jobOfferList as $jobOffer) {
                 $studentId = $jobOffer['studentId'];
@@ -307,14 +303,16 @@ class JobOfferController
                 $studentsEmail = $student->getEmail();
                 array_push($to, $studentsEmail);
             }
+            foreach ($to as $forEmail) {
+                $hola = $this->sendMail($forEmail["email"], $subject, $message);
+            }
+            echo "The emails has been sent succesfully";
+        }else{
+            echo "The list is empty";
+            //echo "<script> if(confirm('The list is empty'));";  
+            //echo "window.location = 'student-profile.php'; </script>";
         }
-
-        foreach ($to as $forEmail) {
-            $hola = $this->sendMail($forEmail["email"], $subject, $message);
-            var_dump($hola);
-        }
-
-        require_once(VIEWS_PATH . "job-offers-by-company.php");
+        require_once(ADMIN_VIEWS . "menu-admin.php");
     }
 
     public function sendMail($recipientMail, $subject, $message)

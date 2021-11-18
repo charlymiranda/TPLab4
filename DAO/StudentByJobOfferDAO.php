@@ -39,7 +39,8 @@ class StudentByJobOfferDAO implements IStudentByJobOfferDAO
 
     public function addStudentToAJobOffer($jobOfferId, $studentId)
     {
-        $sql = "UPDATE students_x_job_offers SET jobOfferId=:jobOfferId, studentId=:studentId";
+        $sql = "INSERT INTO students_x_job_offers(jobOfferId, studentId)
+        VALUES(:jobOfferId, :studentId)";
 
         $parameters['jobOfferId'] = $jobOfferId;
         $parameters['studentId'] = $studentId;
