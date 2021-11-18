@@ -22,8 +22,11 @@ use DAO\CompanyDAO as CompanyDAO;
 use Models\Company as Company;
 use Utils\Utils as Utils;
 use DAO\JobOfferByCompanyDAO as JobOfferByCompanyDAO;
+use FPDF;
 use Models\JobOfferByCompany as JobOfferByCompany;
 use \PDOException as PDOException;
+
+use fpdf\fpdf as Pdf;
 
 require 'PHPMailer/Exception.php';
 require 'PHPMailer/PHPMailer.php';
@@ -48,6 +51,7 @@ class JobOfferController
     private $student;
     private $stundentDao;
     private $studentXJobOfferDao;
+    private $pdf;
 
 
     public function __construct()
@@ -69,6 +73,7 @@ class JobOfferController
         $this->student = new Student();
         $this->stundentDao = new StudentDAO();
         $this->studentXJobOfferDao = new StudentByJobOfferDAO();
+        $this->pdf = new FPDF();
     }
 
     public function RedirectAddJobForm()
@@ -242,11 +247,11 @@ class JobOfferController
     {
         if ($search == "") {
             $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
-                $this->careerList = $this->careerDAO->GetAll();
-                $this->companiesList = $this->companyDao->GetAll();
+            $this->careerList = $this->careerDAO->GetAll();
+            $this->companiesList = $this->companyDao->GetAll();
             if ($_SESSION['admin']) {               //PENSAR COMO SOLUCIONAR. CONTROLADORAS SEPARADAS?
                 require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
-            }else{
+            } else {
                 require_once(STUDENT_VIEWS . "company-job-offers-students.php");
             }
         } else {
@@ -288,11 +293,11 @@ class JobOfferController
 
         //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
         $this->jobOfferList = $this->studentByJobOfferdao->getByJobOfferId($jobOfferId);
-        
+
         $to = array();
         $subject = "Gratitude";
         $message = "We appreciate your application to the job. The job offer had expired";
-        
+
         if ($this->jobOfferList != null) {
             foreach ($this->jobOfferList as $jobOffer) {
                 $studentId = $jobOffer['studentId'];
@@ -307,7 +312,7 @@ class JobOfferController
                 $hola = $this->sendMail($forEmail["email"], $subject, $message);
             }
             echo "The emails has been sent succesfully";
-        }else{
+        } else {
             echo "The list is empty";
             //echo "<script> if(confirm('The list is empty'));";  
             //echo "window.location = 'student-profile.php'; </script>";
@@ -352,5 +357,33 @@ class JobOfferController
         } catch (Exception $e) {
             return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
+    }
+    public function createPdf($jobOfferId)
+    {
+        $jobOffers = $this->studentXJobOfferDao->getByJobOfferId($jobOfferId);
+        $students = $this->stundentDao->GetAll();
+        
+        $this->pdf->Image('logo.png', 10, 8, 33);
+        // Arial bold 15
+        $this->pdf->SetFont('Arial', 'B', 15);
+        // Movernos a la derecha
+        $this->pdf->Cell(80);
+        // Título
+        $this->pdf->Cell(30, 10, 'Postulantes', 0, 0, 'C');
+        // Salto de línea
+        $this->pdf->Ln(20);
+
+        // Posición: a 1,5 cm del final
+        $this->pdf->SetY(-15);
+        // Arial italic 8
+        $this->pdf->SetFont('Arial', 'I', 8);
+        // Número de página
+        $this->pdf->Cell(0, 10, 'Page ' . $this->pdf->PageNo() . '/{nb}', 0, 0, 'C');
+
+        $this->pdf->AddPage();
+        $this->pdf->AliasNbPages();
+        $this->pdf->SetFont('Arial', 'B', 16);
+        $this->pdf->Cell(40, 10, '¡Hola, Mundo!');  ///hacer un while
+        $this->pdf->Output();
     }
 }
