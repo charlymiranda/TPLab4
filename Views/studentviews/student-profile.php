@@ -14,6 +14,7 @@ Utils::checkNav();
                          <th>Last Name</th>
                          <th>DNI</th>
                          <th>Birthday</th>
+                      
                         
                          <th>Email</th>
                          <th>Phone Number</th>

@@ -2,6 +2,7 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
+            <br><br><br>
             <h2 class="mb-4">Student Profile</h2>
             <table class="table bg-light-alpha">
                 <thead>
@@ -34,26 +35,29 @@
                 </table>
         </div>
     </section>
-    <section>
-        <form action='<?php echo FRONT_ROOT ?>Student/studentRegistration' method="post" class="bg-light-alpha p-5">
-            <div>
-                <div class="form-group">
-                    <label for="" align="center"></label>
-                    <input type="email" name="email" class="form-control form-control-lg" value="<?php echo $student->getEmail()?>" required>
+   
+    <div class="d-flex align-items-center justify-content-center height-200">
+    
+        <form action='<?php echo FRONT_ROOT ?>Student/studentRegistration' method="post" class=" justify-content-center p-1">
+            <div class="form-group-lg-center">
+                <div>
+                    
+                    <input type="email" name="email" class="form-control form-control-sm" value="<?php echo $student->getEmail()?>" required>
+                                
                     <label for="" align="center">Password</label>
-                    <input type="password" alt="strongPass" name="password" class="form-control form-control-lg" placeholder="User required" required>
-
+                    <input type="password" alt="strongPass" name="password" class="form-control " placeholder="User required" required>
+                  
 
                     <label for="" align="center">Confirm Password</label>
-                    <input type="password" alt="strongPass" name="confirmPass" class="form-control form-control-lg" placeholder="Password required" required>
+                    <input type="password" alt="strongPass" name="confirmPass" class="form-control form-control-sm" placeholder="Password required" required>
 
-                    <center>
+                 
                         <button class="btn btn-warning btn-block btn-sm " type="submit">Registration</button>
-                    </center>
-
+                    
                 </div>
 
             </div>
         </form>
-    </section>
+        </div>
+   <br><br>
 </main>

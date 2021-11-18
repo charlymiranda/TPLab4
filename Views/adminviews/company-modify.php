@@ -1,5 +1,5 @@
 <?php
-<use Utils\Utils;
+use Utils\Utils;
 Utils::checkNav();
 
 if (isset($this->message)) {
@@ -65,5 +65,5 @@ if (isset($this->message)) {
           </div>
           <br><br><br>
      </section>
-     <br><br>
+     <br><br> <br>
 </main>

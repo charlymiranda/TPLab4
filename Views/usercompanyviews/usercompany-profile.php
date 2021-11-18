@@ -1,7 +1,5 @@
 <?php
-use Utils\Utils;
-
-Utils::checkNav();
+require_once(USERCOMPANY_VIEWS."nav-usercompany.php");
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
@@ -27,8 +25,11 @@ Utils::checkNav();
                          }
                          ?>
                     </tbody>
+                    <br><br><br>
                </table>
+               <br><br><br>
           </div>
-
+          <br><br><br>
      </section>
+     <br><br><br><br>
 </main>

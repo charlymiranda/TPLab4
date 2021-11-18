@@ -9,8 +9,8 @@
 
                     <h2 class="text-center"> Login </h2>
                </section>
-               <br></br>
-               <form action='<?php echo FRONT_ROOT ?>Home/login' method="post" class="login-form  p-1 bg-none">
+              
+               <form action='<?php echo FRONT_ROOT ?>Home/login' method="post" class="">
                     <p><?php if (isset($message)) {
                               echo $message;
                          } ?></p>
