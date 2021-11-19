@@ -123,8 +123,9 @@ class StudentDAO implements IStudentDAO
        public function Add(Student $student)
         {
             
-          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active, password, careerId, email)
-                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active, :password, :careerId, :email);";
+          $sql = "INSERT INTO students (studentId, firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active, password, careerId, email)
+                     VALUES (:studentId, :firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active, :password, :careerId, :email);";
+            $parameters["studentId"]=$student->getstudentId();
             $parameters["firstName"]=$student->getFirstName();
             $parameters['lastName']=$student->getLastName();
             $parameters['dni']=$student->getDni();
