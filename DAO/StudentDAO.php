@@ -103,8 +103,8 @@ class StudentDAO implements IStudentDAO
        public function Add(Student $student)
         {
             
-          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active, password, email)
-                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active, :password, :email);";
+          $sql = "INSERT INTO students (firstName, lastName, dni, fileNumber, gender, birthDate, phoneNumber, active, password, careerId, email)
+                     VALUES (:firstName, :lastName, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active, :password, :careerId, :email);";
             $parameters["firstName"]=$student->getFirstName();
             $parameters['lastName']=$student->getLastName();
             $parameters['dni']=$student->getDni();
@@ -114,6 +114,7 @@ class StudentDAO implements IStudentDAO
             $parameters['phoneNumber']=$student->getPhoneNumber();
             $parameters['active']=true;
             $parameters['password']=$student->getPassword();
+            $parameters['careerId']=$student->getCareerId();
             $parameters['email']=$student->getEmail();
             try {
                 $this->connection= Connection::getInstance();
