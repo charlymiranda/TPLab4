@@ -22,12 +22,6 @@ if (isset($_SESSION["admin"])) {
                 <div class="container" position="fixed">
 
 
-                    <form action="<?php echo FRONT_ROOT ?>JobOffer/finishedJobOffers" method="POST" enctype="multipart/form-data">
-
-                        <input type="text" name="search" class="form-control form-control-ml" required value="">
-
-                        <button type="submit" class="btn btn-dark ml-auto d-block">Search</button>
-                    </form>
                 </div>
                 <table class="table bg-light-alpha">
                     <thead>

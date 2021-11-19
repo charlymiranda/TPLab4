@@ -24,7 +24,7 @@ Utils::checkNav();
             <h5 class="mb-5"><em>Please choose one of the next actions</em></h5>
            
             <!-- <a class="btn btn-success btn-x2" href="<?php echo FRONT_ROOT ?>Company/RedirectDeleteForm">Delete Company</a>  -->
-            <a class="btn btn-success btn-x2" href="<?php echo FRONT_ROOT ?>UserCompany/ShowCompaniesViews">Add Job Offer</a>
+            <a class="btn btn-success btn-x2" href="<?php echo FRONT_ROOT ?>UserCompany/ShowCompaniesViews"> Job Offer</a>
             <!--<a class="btn btn-primary btn-xl" href="#">Lista de Propuestas</a>-->
            
             <a class="btn btn-warning btn-xl" href="<?php echo FRONT_ROOT ?>JobOffer/ShowJobsViews">Job Offers List</a>
