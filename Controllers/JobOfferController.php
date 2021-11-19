@@ -54,6 +54,8 @@ class JobOfferController
     private $studentDao;
     private $studentXJobOfferDao;
     private $pdf;
+    private $applicants;
+    private $jobId;
 
 
     public function __construct()
@@ -75,6 +77,7 @@ class JobOfferController
         $this->student = new Student();
         $this->studentDao = new StudentDAO();
         $this->studentXJobOfferDao = new StudentByJobOfferDAO();
+        $this->applicants = array();
         //  $this->pdf = new FPDF();
     }
 
@@ -405,19 +408,25 @@ class JobOfferController
 
     public function checkPostulations($jobOfferId)
     {
-        $offers = $this->studentXJobOfferDao->getByJobOfferId(9);
+        $offers = $this->studentXJobOfferDao->getByJobOfferId($jobOfferId);
         $students = $this->studentDao->GetAll();
-        $answer = array();
+        $this->jobId = $jobOfferId;
 
         if ($offers != null) {
             foreach ($offers as $jobOffer) {
                 foreach ($students as $student) {
                     if ($jobOffer->getstudentId() == $student->getstudentId()) {
-                        array_push($answer, $student);
+                        array_push($this->applicants, $student);
                     }
                 }
             }
         }
         require_once(ADMIN_VIEWS . "applicants-list.php");
+    }
+
+    public function deleteAndMail($jobOfferId, $studentId){
+        $this->studentXJobOfferDao->deleteOffer($jobOfferId, $studentId);
+
+        require_once(ADMIN_VIEWS . "menu-admin.php");
     }
 }

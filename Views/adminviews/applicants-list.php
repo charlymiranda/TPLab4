@@ -17,14 +17,6 @@ Utils::checkNav();
 
 
                 <div class="container" position="fixed">
-
-
-                    <form action="<?php echo FRONT_ROOT ?>JobOffer/checkPostulations" method="GET" enctype="multipart/form-data">
-
-                        <input type="text" name="search" class="form-control form-control-ml" required value="">
-
-                        <button type="submit" class="btn btn-dark ml-auto d-block">Search</button>
-                    </form>
                 </div>
                 <table class="table bg-light-alpha">
                     <thead>
@@ -37,8 +29,8 @@ Utils::checkNav();
                     </thead>
                     <tbody>
                         <?php
-                        if ($this->answer != null) {
-                            foreach ($this->answer as $student) {
+                        if ($this->applicants != null) {
+                            foreach ($this->applicants as $student) {
 
                                 echo "<tr>";
                                 echo  "<td>" . $student->getFirstName() . "</td>";
@@ -50,7 +42,7 @@ Utils::checkNav();
                                     $studentId = $student->getstudentId();
                                     echo "<div class='row'>";
                                     echo "<div class='button-conteiner'>";
-                                    echo "<td><a href=" . FRONT_ROOT . "student/deletestudent/" . $studentId . ">
+                                    echo "<td><a href=" . FRONT_ROOT . "jobOffer/deleteAndMail/" . $this->jobId . "/" . $studentId . ">
                                 <button type='button' class= 'btn btn-danger' > Delete Application</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
