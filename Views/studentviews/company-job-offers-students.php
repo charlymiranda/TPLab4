@@ -44,36 +44,39 @@ if (isset($_SESSION["admin"])) {
                     </thead>
                     <tbody>
                         <?php
-
+                        $student = $_SESSION["student"];
 
                         if ($this->jobOfferList != null) {
                             foreach ($this->jobOfferList as $jobOffer) {
-                                if (strtotime($jobOffer->getDeadLine()) > strtotime(date("Y-m-d H:i:00", time()))) {
-                                    echo "<tr>";
-                                    echo  "<td>" . $jobOffer->getName() . "</td>";
-                                    echo  "<td>" . $jobOffer->getStartDay() . "</td>";
-                                    echo  "<td>" . $jobOffer->getDeadline() . "</td>";
-                                    echo  "<td>" . $jobOffer->getSalary() . "</td>";
-                                    echo  "<td>" . $jobOffer->getDescription() . "</td>";
+                                if ($this->checkActive($student->getStudentId(), $jobOffer->getJobOfferId()) == false) {
+                                    if (strtotime($jobOffer->getDeadLine()) > strtotime(date("Y-m-d H:i:00", time()))) {
+                                        echo "<tr>";
+                                        echo  "<td>" . $jobOffer->getName() . "</td>";
+                                        echo  "<td>" . $jobOffer->getStartDay() . "</td>";
+                                        echo  "<td>" . $jobOffer->getDeadline() . "</td>";
+                                        echo  "<td>" . $jobOffer->getSalary() . "</td>";
+                                        echo  "<td>" . $jobOffer->getDescription() . "</td>";
 
-                                    foreach ($this->careerList as $career) {
-                                        if ($career->getCareerId() == $jobOffer->getCareerId()) {
-                                            echo  "<td>" . $career->getDescription() . "</td>";
+                                        foreach ($this->careerList as $career) {
+                                            if ($career->getCareerId() == $jobOffer->getCareerId()) {
+                                                echo  "<td>" . $career->getDescription() . "</td>";
+                                            }
                                         }
-                                    }
-                                    foreach ($this->companiesList as $company) {
-                                        if ($company->getCompanyId() == $jobOffer->getCompanyId()) {
-                                            echo  "<td>" . $company->getName() . "</td>";
+                                        foreach ($this->companiesList as $company) {
+                                            if ($company->getCompanyId() == $jobOffer->getCompanyId()) {
+                                                echo  "<td>" . $company->getName() . "</td>";
+                                            }
                                         }
-                                    }
-                                    if (isset($_SESSION["student"])) {
-                                        $student = $_SESSION["student"];
-                                        echo "<div class='row'>";
-                                        echo "<div class='button-conteiner'>";
-                                        echo "<td><a href=" . FRONT_ROOT . "JobOffer/addStudentToAJobOffer/" . $jobOffer->getJobOfferId() . "/" . $student->getStudentId() . ">
-                                <button type='button' class= 'btn btn-success' > Add me </button></a></td>";
-                                        echo "</div>";
-                                        echo "</div>";
+
+                                        if (isset($_SESSION["student"])) {
+                                            $student = $_SESSION["student"];
+                                            echo "<div class='row'>";
+                                            echo "<div class='button-conteiner'>";
+                                            echo "<td><a href=" . FRONT_ROOT . "JobOffer/addStudentToAJobOffer/" . $jobOffer->getJobOfferId() . "/" . $student->getStudentId() . ">
+                                        <button type='button' class= 'btn btn-success' > Add me </button></a></td>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                        }
                                     }
                                 }
                             }

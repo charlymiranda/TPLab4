@@ -25,7 +25,7 @@ class StudentController
     private $career;
     private $jobOfferDAO;
     private $company;
-    private $studendByJobOfferDAO;
+    private $studentByJobOfferDAO;
     public function __construct()
     {
         $this->studentDAO = new StudentDAO();
@@ -131,12 +131,12 @@ class StudentController
     }
 
     public function checkActive($studentId, $jobOfferId){
-        $offers = $this->StudentByJobOfferDAO->getByJobOfferId($jobOfferId);
+        $offers = $this->studentByJobOfferDAO->getByJobOfferId($jobOfferId);
         $answer = false; 
 
         if($offers != null){
             foreach($offers as $jobOffer){
-                if($jobOffer['studentId'] == $studentId){
+                if($jobOffer->getstudentId() == $studentId){
                     $answer = true;
                 }
             }
