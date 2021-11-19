@@ -55,7 +55,7 @@ class HomeController
             $this->student = $this->studentDAO->getLoginStudent($email);
             $this->userCompany = $this->userCompanyDAO->getUserCompanyByEmail($email);
             if(($email == 'user@hot.com') && ($password == '123456')){
-
+                    
                 $user = new User();
                 $user->setPassword($password);
                 $user->setEmail($email);
@@ -71,13 +71,15 @@ class HomeController
                 } 
             }else if($this->userCompany != null){
                     if(($this->userCompany->getEmail() == $email) && ($password == $this->userCompany->getPassword())){
-                    
+
                     $_SESSION['userCompany'] = $this->userCompany;
                     require_once(USERCOMPANY_VIEWS."usercompany-profile.php");
                 } 
 
             }else{
-                $invalidEmail = true;
+               // $invalidEmail = true;
+                echo "<script> if(confirm('Invalid email, try again!'));</script>";
+                        
                 require_once(VIEWS_PATH ."login.php");
             }
         }

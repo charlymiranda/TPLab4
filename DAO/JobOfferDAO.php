@@ -41,7 +41,7 @@ class JobOfferDAO implements IJobOfferDAO
     {
         $sql = "DELETE FROM job_Offer WHERE jobOfferId=:jobOfferId";
         $parameters['jobOfferId'] = $jobOfferId;
-
+        
         try {
             $this->connection = Connection::getInstance();
             return $this->connection->executeNonQuery($sql, $parameters);

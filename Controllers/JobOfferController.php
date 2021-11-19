@@ -254,12 +254,9 @@ class JobOfferController
             $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
             $this->careerList = $this->careerDAO->GetAll();
             $this->companiesList = $this->companyDao->GetAll();
-            if ($_SESSION['student'] != NULL) {               //PENSAR COMO SOLUCIONAR. CONTROLADORAS SEPARADAS?
-                require_once(STUDENT_VIEWS . "company-job-offers-students.php");
-            } else {
-                
-                require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
-            }
+                  
+             require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
+            
         } else {
             $search = strtolower($search);
             $filteredOffers = array();
@@ -299,6 +296,7 @@ class JobOfferController
 
     public function notificationByEmail($jobOfferId)
     {
+        
         Utils::checkAdminSession();
 
         //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
@@ -318,16 +316,14 @@ class JobOfferController
               //  $studentsEmail = $student->getEmail();
                 array_push($to, $student);
             }
-
+            $this->studentByJobOfferdao->deleteStudentXJobOffer($jobOfferId);
+            $this->jobOfferDAO->deleteJobOffer($jobOfferId);
             
             foreach ($to as $forEmail) {
-                $email=$forEmail->getEmail();
+                $email=$forEmail->getEmail();                 
 
-                    
-
-                $hola = $this->sendMail($email, $subject, $message);
-            
-            
+                $hola = $this->sendMail($email, $subject, $message);         
+                
             }
             echo "<script> if(confirm('The emails has been sent succesfully'));";  
             echo "window.location = 'index.php'; </script>";
@@ -337,6 +333,8 @@ class JobOfferController
             //echo "<script> if(confirm('The list is empty'));";  
             //echo "window.location = 'student-profile.php'; </script>";
         }
+       
+       
         require_once(ADMIN_VIEWS . "menu-admin.php");
     }
 

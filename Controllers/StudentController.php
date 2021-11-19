@@ -8,7 +8,9 @@ use DAO\CompanyDAO as CompanyDAO;
 use DAO\CareerDAO as CareerDAO;
 use Models\Career as Career;
 use Models\Company as Company;
+use DAO\JobOfferDAO as JobOfferDAO;
 use Utils\Utils;
+use DAO\StudentByJobOfferDAO as StudentByJobOfferDAO;
 //use Views\validateSession as validateSession;
 use validateSession;
 
@@ -21,6 +23,9 @@ class StudentController
     private $careerList = array();
     private $student;
     private $career;
+    private $jobOfferDAO;
+    private $company;
+    private $studendByJobOfferDAO;
     public function __construct()
     {
         $this->studentDAO = new StudentDAO();
@@ -28,6 +33,9 @@ class StudentController
         $this->careerDAO = new CareerDAO();
         $this->student= new Student;
         $this->career = new Career();
+        $this->jobOfferDAO = new JobOfferDAO();
+        $this->company = new Company();
+        $this->studentByJobOfferDAO = new StudentByJobOfferDAO();
     }
     
     public function ShowStudentRegistration()
@@ -86,10 +94,55 @@ class StudentController
             $student->setPassword($password);
 
             $this->studentDAO->Add($student);
-            require_once(VIEWS_PATH . "student-profile.php");
+            
+            echo "<script> if(confirm('Student Registered. Please Login'));</script>";
+            require_once(VIEWS_PATH . "login.php");
         }
     }
 
+
+
+    public function ShowJobsViews($search = "")
+    {
+        if ($search == "") {
+            $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+            $this->careerList = $this->careerDAO->GetAll();
+            $this->companiesList = $this->companyDAO->GetAll();
+          
+                require_once(STUDENT_VIEWS . "company-job-offers-students.php");
+         
+        } else {
+            $search = strtolower($search);
+            $filteredOffers = array();
+            $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+            $this->careerList = $this->careerDAO->GetAll();
+            $this->companiesList = $this->companyDao->GetAll();
+            
+            foreach ($this->jobOfferList as $jobOffer) {
+                $jobOfferName = strtolower($jobOffer->getName());
+
+                if (Utils::strStartsWith($jobOfferName, $search)) {
+                    array_push($filteredOffers, $jobOffer);
+                }
+            }
+            $this->jobOffersList = $filteredOffers;
+            require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
+        }
+    }
+
+    public function checkActive($studentId, $jobOfferId){
+        $offers = $this->StudentByJobOfferDAO->getByJobOfferId($jobOfferId);
+        $answer = false; 
+
+        if($offers != null){
+            foreach($offers as $jobOffer){
+                if($jobOffer['studentId'] == $studentId){
+                    $answer = true;
+                }
+            }
+        }
+        return $answer;
+    }
 
 
     public function checkIfActive()

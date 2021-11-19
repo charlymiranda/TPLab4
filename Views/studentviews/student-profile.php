@@ -1,7 +1,5 @@
 <?php
-use Utils\Utils;
-
-Utils::checkNav();
+require_once(STUDENT_VIEWS . "nav.php");
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
@@ -38,13 +36,12 @@ Utils::checkNav();
                <tbody>
                     <thead>
                          <h3 class="mb-4">Academic Status</h3>
-                         <th>Career Id</th>
+                         
                          <th>description</th>
                     </thead>
                <tbody>
                     <?php if ($this->career != null) {
-                        
-                         echo  "<td>" . $this->career->getCareerId() . "</td>";
+                      
                          echo  "<td>" . $this->career->getDescription() . "</td>";
                     } ?>
                </tbody>
@@ -52,6 +49,6 @@ Utils::checkNav();
                </table>
 
           </div>
-
+          <br><br><br><br><br>
      </section>
 </main>
