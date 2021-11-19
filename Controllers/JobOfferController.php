@@ -254,7 +254,7 @@ class JobOfferController
             $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
             $this->careerList = $this->careerDAO->GetAll();
             $this->companiesList = $this->companyDao->GetAll();
-            if ($_SESSION['student']==NULL) {               //PENSAR COMO SOLUCIONAR. CONTROLADORAS SEPARADAS?
+            if ($_SESSION['student'] != NULL) {               //PENSAR COMO SOLUCIONAR. CONTROLADORAS SEPARADAS?
                 require_once(STUDENT_VIEWS . "company-job-offers-students.php");
             } else {
                 
