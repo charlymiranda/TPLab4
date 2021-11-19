@@ -9,9 +9,9 @@
    <!--       <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Student/ShowListView">List Students</a>
           </li>   -->
-          <li class="nav-item">
+      <!--    <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>UserCompany/userCompanyProfile">Check Data</a>
-          </li>
+          </li> -->
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>UserCompany/userCompanyMenu">Recruiter Menu</a>
           </li>

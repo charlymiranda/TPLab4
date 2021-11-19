@@ -1,7 +1,5 @@
 <?php
-use Utils\Utils;
-
-Utils::checkNav();
+ require_once(STUDENT_VIEWS . "nav.php");
            
 ?>
 

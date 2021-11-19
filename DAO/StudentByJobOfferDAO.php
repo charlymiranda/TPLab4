@@ -30,6 +30,7 @@ class StudentByJobOfferDAO implements IStudentByJobOfferDAO
         } catch (PDOException $ex) {
             throw $ex;
         }
+       
         if (!empty($this->jobOfferList)) {
             return $this->retrieveData();
         } else {
@@ -60,13 +61,15 @@ class StudentByJobOfferDAO implements IStudentByJobOfferDAO
         $listToReturn = array();
 
         foreach ($this->jobOfferList as $values) {
+            
             $studentByJobOffer = new StudentByJobOffer();
-            $studentByJobOffer->setStudentByJobOfferId($values['studentXJobOffersId']);
+            $studentByJobOffer->setStudentByJobOfferId($values['studentsXJobOffersId']);
             $studentByJobOffer->setJobOfferId($values['jobOfferId']);
             $studentByJobOffer->setStudentId($values['studentId']);
 
             array_push($listToReturn, $studentByJobOffer);
         }
+     
         return  $listToReturn;
     }
 }

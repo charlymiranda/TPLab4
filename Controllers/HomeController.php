@@ -54,10 +54,11 @@ class HomeController
         public function login($email, $password){
             $this->student = $this->studentDAO->getLoginStudent($email);
             $this->userCompany = $this->userCompanyDAO->getUserCompanyByEmail($email);
-            if(($email == 'user@hot.com') && ($password == 'C1234har')){
+            if(($email == 'user@hot.com') && ($password == '123456')){
 
-                $user = new User($email);
-                $user= new User($password);
+                $user = new User();
+                $user->setPassword($password);
+                $user->setEmail($email);
                 $_SESSION['admin'] = $user;
                 require_once(ADMIN_VIEWS."menu-admin.php");
             } else if($this->student !=null){

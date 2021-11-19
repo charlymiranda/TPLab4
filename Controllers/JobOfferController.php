@@ -75,7 +75,7 @@ class JobOfferController
         $this->student = new Student();
         $this->stundentDao = new StudentDAO();
         $this->studentXJobOfferDao = new StudentByJobOfferDAO();
-        $this->pdf = new FPDF();
+      //  $this->pdf = new FPDF();
     }
 
     public function RedirectAddJobForm()
@@ -254,10 +254,11 @@ class JobOfferController
             $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
             $this->careerList = $this->careerDAO->GetAll();
             $this->companiesList = $this->companyDao->GetAll();
-            if ($_SESSION['admin']) {               //PENSAR COMO SOLUCIONAR. CONTROLADORAS SEPARADAS?
-                require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
-            } else {
+            if ($_SESSION['student']==NULL) {               //PENSAR COMO SOLUCIONAR. CONTROLADORAS SEPARADAS?
                 require_once(STUDENT_VIEWS . "company-job-offers-students.php");
+            } else {
+                
+                require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
             }
         } else {
             $search = strtolower($search);
@@ -302,27 +303,37 @@ class JobOfferController
 
         //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
         $this->jobOfferList = $this->studentByJobOfferdao->getByJobOfferId($jobOfferId);
-
+       
         $to = array();
         $subject = "Gratitude";
         $message = "We appreciate your application to the job. The job offer had expired";
 
         if ($this->jobOfferList != null) {
             foreach ($this->jobOfferList as $jobOffer) {
-                $studentId = $jobOffer['studentId'];
+                $studentId = $jobOffer->getStudentId();
                 $student = new Student();
                 $student = $this->stundentDao->getStudentById($studentId);
 
 
-                $studentsEmail = $student->getEmail();
-                array_push($to, $studentsEmail);
+              //  $studentsEmail = $student->getEmail();
+                array_push($to, $student);
             }
+
+            
             foreach ($to as $forEmail) {
-                $hola = $this->sendMail($forEmail["email"], $subject, $message);
+                $email=$forEmail->getEmail();
+
+                    
+
+                $hola = $this->sendMail($email, $subject, $message);
+            
+            
             }
-            echo "The emails has been sent succesfully";
+            echo "<script> if(confirm('The emails has been sent succesfully'));";  
+            echo "window.location = 'index.php'; </script>";
+            //echo "The emails has been sent succesfully";
         } else {
-            echo "The list is empty";
+            //echo "The list is empty";
             //echo "<script> if(confirm('The list is empty'));";  
             //echo "window.location = 'student-profile.php'; </script>";
         }
