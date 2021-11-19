@@ -69,7 +69,19 @@ class StudentByJobOfferDAO implements IStudentByJobOfferDAO
         }
     }
 
- 
+    public function deleteOffer($jobOfferId, $studentId)
+    {
+        $sql = "DELETE FROM students_x_job_offers WHERE jobOfferId=:jobOfferId and studentId=:studentId";
+        $parameters['jobOfferId'] = $jobOfferId;
+        $parameters['studentId'] = $studentId;
+        
+        try {
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        } catch (\PDOException $exception) {
+            throw $exception;
+        }
+    }
 
     private function retrieveData()
     {

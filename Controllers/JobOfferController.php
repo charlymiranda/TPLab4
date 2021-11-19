@@ -51,9 +51,11 @@ class JobOfferController
     private $studentByJobOfferdao;
     private $studentByJobOffer;
     private $student;
-    private $stundentDao;
+    private $studentDao;
     private $studentXJobOfferDao;
     private $pdf;
+    private $applicants;
+    private $jobId;
 
 
     public function __construct()
@@ -73,9 +75,10 @@ class JobOfferController
         $this->studentByJobOfferdao = new StudentByJobOfferDao();
         $this->studentByJobOffer = new StudentByJobOffer();
         $this->student = new Student();
-        $this->stundentDao = new StudentDAO();
+        $this->studentDao = new StudentDAO();
         $this->studentXJobOfferDao = new StudentByJobOfferDAO();
-      //  $this->pdf = new FPDF();
+        $this->applicants = array();
+        //  $this->pdf = new FPDF();
     }
 
     public function RedirectAddJobForm()
@@ -114,7 +117,7 @@ class JobOfferController
         Utils::checkSession();
         $this->jobOfferList = $this->jobOfferDAO->GetAllJobOffer();
 
-        require_once(ADMIN_VIEWS . "company-job-offers.php");   
+        require_once(ADMIN_VIEWS . "company-job-offers.php");
     }
 
     public function getJobOfferById($id)
@@ -236,7 +239,7 @@ class JobOfferController
     {
         $this->jobOfferList = $this->jobOfferDAO->getJobOfferByCareer($careerId);
         $this->career = $this->careerDAO->GetCareerById($careerId);
-       require_once(VIEWS_PATH . "job-offers-by-career.php");
+        require_once(VIEWS_PATH . "job-offers-by-career.php");
     }
 
 
@@ -254,16 +257,15 @@ class JobOfferController
             $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
             $this->careerList = $this->careerDAO->GetAll();
             $this->companiesList = $this->companyDao->GetAll();
-                  
-             require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
-            
+
+            require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
         } else {
             $search = strtolower($search);
             $filteredOffers = array();
             $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
             $this->careerList = $this->careerDAO->GetAll();
             $this->companiesList = $this->companyDao->GetAll();
-            
+
             foreach ($this->jobOfferList as $jobOffer) {
                 $jobOfferName = strtolower($jobOffer->getName());
 
@@ -296,12 +298,12 @@ class JobOfferController
 
     public function notificationByEmail($jobOfferId)
     {
-        
+
         Utils::checkAdminSession();
 
         //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
         $this->jobOfferList = $this->studentByJobOfferdao->getByJobOfferId($jobOfferId);
-       
+
         $to = array();
         $subject = "Gratitude";
         $message = "We appreciate your application to the job. The job offer had expired";
@@ -313,29 +315,27 @@ class JobOfferController
                 $student = $this->stundentDao->getStudentById($studentId);
 
 
-              //  $studentsEmail = $student->getEmail();
+                //  $studentsEmail = $student->getEmail();
                 array_push($to, $student);
             }
             $this->studentByJobOfferdao->deleteStudentXJobOffer($jobOfferId);
             $this->jobOfferDAO->deleteJobOffer($jobOfferId);
-            
-            foreach ($to as $forEmail) {
-                $email=$forEmail->getEmail();                 
 
-                $hola = $this->sendMail($email, $subject, $message);         
-                
+            foreach ($to as $forEmail) {
+                $email = $forEmail->getEmail();
+
+                $hola = $this->sendMail($email, $subject, $message);
             }
-            echo "<script> if(confirm('The emails has been sent succesfully'));";  
+            echo "<script> if(confirm('The emails has been sent succesfully'));";
             echo "window.location = 'index.php'; </script>";
             //echo "The emails has been sent succesfully";
         } else {
             //echo "The list is empty";
-            
-            //echo "<script> if(confirm('The list is empty'));</script>";
-            
+            echo "<script> if(confirm('The list is empty'));</script>";  
+            //echo "window.location = 'student-profile.php'; 
         }
-       
-       
+
+
         require_once(ADMIN_VIEWS . "menu-admin.php");
     }
 
@@ -380,8 +380,8 @@ class JobOfferController
     public function createPdf($jobOfferId)
     {
         $jobOffers = $this->studentXJobOfferDao->getByJobOfferId($jobOfferId);
-        $students = $this->stundentDao->GetAll();
-        
+        $students = $this->studentDao->GetAll();
+
         $this->pdf->Image('logo.png', 10, 8, 33);
         // Arial bold 15
         $this->pdf->SetFont('Arial', 'B', 15);
@@ -404,5 +404,29 @@ class JobOfferController
         $this->pdf->SetFont('Arial', 'B', 16);
         $this->pdf->Cell(40, 10, '¡Hola, Mundo!');  ///hacer un while
         $this->pdf->Output();
+    }
+
+    public function checkPostulations($jobOfferId)
+    {
+        $offers = $this->studentXJobOfferDao->getByJobOfferId($jobOfferId);
+        $students = $this->studentDao->GetAll();
+        $this->jobId = $jobOfferId;
+
+        if ($offers != null) {
+            foreach ($offers as $jobOffer) {
+                foreach ($students as $student) {
+                    if ($jobOffer->getstudentId() == $student->getstudentId()) {
+                        array_push($this->applicants, $student);
+                    }
+                }
+            }
+        }
+        require_once(ADMIN_VIEWS . "applicants-list.php");
+    }
+
+    public function deleteAndMail($jobOfferId, $studentId){
+        $this->studentXJobOfferDao->deleteOffer($jobOfferId, $studentId);
+
+        require_once(ADMIN_VIEWS . "menu-admin.php");
     }
 }
