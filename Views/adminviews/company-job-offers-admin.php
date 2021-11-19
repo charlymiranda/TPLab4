@@ -80,6 +80,13 @@ Utils::checkNav();
                                  <button type='button' class= 'btn btn-success' > Modify</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
+
+                                    echo "<div class='row'>";
+                                    echo  "<div class='button-conteiner'>";
+                                    echo "<td><a href=" . FRONT_ROOT . "JobOffer/checkPostulations/" . $jobOfferId . ">
+                                 <button type='button' class= 'btn btn-success' > Applicants List</button></a></td>";
+                                    echo "</div>";
+                                    echo "</div>";
                                 }
                             }
                         } else {
