@@ -1,5 +1,6 @@
 <?php
-    namespace Controllers;
+
+namespace Controllers;
 
     use Models\User as User;
     use Controllers\StudentController as StudentController;
@@ -12,7 +13,7 @@
 
 class HomeController
 
-    {
+{
 
         private $studentDAO;
         private $student;
@@ -33,23 +34,23 @@ class HomeController
 
 
 
-        public function Index($message = "")
-        {
-            require_once(VIEWS_PATH ."login.php");
+    public function Index($message = "")
+    {
+        require_once(VIEWS_PATH . "login.php");
+    }
+
+    public function menuAdmin()
+    {
+
+        require_once(ADMIN_VIEWS . "menu-admin.php");
+    }
+
+    public function menuStudent()
+     {
+
+        require_once(STUDENT_VIEWS . "menu-student.php");
         }
-
-        public function menuAdmin(){
-
-            require_once (ADMIN_VIEWS ."menu-admin.php");
-
-        }
-
-        public function menuStudent(){
-
-            require_once (STUDENT_VIEWS ."menu-student.php");
-
-        }
-
+   
         public function login($email, $password){
             $this->student = $this->studentDAO->getLoginStudent($email);
             $this->userCompany = $this->userCompanyDAO->getUserCompanyByEmail($email);
@@ -79,15 +80,17 @@ class HomeController
                 require_once(VIEWS_PATH ."login.php");
             }
         }
+    
 
-        public function RedirectAdm () {
-            require_once(VIEWS_PATH."admin-view.php");
-        }
-       
-        public function Logout()
-        {
-            session_destroy();
-            
-            $this->Index();
-        }
+    public function RedirectAdm()
+    {
+        require_once(VIEWS_PATH . "admin-view.php");
     }
+
+    public function Logout()
+    {
+        session_destroy();
+
+        $this->Index();
+    }
+}

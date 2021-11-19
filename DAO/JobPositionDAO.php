@@ -56,7 +56,7 @@ class JobPositionDAO implements IJobPositionDAO
         $sql = "INSERT INTO jobposition(carrerId,descriptio)  
                 VALUES(:carrerId,:description);";
 
-        $parameters['carrerId'] = $jobPosition->getCareerId();
+        $parameters['careerId'] = $jobPosition->getCareerId();
         $parameters['description'] = $jobPosition->getDescription();
 
         try {

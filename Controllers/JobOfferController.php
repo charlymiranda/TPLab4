@@ -2,13 +2,19 @@
 
 namespace Controllers;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 use Models\JobOffer as JobOffer;
 use DAO\JobOfferDAO as JobOfferDAO;
 use Models\JobPosition as JobPosition;
 use DAO\JobPositionDAO as JobPositionDAO;
 use Models\Career as Career;
 use DAO\CareerDAO as CareerDAO;
-
+use DAO\StudentByJobOfferDAO as StudentByJobOfferDao;
+use Models\StudentByJobOffer as StudentByJobOffer;
+use Models\Student as Student;
+use DAO\StudentDAO as StudentDAO;
 
 use DAO\IJobOfferDAO as IJobOfferDAO;
 use DAO\IJobPossitionDAO as IJobPositionDAO;
@@ -16,8 +22,15 @@ use DAO\CompanyDAO as CompanyDAO;
 use Models\Company as Company;
 use Utils\Utils as Utils;
 use DAO\JobOfferByCompanyDAO as JobOfferByCompanyDAO;
+use FPDF;
 use Models\JobOfferByCompany as JobOfferByCompany;
 use \PDOException as PDOException;
+
+use fpdf\fpdf as Pdf;
+
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
 
 class JobOfferController
 {
@@ -34,6 +47,13 @@ class JobOfferController
     private $companyDao;
     private $company;
     private $jobOffer;
+    private $expiredJobOffers;
+    private $studentByJobOfferdao;
+    private $studentByJobOffer;
+    private $student;
+    private $stundentDao;
+    private $studentXJobOfferDao;
+    private $pdf;
 
 
     public function __construct()
@@ -49,6 +69,13 @@ class JobOfferController
         $this->company = new Company();
         $this->jobOffer = new JobOffer();
         $this->jobOfferList = array();
+        $this->expiredJobOffers = array();
+        $this->studentByJobOfferdao = new StudentByJobOfferDao();
+        $this->studentByJobOffer = new StudentByJobOffer();
+        $this->student = new Student();
+        $this->stundentDao = new StudentDAO();
+        $this->studentXJobOfferDao = new StudentByJobOfferDAO();
+        $this->pdf = new FPDF();
     }
 
     public function RedirectAddJobForm()
@@ -95,13 +122,13 @@ class JobOfferController
         Utils::checkSession();
         $jobOffer = $this->jobOfferDAO->searchJobOfferById($id);
 
-        require_once(VIEWS_PATH . "jobOffer-view.php");      ///Falta crear
+        require_once(VIEWS_PATH . "jobOffer-view.php");
     }
     public function getJobOfferByName($search)
     {
         Utils::checkSession();
         $this->jobOfferList = $this->jobOfferDAO->searchJobOfferByName($search);
-       
+
         if ($search != null) {
             $search = strtolower($search);
             $filteredJobOffer = array();
@@ -113,7 +140,7 @@ class JobOfferController
                     array_push($filteredJobOffer, $jobOffer);
                 }
             }
-            require_once(VIEWS_PATH . "job-offers-by-company.php");      ///Falta crear
+            require_once(VIEWS_PATH . "job-offers-by-company.php");
         } else {
             echo "Aca";
         }
@@ -194,23 +221,16 @@ class JobOfferController
     {
         $controlScritpt = null;
         try {
-            $this->jobOfferDAO->addStudentToAJobOffer($jobOfferId, $studentId);
-            $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
-            $this->careerList = $this->careerDAO->GetAllActive();
+            $this->studentXJobOfferDao->addStudentToAJobOffer($jobOfferId, $studentId);
             $this->companiesList = $this->companyDao->GetAll();
         } catch (PDOException $ex) {
             $controlScritpt = true;
             $message = 'error en la base';
-            if($_SESSION['admin']){
-                require_once(ADMIN_VIEWS . "menu-admin.php");
-            }
-            require_once(ADMIN_VIEWS . "menu-student.php");
+            require_once(STUDENT_VIEWS . "student-profile.php");
         }
         $message = "student added to a job offer";
-        require_once(ADMIN_VIEWS . "company-job-offers.php");
+        require_once(STUDENT_VIEWS . "menu-student.php");
     }
-
-
 
     public function showJobsOffersViewByCareer($careerId)
     {
@@ -231,12 +251,14 @@ class JobOfferController
     public function ShowJobsViews($search = "")
     {
         if ($search == "") {
-            Utils::checkSession();
             $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
             $this->careerList = $this->careerDAO->GetAll();
             $this->companiesList = $this->companyDao->GetAll();
-
-            require_once(ADMIN_VIEWS . "company-job-offers.php");
+            if ($_SESSION['admin']) {               //PENSAR COMO SOLUCIONAR. CONTROLADORAS SEPARADAS?
+                require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
+            } else {
+                require_once(STUDENT_VIEWS . "company-job-offers-students.php");
+            }
         } else {
             $search = strtolower($search);
             $filteredOffers = array();
@@ -251,8 +273,126 @@ class JobOfferController
                     array_push($filteredOffers, $jobOffer);
                 }
             }
-            $this->jobOfferList = $filteredOffers;
-            require_once(ADMIN_VIEWS . "company-job-offers.php");
+            $this->jobOffersList = $filteredOffers;
+            require_once(ADMIN_VIEWS . "company-job-offers-admin.php");
         }
+    }
+
+    public function finishedJobOffers()
+    {
+        Utils::checkAdminSession();
+        $this->jobOfferList = $this->jobOfferDAO->getAllJobOffer();
+        $this->careerList = $this->careerDAO->getAll();
+        $this->companiesList = $this->companyDao->getAll();
+        // $this->expiredJobOffers = array();
+        if (!empty($this->jobOfferList)) {
+            foreach ($this->jobOfferList as $jobOfferEach) {
+                if (strtotime($jobOfferEach->getDeadLine()) < strtotime(date("Y-m-d H:i:00", time()))) {
+                    array_push($this->expiredJobOffers, $jobOfferEach);
+                }
+            }       ///De donde es la fecha que devuelve???
+        }
+
+        require_once(ADMIN_VIEWS . "expired-job-offers.php");
+    }
+
+    public function notificationByEmail($jobOfferId)
+    {
+        Utils::checkAdminSession();
+
+        //buscar por el id de la job  offer, del id sacas el id del estudiante, con el id del stud buscas el mail.
+        $this->jobOfferList = $this->studentByJobOfferdao->getByJobOfferId($jobOfferId);
+
+        $to = array();
+        $subject = "Gratitude";
+        $message = "We appreciate your application to the job. The job offer had expired";
+
+        if ($this->jobOfferList != null) {
+            foreach ($this->jobOfferList as $jobOffer) {
+                $studentId = $jobOffer['studentId'];
+                $student = new Student();
+                $student = $this->stundentDao->getStudentById($studentId);
+
+
+                $studentsEmail = $student->getEmail();
+                array_push($to, $studentsEmail);
+            }
+            foreach ($to as $forEmail) {
+                $hola = $this->sendMail($forEmail["email"], $subject, $message);
+            }
+            echo "The emails has been sent succesfully";
+        } else {
+            echo "The list is empty";
+            //echo "<script> if(confirm('The list is empty'));";  
+            //echo "window.location = 'student-profile.php'; </script>";
+        }
+        require_once(ADMIN_VIEWS . "menu-admin.php");
+    }
+
+    public function sendMail($recipientMail, $subject, $message)
+    {
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+
+            //Server settings
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'utnmdp2021@gmail.com';
+            $mail->Password   = '123456..!';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port       = 465;
+
+            //Recipients
+            $mail->setFrom('utnmdp2021@gmail.com', 'Lets Work');
+            $mail->addAddress($recipientMail);
+            $mail->addCC("jamartinezverneri@gmail.com");
+
+            //Content
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
+            $mail->Body    = $message;
+            $mail->send();
+            return 'Message has been sent';
+        } catch (Exception $e) {
+            return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
+    public function createPdf($jobOfferId)
+    {
+        $jobOffers = $this->studentXJobOfferDao->getByJobOfferId($jobOfferId);
+        $students = $this->stundentDao->GetAll();
+        
+        $this->pdf->Image('logo.png', 10, 8, 33);
+        // Arial bold 15
+        $this->pdf->SetFont('Arial', 'B', 15);
+        // Movernos a la derecha
+        $this->pdf->Cell(80);
+        // Título
+        $this->pdf->Cell(30, 10, 'Postulantes', 0, 0, 'C');
+        // Salto de línea
+        $this->pdf->Ln(20);
+
+        // Posición: a 1,5 cm del final
+        $this->pdf->SetY(-15);
+        // Arial italic 8
+        $this->pdf->SetFont('Arial', 'I', 8);
+        // Número de página
+        $this->pdf->Cell(0, 10, 'Page ' . $this->pdf->PageNo() . '/{nb}', 0, 0, 'C');
+
+        $this->pdf->AddPage();
+        $this->pdf->AliasNbPages();
+        $this->pdf->SetFont('Arial', 'B', 16);
+        $this->pdf->Cell(40, 10, '¡Hola, Mundo!');  ///hacer un while
+        $this->pdf->Output();
     }
 }
