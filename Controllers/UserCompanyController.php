@@ -14,11 +14,13 @@ class UserCompanyController
 
     private $userCompany;
     private $userCompanyDAO;
+    private $companyDAO;
 
     public function __construct()
     {
         $this->userCompany = new UserCompany();
         $this->userCompanyDAO = new UserCompanyDAO();
+        $this->companyDAO = new CompanyDAO();
     }
 
     public function userCompanyMenu(){
@@ -32,6 +34,30 @@ class UserCompanyController
         
         require_once(USERCOMPANY_VIEWS . "usercompany-profile.php");
     }
+
+
+    public function ShowCompaniesViews($search = "")
+    {
+        if ($search == "") {
+            Utils::checkSession();
+            $this->companiesList = $this->companyDAO->GetAll();
+              
+            require_once(USERCOMPANY_VIEWS. "userCompany-delete.php");
+        } else {
+            $search = strtolower($search);
+            $filteredCompanies = array();
+            foreach ($this->companyDAO->getAll() as $company) {
+                $companyName = strtolower($company->getName());
+
+                if (Utils::strStartsWith($companyName, $search)) {
+                    array_push($filteredCompanies, $company);
+                }
+            }
+            $this->companiesList = $filteredCompanies;
+            require_once(USERCOMPANY_VIEWS . "userCompany-delete.php");
+        }
+    }
+
 
 
     public function ShowUserCompanyRegistrationView()
