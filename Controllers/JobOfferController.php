@@ -330,8 +330,9 @@ class JobOfferController
             //echo "The emails has been sent succesfully";
         } else {
             //echo "The list is empty";
-            //echo "<script> if(confirm('The list is empty'));";  
-            //echo "window.location = 'student-profile.php'; </script>";
+            
+            //echo "<script> if(confirm('The list is empty'));</script>";
+            
         }
        
        
