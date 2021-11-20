@@ -13,7 +13,7 @@ Utils::checkNav();
         <div class="container">
             <h2 class="mb-4">Job Offers List</h2>           
         
-            <div class="container" style="width: 2000px; height: 400px; overflow-y: scroll;">
+            <div class="container" style="width:2000px; height: 400px; overflow-y: scroll;">
 
 
                 <div class="container" position="fixed">
@@ -84,7 +84,7 @@ Utils::checkNav();
                                     echo "<div class='row'>";
                                     echo  "<div class='button-conteiner'>";
                                     echo "<td><a href=" . FRONT_ROOT . "JobOffer/checkPostulations/" . $jobOfferId . ">
-                                 <button type='button' class= 'btn btn-success' > Applicants List</button></a></td>";
+                                 <button type='button' class= 'btn btn-success' > Applicants</button></a></td>";
                                     echo "</div>";
                                     echo "</div>";
                                 }

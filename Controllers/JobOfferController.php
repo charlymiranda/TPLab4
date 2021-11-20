@@ -312,7 +312,7 @@ class JobOfferController
             foreach ($this->jobOfferList as $jobOffer) {
                 $studentId = $jobOffer->getStudentId();
                 $student = new Student();
-                $student = $this->stundentDao->getStudentById($studentId);
+                $student = $this->studentDao->getStudentById($studentId);
 
 
                 //  $studentsEmail = $student->getEmail();
@@ -331,7 +331,7 @@ class JobOfferController
             //echo "The emails has been sent succesfully";
         } else {
             //echo "The list is empty";
-            echo "<script> if(confirm('The list is empty'));</script>";  
+            // echo "<script> if(confirm('The list is empty'));</script>";  
             //echo "window.location = 'student-profile.php'; 
         }
 
@@ -365,7 +365,7 @@ class JobOfferController
             //Recipients
             $mail->setFrom('utnmdp2021@gmail.com', 'Lets Work');
             $mail->addAddress($recipientMail);
-            $mail->addCC("jamartinezverneri@gmail.com");
+            $mail->addCC("exeziel@hotmail.com");
 
             //Content
             $mail->isHTML(true);
